@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stil-Parameter</title>
+<style>
+  :root {
+    --bg: #0e0e10;
+    --surface: #1a1a1f;
+    --surface2: #24242b;
+    --border: #2e2e38;
+    --text: #e0e0e6;
+    --text2: #8888a0;
+    --accent: #7b6ef6;
+    --accent2: #5a50c8;
+    --red: #e05555;
+    --green: #50b878;
+    --yellow: #d4a843;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.5; font-size: 14px;
+  }
+  .app { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+  h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  h1 span { color: var(--accent); }
+  .subtitle { color: var(--text2); font-size: 13px; margin-bottom: 20px; }
+
+  /* Preset bar */
+  .preset-bar {
+    display: flex; gap: 8px; align-items: center;
+    margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .preset-bar select, .preset-bar input, .preset-bar button {
+    font-size: 13px; font-family: inherit;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 12px; outline: none;
+  }
+  .preset-bar select { min-width: 220px; cursor: pointer; }
+  .preset-bar input { min-width: 180px; }
+  .preset-bar button { cursor: pointer; background: var(--surface2); transition: background .15s; }
+  .preset-bar button:hover { background: var(--accent2); }
+  .preset-bar button.primary { background: var(--accent); color: #fff; font-weight: 500; }
+  .preset-bar button.primary:hover { background: var(--accent2); }
+  .preset-bar .sep { width: 1px; height: 28px; background: var(--border); }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex; gap: 0; margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+  }
+  .tab-btn {
+    padding: 10px 24px; font-size: 13px; font-weight: 600; font-family: inherit;
+    background: none; border: none; color: var(--text2); cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -2px;
+    transition: color .15s, border-color .15s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Layout */
+  .columns { display: grid; grid-template-columns: 380px 1fr; gap: 24px; }
+  @media (max-width: 860px) { .columns { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 18px;
+  }
+  .panel-title {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .6px; color: var(--text2); margin-bottom: 14px;
+  }
+
+  /* Slider groups */
+  .group-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .5px; color: var(--accent); margin: 14px 0 6px;
+  }
+  .group-label:first-child { margin-top: 0; }
+  .dim-row {
+    display: grid; grid-template-columns: 140px 1fr 24px; gap: 6px;
+    align-items: center; margin-bottom: 5px;
+  }
+  .dim-label {
+    font-size: 12px; cursor: help; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .dim-label:hover { color: var(--accent); }
+  .dim-val {
+    font-size: 12px; font-weight: 600; text-align: center;
+    color: var(--accent); min-width: 24px;
+  }
+  input[type=range] {
+    -webkit-appearance: none; width: 100%; height: 6px;
+    background: var(--surface2); border-radius: 3px; outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 16px;
+    background: var(--accent); border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--bg);
+  }
+
+  /* Tooltip */
+  .tooltip {
+    display: none; position: fixed; z-index: 100;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px; max-width: 320px;
+    font-size: 12px; line-height: 1.5; box-shadow: 0 8px 24px rgba(0,0,0,.4);
+  }
+  .tooltip .tp-title { font-weight: 600; margin-bottom: 4px; }
+  .tooltip .tp-pole { color: var(--text2); }
+  .tooltip .tp-pole b { color: var(--text); font-weight: 500; }
+
+  /* Phrases panel */
+  .phrases-section { margin-top: 12px; }
+  .phrases-section summary {
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    color: var(--text2); margin-bottom: 6px; list-style: none;
+  }
+  .phrases-section summary::before { content: "▸ "; }
+  .phrases-section[open] summary::before { content: "▾ "; }
+  .phrase-group { margin-bottom: 10px; }
+  .phrase-group-label {
+    font-size: 11px; font-weight: 600; color: var(--text2); margin-bottom: 4px;
+  }
+  .phrase-group-label.inc { color: var(--green); }
+  .phrase-group-label.exc { color: var(--red); }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag {
+    font-size: 11px; padding: 2px 8px; border-radius: 4px;
+    background: var(--surface2); border: 1px solid var(--border);
+    display: flex; align-items: center; gap: 4px; max-width: 100%;
+  }
+  .tag.inc { border-color: #2a5a3a; background: #1a2e22; }
+  .tag.exc { border-color: #5a2a2a; background: #2e1a1a; }
+  .tag .remove {
+    cursor: pointer; font-size: 13px; color: var(--text2);
+    line-height: 1; padding: 0 1px;
+  }
+  .tag .remove:hover { color: var(--red); }
+  .add-phrase { display: flex; gap: 4px; margin-top: 6px; }
+  .add-phrase input {
+    flex: 1; font-size: 12px; font-family: inherit;
+    background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 4px 8px; outline: none;
+  }
+  .add-phrase button {
+    font-size: 11px; padding: 4px 10px; cursor: pointer;
+    background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 4px; font-family: inherit;
+  }
+
+  /* Taboo topics */
+  .taboo-section { margin-top: 12px; }
+  .taboo-section summary {
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    color: var(--text2); margin-bottom: 6px; list-style: none;
+  }
+  .taboo-section summary::before { content: "▸ "; }
+  .taboo-section[open] summary::before { content: "▾ "; }
+  .taboo-grid { display: flex; flex-direction: column; gap: 6px; }
+  .taboo-item {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 6px 10px; border-radius: 6px;
+    background: var(--bg); font-size: 12px;
+  }
+  .taboo-item input[type=checkbox] {
+    margin-top: 2px; accent-color: var(--red); flex-shrink: 0;
+  }
+  .taboo-item .taboo-name { font-weight: 600; color: var(--text); }
+  .taboo-item .taboo-desc { color: var(--text2); font-size: 11px; }
+  .taboo-item .taboo-examples { color: var(--text2); font-size: 11px; font-style: italic; margin-top: 2px; }
+  .taboo-item.active { background: #2e1a1a; border: 1px solid #5a2a2a; }
+  .taboo-item:not(.active) { border: 1px solid transparent; }
+
+  /* ─── PREVIEW TAB ─── */
+  .preview-panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px 28px;
+    font-size: 14px; line-height: 1.8; color: var(--text);
+    min-height: 400px;
+    transition: all .2s;
+  }
+  .preview-panel h2 {
+    font-size: 18px; font-weight: 700; margin-bottom: 12px; line-height: 1.3;
+  }
+  .preview-panel h3 {
+    font-size: 15px; font-weight: 600; margin: 18px 0 8px; color: var(--text);
+  }
+  .preview-panel p { margin-bottom: 12px; }
+  .preview-panel .pv-meta {
+    font-size: 11px; color: var(--text2); margin-bottom: 16px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .preview-panel .scare { color: var(--text2); }
+  .preview-panel .pv-fade {
+    transition: opacity .15s;
+  }
+
+  /* ─── ANALYSIS TAB ─── */
+  .analysis-area textarea {
+    width: 100%; min-height: 180px; resize: vertical;
+    background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 12px; font-family: inherit; font-size: 13px;
+    line-height: 1.6; outline: none;
+  }
+  .analysis-area textarea:focus { border-color: var(--accent); }
+  .analysis-area textarea::placeholder { color: var(--text2); }
+  .analyze-btn {
+    margin-top: 8px; padding: 8px 20px; font-size: 13px; font-weight: 500;
+    background: var(--accent); color: #fff; border: none; border-radius: 6px;
+    cursor: pointer; font-family: inherit;
+  }
+  .analyze-btn:hover { background: var(--accent2); }
+  .stats { font-size: 12px; color: var(--text2); margin-top: 8px; }
+
+  /* Verdict */
+  .verdict {
+    margin-top: 16px; padding: 12px 16px; border-radius: 8px;
+    background: var(--surface2); border: 1px solid var(--border);
+    font-size: 13px; line-height: 1.6;
+  }
+  .verdict-score {
+    font-size: 28px; font-weight: 700; display: inline-block;
+    margin-right: 12px; vertical-align: middle;
+  }
+  .verdict-score.good { color: var(--green); }
+  .verdict-score.ok { color: var(--yellow); }
+  .verdict-score.bad { color: var(--red); }
+  .verdict-label { color: var(--text2); font-size: 12px; }
+  .verdict-text { margin-top: 8px; color: var(--text2); font-size: 12px; line-height: 1.6; }
+  .verdict-text strong { color: var(--text); }
+
+  /* Legend */
+  .legend {
+    display: flex; gap: 16px; margin-top: 12px; padding: 8px 12px;
+    background: var(--bg); border-radius: 6px; font-size: 11px; color: var(--text2);
+    flex-wrap: wrap; align-items: center;
+  }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .legend-marker { width: 2px; height: 12px; background: var(--text); border-radius: 1px; flex-shrink: 0; }
+
+  /* Results */
+  .results { margin-top: 16px; }
+  .result-group-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .5px; color: var(--accent); margin: 14px 0 6px;
+  }
+  .result-group-label:first-child { margin-top: 0; }
+  .result-row {
+    display: grid; grid-template-columns: 130px 1fr 52px; gap: 8px;
+    align-items: center; margin-bottom: 2px; font-size: 12px;
+  }
+  .result-row.not-measurable { opacity: 0.4; }
+  .result-bar-wrap {
+    height: 8px; background: var(--bg); border-radius: 4px; position: relative; overflow: visible;
+  }
+  .result-bar { height: 100%; border-radius: 4px; transition: width .3s; }
+  .result-target {
+    position: absolute; top: -3px; width: 2px; height: 14px;
+    background: var(--text); border-radius: 1px; transition: left .3s;
+  }
+  .result-val { text-align: right; font-weight: 600; font-size: 11px; }
+  .result-val .delta { font-weight: 400; margin-left: 2px; }
+  .delta.pos { color: var(--green); }
+  .delta.neg { color: var(--red); }
+  .delta.neutral { color: var(--text2); }
+  .result-hint {
+    grid-column: 1 / -1; font-size: 11px; color: var(--text2);
+    padding: 0 0 6px 0; line-height: 1.4;
+    border-bottom: 1px solid var(--border); margin-bottom: 6px;
+  }
+  .result-hint .hint-issue { color: var(--yellow); }
+  .result-hint .hint-good { color: var(--green); }
+  .result-hint .hint-nm { color: var(--text2); font-style: italic; }
+
+  /* Phrases results */
+  .found-phrases { margin-top: 16px; }
+  .found-phrases .fp-section {
+    margin-bottom: 10px; padding: 10px 12px;
+    background: var(--bg); border-radius: 6px;
+  }
+  .found-phrases .fp-title {
+    font-size: 11px; font-weight: 600; color: var(--text2); margin-bottom: 6px;
+  }
+  .found-phrases .fp-list { font-size: 12px; color: var(--text2); line-height: 1.7; }
+  .fp-list .hit { color: var(--green); }
+  .fp-list .violation { color: var(--red); }
+  .fp-summary {
+    font-size: 12px; color: var(--text2); margin-top: 4px;
+    padding-top: 4px; border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>Stil-<span>Parameter</span></h1>
+  <div class="subtitle">Schreibstil parametrisieren, Presets verwalten, Texte analysieren.</div>
+
+  <div class="preset-bar">
+    <select id="presetSelect"></select>
+    <button onclick="loadPreset()">Laden</button>
+    <div class="sep"></div>
+    <input id="newPresetName" placeholder="Neues Preset…">
+    <button class="primary" onclick="savePreset()">Speichern</button>
+    <button onclick="deletePreset()">Löschen</button>
+    <button onclick="exportYAML()">YAML Export</button>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="preview">Vorschau</button>
+    <button class="tab-btn" data-tab="analysis">Analyse</button>
+  </div>
+
+  <!-- TAB 1: PREVIEW -->
+  <div class="tab-content active" id="tab-preview">
+    <div class="columns">
+      <div>
+        <div class="panel" style="max-height:calc(100vh - 200px);overflow-y:auto">
+          <div class="panel-title">Parameter</div>
+          <div id="sliders"></div>
+        </div>
+        <details class="panel phrases-section" style="margin-top:12px">
+          <summary>Phrasen &amp; Begriffe</summary>
+          <div id="phrasesPanel"></div>
+        </details>
+        <details class="panel taboo-section" style="margin-top:12px">
+          <summary>Themen-Ausschlüsse (Taboo Topics)</summary>
+          <div id="tabooPanel"></div>
+        </details>
+      </div>
+      <div>
+        <div class="preview-panel" id="previewText"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: ANALYSIS -->
+  <div class="tab-content" id="tab-analysis">
+    <div class="columns">
+      <div>
+        <div class="panel" style="max-height:calc(100vh - 200px);overflow-y:auto">
+          <div class="panel-title">Ziel-Parameter (aktives Preset)</div>
+          <div id="sliders2"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel analysis-area">
+          <div class="panel-title">Text einfügen &amp; analysieren</div>
+          <textarea id="analysisText" placeholder="Text hier einfügen…"></textarea>
+          <button class="analyze-btn" onclick="analyzeText()">Analysieren</button>
+          <div class="stats" id="textStats"></div>
+          <div class="results" id="results"></div>
+          <div class="found-phrases" id="foundPhrases"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DIMENSION DEFINITIONS
+// ═══════════════════════════════════════════════════════════════
+const GROUPS = [
+  { key:'satz', label:'Satzebene', dims:['sentence_length','syntax_complexity','short_sentence_frequency','question_frequency'] },
+  { key:'struktur', label:'Absatz & Struktur', dims:['paragraph_length','historical_depth','anecdote_density'] },
+  { key:'haltung', label:'Haltung & Ton', dims:['opinion_strength','hedging','counterbalance','confrontation'] },
+  { key:'stil', label:'Stilmittel', dims:['irony_edge','metaphor_density','cultural_references','antithesis_density'] },
+  { key:'tempo', label:'Tempo & Rhythmus', dims:['pacing','rhythm_variation'] },
+  { key:'register', label:'Register & Ansprache', dims:['vocabulary_register','anglicism_density','reader_address','ending_type','gendering'] },
+];
+
+const DIMS = {
+  sentence_length:          { label:'Satzlänge',            p1:'Kurz, stakkato (8–12 W.)', p5:'Lang, verschachtelt (22–28 W.)' },
+  syntax_complexity:        { label:'Satzkomplexität',       p1:'Parataktisch, Hauptsätze', p5:'Hypotaktisch, Verschachtelung' },
+  short_sentence_frequency: { label:'Kurzsatz-Frequenz',     p1:'Keine Einwortsätze', p5:'Häufig: "Punkt.", "Nächster."' },
+  question_frequency:       { label:'Fragen-Frequenz',       p1:'Keine rhetorischen Fragen', p5:'Fragen als Strukturprinzip' },
+  paragraph_length:         { label:'Absatzlänge',           p1:'Kurz (1–3 Sätze)', p5:'Lang (5–8 Sätze)' },
+  historical_depth:         { label:'Historische Tiefe',     p1:'Kein historischer Kontext', p5:'Ausführliche Geschichtsstunde' },
+  anecdote_density:         { label:'Anekdoten-Dichte',      p1:'Keine persönlichen Anekdoten', p5:'Narrativer Einstieg, Erlebnisse' },
+  opinion_strength:         { label:'Meinungsstärke',        p1:'Neutral-berichtend', p5:'Klare These ab Satz 1' },
+  hedging:                  { label:'Hedging',               p1:'Kein Hedging, absolut', p5:'Durchgängig vorsichtig' },
+  counterbalance:           { label:'Relativierung',         p1:'Urteil steht ungebremst', p5:'"Fairerweise muss man sagen…"' },
+  confrontation:            { label:'Konfrontation',         p1:'Einladend, kumpelhaft', p5:'Rhetorische Attacken' },
+  irony_edge:               { label:'Ironie-Schärfe',        p1:'Keine Ironie', p5:'Beißend, Scare Quotes' },
+  metaphor_density:         { label:'Metaphern-Dichte',      p1:'Kaum bildhafte Sprache', p5:'Mind. 1 Metapher pro Absatz' },
+  cultural_references:      { label:'Kulturelle Referenzen', p1:'Keine', p5:'Dicht, überraschend, zentral' },
+  antithesis_density:       { label:'Antithesen-Dichte',     p1:'Keine Kontrastpaare', p5:'Zentral: Pitch vs. Realität' },
+  pacing:                   { label:'Tempo',                 p1:'Langsam, mäandernd', p5:'Schnell, keine Umwege' },
+  rhythm_variation:         { label:'Rhythmus-Variation',    p1:'Gleichförmig', p5:'Starke Wechsel (lang-lang-kurz)' },
+  vocabulary_register:      { label:'Vokabular-Register',    p1:'Umgangssprachlich', p5:'Fachlich-dicht' },
+  anglicism_density:        { label:'Anglizismen-Dichte',    p1:'Nur Fachbegriffe', p5:'Häufig, Code-Switching' },
+  reader_address:           { label:'Leseransprache',        p1:'"man" / passivisch', p5:'"du" (direkt, persönlich)' },
+  ending_type:              { label:'Textende-Typ',          p1:'Offene Frage / Einladung', p5:'Harte Haltung / "Punkt."' },
+  gendering:                { label:'Gendern',               p1:'Kein Gendern (generisches Maskulinum)', p3:'Doppelpunkt (Leser:innen)', p5:'Ausgeschrieben (Leserinnen und Leser)' },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// DEFAULT PRESETS
+// ═══════════════════════════════════════════════════════════════
+const DEFAULT_PRESETS = {
+  agenticpunk: {
+    label:'agenticPunk',
+    parameters:{sentence_length:2,syntax_complexity:2,short_sentence_frequency:4,question_frequency:3,paragraph_length:2,historical_depth:2,anecdote_density:1,opinion_strength:5,hedging:1,counterbalance:1,confrontation:4,irony_edge:4,metaphor_density:3,cultural_references:3,antithesis_density:5,pacing:5,rhythm_variation:5,vocabulary_register:2,anglicism_density:3,reader_address:3,ending_type:5,gendering:3},
+    include_phrases:['Kurze Frage:','Mal ehrlich:','Hat da jemand das Memo nicht gelesen?','Zeig mir den Use Case, nicht das Pitch Deck.','Das ist – mit Verlaub – Unfug.','Netter Versuch. Aber…','Wir haben es ausprobiert, damit ihr es nicht müsst.','Funktioniert. Aber…','Funktioniert nicht. Und zwar…','Das Versprechen: X. Die Realität: Y.','In der Theorie elegant. In der Praxis eine Zumutung.'],
+    exclude_phrases:['Fairerweise muss man sagen','Es bleibt abzuwarten','Es bleibt spannend','Die Zeit wird zeigen','Meine Vermutung ist eher','Der Vollständigkeit halber'],
+    include_terms:['Unfug','Bullshit','Augenwischerei','Mogelpackung','Dampfplauderei','Realitätscheck','entlarven','zerlegen','durchleuchten','in der Praxis','im echten Leben','ausprobieren','scheitern an','kranken an','vorbeischrammen an'],
+    exclude_terms:['spannend','interessant','innovativ','disruptiv','transformativ','Mehrwert','Game-Changer','Es ist wichtig zu beachten','Zusammenfassend lässt sich sagen','in der heutigen digitalen Welt'],
+    taboo_topics:['Kriegsmetaphern','Rassismus','Sexismus','Ableismus','Gewaltverherrlichung'],
+  },
+  roman_zenner_shoptechblog: {
+    label:'Roman Zenner – ShopTechBlog',
+    parameters:{sentence_length:4,syntax_complexity:4,short_sentence_frequency:2,question_frequency:4,paragraph_length:4,historical_depth:5,anecdote_density:4,opinion_strength:3,hedging:4,counterbalance:5,confrontation:1,irony_edge:3,metaphor_density:4,cultural_references:4,antithesis_density:4,pacing:2,rhythm_variation:3,vocabulary_register:3,anglicism_density:4,reader_address:3,ending_type:2,gendering:3},
+    include_phrases:['Die Rede ist natürlich von…','Fairerweise muss man sagen','Meine Vermutung ist eher, dass…','Lasst uns das mal Schritt für Schritt durchgehen'],
+    exclude_phrases:['Unfug','Bullshit','Augenwischerei','Hat da jemand das Memo nicht gelesen?'],
+    include_terms:['mausern','aufdröseln','einordnen','hiesig','derzeit','natürlich','durchaus','tatsächlich'],
+    exclude_terms:['disruptiv','Game-Changer','Synergien','Mehrwert','super','mega'],
+    taboo_topics:['Kriegsmetaphern','Rassismus','Sexismus','Ableismus','Gewaltverherrlichung'],
+  },
+  hirnbrise: {
+    label:'Roman Zenner – hirnbrise',
+    parameters:{sentence_length:3,syntax_complexity:3,short_sentence_frequency:2,question_frequency:3,paragraph_length:3,historical_depth:2,anecdote_density:5,opinion_strength:3,hedging:3,counterbalance:4,confrontation:1,irony_edge:3,metaphor_density:3,cultural_references:5,antithesis_density:2,pacing:3,rhythm_variation:3,vocabulary_register:2,anglicism_density:3,reader_address:5,ending_type:1,gendering:3},
+    include_phrases:['Hallo & einen schönen…','ans Herz gelegt','What could possibly go wrong?','Just saying.'],
+    exclude_phrases:['Unfug','Bullshit','Augenwischerei'],
+    include_terms:['eindrücklich','fesselnd','augenöffnend','lese-orthopädisch'],
+    exclude_terms:['disruptiv','Game-Changer','Synergien','Mehrwert'],
+    taboo_topics:['Kriegsmetaphern','Rassismus','Sexismus','Ableismus','Gewaltverherrlichung'],
+  },
+};
+
+// ─── Taboo Topic definitions with detection patterns ───
+const TABOO_CATALOG = {
+  'Kriegsmetaphern': {
+    desc: 'Militärische Sprache und Kampfmetaphern vermeiden',
+    patterns: ['schlacht','krieg','angriff','offensive','kampf','attacke','schlachtfeld','munition','arsenal','torpedo','bombardier','feuer frei','ins visier','frontlinie','schützengrab','kapitulier','vernicht','erobern','belagern','feldherr','feldzug','truppen','waffn','schuss','salve','granate','kanonade'],
+    examples: '❌ "Preiskampf", "den Markt erobern", "Daten als Munition"',
+  },
+  'Rassismus': {
+    desc: 'Rassistische Sprache, Stereotype, koloniale Metaphern vermeiden',
+    patterns: ['schwarze liste','white list','blacklist','whitelist','master/slave','dunkles kapitel','dritte welt','primitive','wildwest','stammesdenken','eingeborenr'],
+    examples: '❌ "Blacklist/Whitelist", "Master/Slave", "Wildwest-Methoden"',
+  },
+  'Sexismus': {
+    desc: 'Sexistische Sprache und Gender-Stereotype vermeiden',
+    patterns: ['girl boss','manpower','mädchen für alles','hausfrauenlogik','damenwahl','jungs, die','alte jungfer'],
+    examples: '❌ "Manpower", "Girl Boss", "Mädchen für alles"',
+  },
+  'Ableismus': {
+    desc: 'Sprache, die Behinderungen als Metapher für Schlechtes nutzt',
+    patterns: ['blind dafür','taub für','lahm','verkrüppelt','geisteskrank','irrsinnig','wahnsinnig','schwachsinnig','am tropf hängen','behindert'],
+    examples: '❌ "blind dafür", "lahme Lösung", "schwachsinnig"',
+  },
+  'Gewaltverherrlichung': {
+    desc: 'Gewalt verherrlichende oder verharmlosende Sprache',
+    patterns: ['killer feature','killer app','totschlag','den garaus','vernichtend','brutal einfach','brutal gut','erschlagen','killen','hinrichten'],
+    examples: '❌ "Killer Feature", "brutal einfach", "vernichtend gut"',
+  },
+  'Tier-Metaphern (abwertend)': {
+    desc: 'Abwertende Vergleiche mit Tieren',
+    patterns: ['wie die lemminge','herdentrieb','schafe','esel','wie die ratten','parasit','schmarotz','blutegel','hyäne'],
+    examples: '❌ "wie die Lemminge", "Herdentrieb", "Parasit"',
+  },
+  'Body Shaming': {
+    desc: 'Körperbezogene Abwertung vermeiden',
+    patterns: ['fett','aufgebläht','mager','dünn','schlapp','verkümmert'],
+    examples: '❌ "aufgeblähter Code", "magere Ergebnisse" (Kontext prüfen)',
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// LIVE PREVIEW TEXT BLOCKS
+// ═══════════════════════════════════════════════════════════════
+// Each block has variants keyed by dimension + level (1-2 = lo, 3 = mid, 4-5 = hi)
+// The preview composes a text from these blocks based on current slider values.
+
+const PV = {
+  // ── OPENING: opinion_strength × confrontation ──
+  opening: {
+    lo_lo: 'Letzte Woche hat TechCorp seinen neuen AI Agent vorgestellt. Schauen wir uns an, was dahintersteckt.',
+    lo_hi: 'TechCorp hat einen neuen AI Agent vorgestellt. Der Blick unter die Haube dürfte aufschlussreich sein.',
+    mid_lo: 'TechCorp hat letzte Woche seinen "AI Agent" vorgestellt. Das Versprechen: autonome Workflows für den Mittelstand. Wir haben hingeschaut.',
+    mid_hi: 'TechCorp hat einen "AI Agent" angekündigt. Klingt nach Zukunft. Schauen wir mal unter die Haube.',
+    hi_lo: 'TechCorp nennt seinen neuen Chatbot einen "autonomen AI Agent". Das Pitch Deck verspricht autonome Workflows für den Mittelstand. Die Realität sieht anders aus.',
+    hi_hi: 'Kurze Frage: Seit wann ist ein Chatbot mit drei API-Calls ein "autonomer AI Agent"? Seit die Marketing-Abteilung von TechCorp das Pitch Deck aktualisiert hat, offensichtlich.',
+  },
+
+  // ── CONTEXT: historical_depth × sentence_length × syntax_complexity ──
+  context: {
+    none: '',
+    short_simple: 'AI Agents sind das Thema der Stunde. Jede Woche ein neues Framework. Jede Woche neue Versprechen.',
+    short_complex: 'AI Agents – also Software-Systeme, die eigenständig planen, entscheiden und handeln – sind seit Mitte 2024 das beherrschende Thema der Tech-Branche.',
+    long_simple: 'Die Idee autonomer Software-Agenten ist nicht neu. Schon in den 1990ern gab es Multi-Agenten-Systeme in der Forschung. Was neu ist: die Sprachmodelle dahinter sind jetzt gut genug, um Aufgaben in natürlicher Sprache zu verstehen. Das hat eine Welle ausgelöst. Jede Woche taucht ein neues Agent-Framework auf.',
+    long_complex: 'Was als akademische Nische begann – Multi-Agenten-Systeme, die in den 1990ern an Universitäten erforscht wurden und über Jahrzehnte ein Schattendasein fristeten –, hat sich durch die rasante Entwicklung großer Sprachmodelle zu einem der beherrschenden Themen der Software-Branche entwickelt, wobei die Grenze zwischen echten Agenten und aufgehübschten Chatbots zunehmend verwischt.',
+  },
+
+  // ── ANALYSIS: hedging × counterbalance ──
+  analysis: {
+    no_hedge_no_cb: 'Das Produkt kann keine mehrstufigen Aufgaben eigenständig lösen. Es ist ein Chatbot mit neuem Label. Die Tool-Integration beschränkt sich auf drei vorgefertigte API-Calls. Von Autonomie keine Spur.',
+    no_hedge_cb: 'Das Produkt kann keine mehrstufigen Aufgaben eigenständig lösen. Es ist ein Chatbot mit neuem Label. Die Tool-Integration beschränkt sich auf drei vorgefertigte API-Calls. Das Interface allerdings ist solide – und die Dokumentation brauchbar.',
+    mid_hedge_mid_cb: 'Das Produkt scheint noch nicht den Reifegrad erreicht zu haben, den die Ankündigung suggeriert. Die Tool-Integration wirkt begrenzt, auch wenn der Ansatz grundsätzlich in die richtige Richtung geht.',
+    full_hedge_full_cb: 'Meine Vermutung ist eher, dass das Produkt noch nicht den Reifegrad erreicht hat, den man sich erhofft hatte. Ich bin skeptisch, ob drei API-Calls als "Tool-Integration" durchgehen – aber fairerweise muss man sagen, dass der Ansatz durchaus Potenzial hat und die Roadmap vielversprechend aussieht.',
+  },
+
+  // ── QUESTION BLOCK: question_frequency ──
+  questions: {
+    none: '',
+    few: 'Wer orchestriert das alles im Ernstfall?',
+    many: 'Wer orchestriert das alles im Ernstfall? Und wer übernimmt die Verantwortung, wenn der Agent eigenständig Entscheidungen trifft? Hat da jemand ans Monitoring gedacht?',
+  },
+
+  // ── SHORT PUNCHES: short_sentence_frequency × rhythm_variation ──
+  punches: {
+    none: 'Die Ergebnisse unseres Tests waren ernüchternd und blieben hinter den Erwartungen zurück.',
+    few: 'Die Ergebnisse waren ernüchternd. Drei von fünf Workflows scheiterten an trivialen Aufgaben.',
+    many: 'Wir haben es getestet. Ergebnis: drei von fünf Workflows gescheitert. An trivialen Aufgaben. Nicht an Edge Cases – am Standardfall. Punkt.',
+  },
+
+  // ── IRONY BLOCK: irony_edge × cultural_references ──
+  irony: {
+    none: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung – eine Aufgabe, die seit zwei Jahren jedes LLM beherrscht.',
+    light: 'Die Produktdemo zeigte – man halte sich fest – eine E-Mail-Zusammenfassung. Das beherrscht jedes LLM seit zwei Jahren, aber Hauptsache "KI-gestützt" steht drauf.',
+    sharp: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung. Bahnbrechend. Das beherrscht jedes LLM seit 2023, aber TechCorp hat ein schickes Dashboard drumherum gebaut und nennt es "autonome Intelligenz". Ungefähr so autonom wie ein Aufzug mit zwei Knöpfen.',
+  },
+
+  // ── ANTITHESIS: antithesis_density ──
+  antithesis: {
+    none: '',
+    some: 'Die Pressemeldung verspricht Autonomie. Das Produkt liefert Automatisierung. Das ist nicht dasselbe.',
+    dense: 'Die Pressemeldung verspricht Autonomie – das Produkt liefert Automatisierung. Das Pitch Deck zeigt Workflows – die API unterstützt Einzelabfragen. Der CEO sagt "Enterprise-ready" – die Docs empfehlen "nicht für Produktion".',
+  },
+
+  // ── READER ADDRESS: reader_address × gendering ──
+  address: {
+    neutral_nogender: 'Unternehmen sollten genau hinschauen, bevor sie Budget freigeben. Entscheider müssen wissen, was sie kaufen.',
+    neutral_gender: 'Unternehmen sollten genau hinschauen, bevor sie Budget freigeben. Entscheider:innen müssen wissen, was sie kaufen.',
+    neutral_full: 'Unternehmen sollten genau hinschauen, bevor sie Budget freigeben. Entscheiderinnen und Entscheider müssen wissen, was sie kaufen.',
+    ihr_nogender: 'Schaut genau hin, bevor ihr Budget freigebt. Als Entwickler und Entscheider solltet ihr wissen, was ihr kauft.',
+    ihr_gender: 'Schaut genau hin, bevor ihr Budget freigebt. Als Entwickler:innen und Entscheider:innen solltet ihr wissen, was ihr kauft.',
+    ihr_full: 'Schaut genau hin, bevor ihr Budget freigebt. Als Entwicklerinnen und Entwickler solltet ihr wissen, was ihr kauft.',
+    du_nogender: 'Schau genau hin, bevor du Budget freigibst.',
+    du_gender: 'Schau genau hin, bevor du Budget freigibst.',
+    du_full: 'Schau genau hin, bevor du Budget freigibst.',
+  },
+
+  // ── ENDING: ending_type ──
+  ending: {
+    open: 'Was meint ihr – sehen wir hier den Anfang von etwas Großem, oder wiederholt sich die Geschichte? Wir würden uns über eure Einschätzung freuen.',
+    pointe: 'Falls TechCorp das liest: Weniger Pitch Deck, mehr Produkt. Dann reden wir weiter.',
+    hard: 'Wer das anders sieht: Kommentare sind offen. Aber bringt Substanz mit. Punkt.',
+  },
+
+  // ── ANECDOTE: anecdote_density ──
+  anecdote: {
+    none: '',
+    light: 'Wir haben den Agent letzte Woche im Team getestet.',
+    full: 'Es war eigentlich ein ruhiger Dienstag, als der Link zur Beta in unserem Slack landete. "Müsst ihr euch anschauen", schrieb ein Kollege. Also haben wir uns angeschaut.',
+  },
+
+  // ── METAPHOR: metaphor_density ──
+  metaphor: {
+    none: '',
+    some: 'Unter der Haube steckt weniger als versprochen.',
+    dense: 'Unter der glänzenden Haube steckt ein Motor aus den Neunzigern. TechCorp hat den Lack poliert, aber am Antrieb hat sich nichts geändert – das Ökosystem drumherum ist eine Wüste.',
+  },
+};
+
+function pick(obj, ...keys) {
+  for (const k of keys) if (obj[k] !== undefined) return obj[k];
+  return Object.values(obj)[0];
+}
+
+function lv(val) { return val <= 2 ? 'lo' : val >= 4 ? 'hi' : 'mid'; }
+
+function buildPreview() {
+  const p = current.parameters;
+
+  // Opening
+  const opKey = lv(p.opinion_strength) + '_' + lv(p.confrontation);
+  const opening = pick(PV.opening, opKey, 'mid_lo');
+
+  // Anecdote
+  const anecdote = p.anecdote_density <= 2 ? PV.anecdote.none
+    : p.anecdote_density <= 3 ? PV.anecdote.light : PV.anecdote.full;
+
+  // Context
+  let context = PV.context.none;
+  if (p.historical_depth >= 2) {
+    const len = p.sentence_length >= 4 ? 'long' : p.sentence_length <= 2 ? 'short' : 'short';
+    const cpx = p.syntax_complexity >= 4 ? 'complex' : 'simple';
+    context = pick(PV.context, len + '_' + cpx, 'short_simple');
+  }
+
+  // Analysis
+  const hLv = lv(p.hedging), cbLv = lv(p.counterbalance);
+  let analysisKey;
+  if (hLv === 'lo' && cbLv === 'lo') analysisKey = 'no_hedge_no_cb';
+  else if (hLv === 'lo' && cbLv !== 'lo') analysisKey = 'no_hedge_cb';
+  else if (hLv === 'hi' || cbLv === 'hi') analysisKey = 'full_hedge_full_cb';
+  else analysisKey = 'mid_hedge_mid_cb';
+  const analysis = PV.analysis[analysisKey];
+
+  // Questions
+  const questions = p.question_frequency <= 2 ? PV.questions.none
+    : p.question_frequency <= 3 ? PV.questions.few : PV.questions.many;
+
+  // Metaphor
+  const metaphor = p.metaphor_density <= 2 ? PV.metaphor.none
+    : p.metaphor_density <= 3 ? PV.metaphor.some : PV.metaphor.dense;
+
+  // Punches
+  const punches = p.short_sentence_frequency <= 2 ? PV.punches.none
+    : p.short_sentence_frequency <= 3 ? PV.punches.few : PV.punches.many;
+
+  // Irony
+  const irony = p.irony_edge <= 2 ? PV.irony.none
+    : p.irony_edge <= 3 ? PV.irony.light : PV.irony.sharp;
+
+  // Antithesis
+  const antithesis = p.antithesis_density <= 2 ? PV.antithesis.none
+    : p.antithesis_density <= 3 ? PV.antithesis.some : PV.antithesis.dense;
+
+  // Address + Gendering
+  const addrLv = p.reader_address <= 2 ? 'neutral' : p.reader_address <= 3 ? 'ihr' : 'du';
+  const genLv = (p.gendering||3) <= 2 ? 'nogender' : (p.gendering||3) <= 3 ? 'gender' : 'full';
+  const address = pick(PV.address, addrLv+'_'+genLv, 'ihr_gender');
+
+  // Ending
+  const ending = p.ending_type <= 2 ? PV.ending.open
+    : p.ending_type <= 3 ? PV.ending.pointe : PV.ending.hard;
+
+  // ── Compose heading ──
+  let heading;
+  if (p.opinion_strength >= 4) heading = 'Nein, euer Chatbot ist kein "AI Agent"';
+  else if (p.opinion_strength >= 3) heading = 'TechCorps neuer AI Agent – hält er, was er verspricht?';
+  else heading = 'TechCorp stellt neuen AI Agent vor';
+
+  // Sub-heading
+  let subHeadingAnalysis = p.opinion_strength >= 4 ? 'Was nicht okay ist' : 'Die Einordnung';
+  let subHeadingTest = p.pacing >= 4 ? 'Realitätscheck' : 'Was unser Test ergeben hat';
+
+  // ── Assemble paragraphs ──
+  const sections = [];
+
+  // Title + meta
+  sections.push(`<h2>${heading}</h2>`);
+  sections.push(`<div class="pv-meta">Vorschau · Parameter-Werte werden live angewendet</div>`);
+
+  // Opening
+  if (anecdote) sections.push(`<p>${anecdote}</p>`);
+  sections.push(`<p>${opening}</p>`);
+
+  // Context
+  if (context) {
+    if (p.historical_depth >= 4) sections.push(`<h3>Eine kurze Einordnung</h3>`);
+    sections.push(`<p>${context}</p>`);
+  }
+
+  // Analysis
+  sections.push(`<h3>${subHeadingAnalysis}</h3>`);
+  sections.push(`<p>${analysis}</p>`);
+  if (metaphor) sections.push(`<p>${metaphor}</p>`);
+  if (questions) sections.push(`<p>${questions}</p>`);
+
+  // Test / Praxis
+  sections.push(`<h3>${subHeadingTest}</h3>`);
+  sections.push(`<p>${punches}</p>`);
+  sections.push(`<p>${irony}</p>`);
+  if (antithesis) sections.push(`<p>${antithesis}</p>`);
+
+  // Closing
+  sections.push(`<p>${address}</p>`);
+  sections.push(`<p><strong>${ending}</strong></p>`);
+
+  document.getElementById('previewText').innerHTML = sections.join('\n');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let presets = {};
+let current = { parameters:{}, include_phrases:[], exclude_phrases:[], include_terms:[], exclude_terms:[] };
+
+function init() {
+  // Always reset to defaults to pick up renamed presets
+  const saved = localStorage.getItem('stil_presets_v2');
+  presets = saved ? JSON.parse(saved) : {};
+  for (const [k,v] of Object.entries(DEFAULT_PRESETS)) {
+    if (!presets[k]) presets[k] = JSON.parse(JSON.stringify(v));
+  }
+  // Remove legacy presets
+  delete presets['agenticpunks_kommentar'];
+  delete presets['agenticpunks_praxis'];
+  delete presets['agenticpunks'];
+  saveToStorage();
+  populateSelect();
+  setCurrent(JSON.parse(JSON.stringify(presets[Object.keys(presets)[0]])));
+  renderSliders();
+  renderPhrases();
+  renderTaboos();
+  buildPreview();
+  initTabs();
+}
+
+function saveToStorage() { localStorage.setItem('stil_presets_v2', JSON.stringify(presets)); }
+
+function populateSelect() {
+  const sel = document.getElementById('presetSelect');
+  sel.innerHTML = '';
+  for (const [k,v] of Object.entries(presets)) {
+    const o = document.createElement('option');
+    o.value = k; o.textContent = v.label || k;
+    sel.appendChild(o);
+  }
+}
+
+function setCurrent(preset) {
+  current = preset;
+  for (const k of Object.keys(DIMS)) {
+    if (!(k in current.parameters)) current.parameters[k] = 3;
+  }
+  ['include_phrases','exclude_phrases','include_terms','exclude_terms','taboo_topics'].forEach(f => {
+    if (!current[f]) current[f] = [];
+  });
+}
+
+function loadPreset() {
+  const key = document.getElementById('presetSelect').value;
+  if (!presets[key]) return;
+  setCurrent(JSON.parse(JSON.stringify(presets[key])));
+  renderSliders(); renderPhrases(); renderTaboos(); buildPreview();
+  document.getElementById('results').innerHTML = '';
+  document.getElementById('foundPhrases').innerHTML = '';
+  document.getElementById('textStats').innerHTML = '';
+}
+
+function savePreset() {
+  let name = document.getElementById('newPresetName').value.trim();
+  const selKey = document.getElementById('presetSelect').value;
+  if (!name) name = presets[selKey]?.label || selKey;
+  const key = name.toLowerCase().replace(/[^a-z0-9äöü_]/g, '_');
+  readSlidersIntoCurrent();
+  presets[key] = { label: name, ...JSON.parse(JSON.stringify(current)) };
+  saveToStorage(); populateSelect();
+  document.getElementById('presetSelect').value = key;
+  document.getElementById('newPresetName').value = '';
+}
+
+function deletePreset() {
+  const key = document.getElementById('presetSelect').value;
+  if (Object.keys(presets).length <= 1) return;
+  if (!confirm(`"${presets[key]?.label || key}" löschen?`)) return;
+  delete presets[key]; saveToStorage(); populateSelect(); loadPreset();
+}
+
+function readSlidersIntoCurrent() {
+  for (const k of Object.keys(DIMS)) {
+    const el = document.getElementById('sl_' + k);
+    if (el) current.parameters[k] = parseInt(el.value);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════════════════
+function initTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      if (btn.dataset.tab === 'analysis') renderAnalysisSliders();
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER SLIDERS
+// ═══════════════════════════════════════════════════════════════
+function renderSliders() {
+  const wrap = document.getElementById('sliders');
+  wrap.innerHTML = '';
+  for (const g of GROUPS) {
+    const gl = document.createElement('div');
+    gl.className = 'group-label'; gl.textContent = g.label;
+    wrap.appendChild(gl);
+    for (const dk of g.dims) {
+      const d = DIMS[dk]; if (!d) continue;
+      const row = document.createElement('div');
+      row.className = 'dim-row';
+      const val = current.parameters[dk] || 3;
+      row.innerHTML = `
+        <div class="dim-label" data-dim="${dk}">${d.label}</div>
+        <input type="range" id="sl_${dk}" min="1" max="5" step="1" value="${val}">
+        <div class="dim-val" id="val_${dk}">${val}</div>
+      `;
+      wrap.appendChild(row);
+      const slider = row.querySelector('input');
+      const valEl = row.querySelector('.dim-val');
+      slider.addEventListener('input', () => {
+        valEl.textContent = slider.value;
+        current.parameters[dk] = parseInt(slider.value);
+        buildPreview();
+      });
+      const label = row.querySelector('.dim-label');
+      label.addEventListener('mouseenter', e => showTooltip(e, dk));
+      label.addEventListener('mouseleave', hideTooltip);
+    }
+  }
+}
+
+// Read-only sliders for analysis tab
+function renderAnalysisSliders() {
+  const wrap = document.getElementById('sliders2');
+  wrap.innerHTML = '';
+  for (const g of GROUPS) {
+    const gl = document.createElement('div');
+    gl.className = 'group-label'; gl.textContent = g.label;
+    wrap.appendChild(gl);
+    for (const dk of g.dims) {
+      const d = DIMS[dk]; if (!d) continue;
+      const row = document.createElement('div');
+      row.className = 'dim-row';
+      const val = current.parameters[dk] || 3;
+      row.innerHTML = `
+        <div class="dim-label" data-dim="${dk}">${d.label}</div>
+        <input type="range" min="1" max="5" step="1" value="${val}" disabled style="opacity:.5">
+        <div class="dim-val">${val}</div>
+      `;
+      wrap.appendChild(row);
+      const label = row.querySelector('.dim-label');
+      label.addEventListener('mouseenter', e => showTooltip(e, dk));
+      label.addEventListener('mouseleave', hideTooltip);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TOOLTIP
+// ═══════════════════════════════════════════════════════════════
+function showTooltip(e, dk) {
+  const d = DIMS[dk]; if (!d) return;
+  const tt = document.getElementById('tooltip');
+  tt.innerHTML = `
+    <div class="tp-title">${d.label}</div>
+    <div class="tp-pole"><b>1</b> = ${d.p1}</div>
+    <div class="tp-pole"><b>5</b> = ${d.p5}</div>
+  `;
+  tt.style.display = 'block';
+  const r = e.target.getBoundingClientRect();
+  tt.style.left = r.right + 12 + 'px';
+  tt.style.top = r.top - 8 + 'px';
+  const tr = tt.getBoundingClientRect();
+  if (tr.right > window.innerWidth - 12) tt.style.left = (r.left - tr.width - 12) + 'px';
+  if (tr.bottom > window.innerHeight - 12) tt.style.top = (window.innerHeight - tr.height - 12) + 'px';
+}
+function hideTooltip() { document.getElementById('tooltip').style.display = 'none'; }
+
+// ═══════════════════════════════════════════════════════════════
+// PHRASES PANEL
+// ═══════════════════════════════════════════════════════════════
+function renderPhrases() {
+  const wrap = document.getElementById('phrasesPanel');
+  wrap.innerHTML = '';
+  const sections = [
+    { key:'include_phrases', label:'Phrasen einschließen', cls:'inc' },
+    { key:'exclude_phrases', label:'Phrasen ausschließen', cls:'exc' },
+    { key:'include_terms',   label:'Begriffe einschließen', cls:'inc' },
+    { key:'exclude_terms',   label:'Begriffe ausschließen', cls:'exc' },
+  ];
+  for (const s of sections) {
+    const grp = document.createElement('div');
+    grp.className = 'phrase-group';
+    grp.innerHTML = `<div class="phrase-group-label ${s.cls}">${s.label}</div>`;
+    const list = document.createElement('div');
+    list.className = 'tag-list';
+    (current[s.key] || []).forEach((phrase, i) => {
+      const tag = document.createElement('span');
+      tag.className = 'tag ' + s.cls;
+      tag.innerHTML = `${esc(phrase)}<span class="remove" data-section="${s.key}" data-idx="${i}">&times;</span>`;
+      list.appendChild(tag);
+    });
+    grp.appendChild(list);
+    const add = document.createElement('div');
+    add.className = 'add-phrase';
+    add.innerHTML = `<input placeholder="Hinzufügen…" data-section="${s.key}"><button data-section="${s.key}">+</button>`;
+    grp.appendChild(add);
+    wrap.appendChild(grp);
+  }
+  wrap.querySelectorAll('.remove').forEach(el => {
+    el.addEventListener('click', () => {
+      current[el.dataset.section].splice(parseInt(el.dataset.idx), 1);
+      renderPhrases();
+    });
+  });
+  wrap.querySelectorAll('.add-phrase button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = btn.parentElement.querySelector('input');
+      const val = input.value.trim();
+      if (!val) return;
+      current[btn.dataset.section].push(val);
+      renderPhrases();
+    });
+  });
+  wrap.querySelectorAll('.add-phrase input').forEach(inp => {
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') inp.nextElementSibling.click(); });
+  });
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ═══════════════════════════════════════════════════════════════
+// TABOO TOPICS PANEL
+// ═══════════════════════════════════════════════════════════════
+function renderTaboos() {
+  const wrap = document.getElementById('tabooPanel');
+  wrap.innerHTML = '';
+  const grid = document.createElement('div');
+  grid.className = 'taboo-grid';
+  for (const [name, info] of Object.entries(TABOO_CATALOG)) {
+    const active = (current.taboo_topics || []).includes(name);
+    const item = document.createElement('div');
+    item.className = 'taboo-item' + (active ? ' active' : '');
+    item.innerHTML = `
+      <input type="checkbox" ${active ? 'checked' : ''} data-topic="${esc(name)}">
+      <div>
+        <div class="taboo-name">${esc(name)}</div>
+        <div class="taboo-desc">${esc(info.desc)}</div>
+        <div class="taboo-examples">${info.examples}</div>
+      </div>
+    `;
+    grid.appendChild(item);
+  }
+  wrap.appendChild(grid);
+  wrap.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const topic = cb.dataset.topic;
+      if (cb.checked) {
+        if (!current.taboo_topics.includes(topic)) current.taboo_topics.push(topic);
+      } else {
+        current.taboo_topics = current.taboo_topics.filter(t => t !== topic);
+      }
+      renderTaboos();
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// TEXT ANALYSIS (Tab 2)
+// ═══════════════════════════════════════════════════════════════
+const NOT_MEASURABLE = new Set(['vocabulary_register','metaphor_density','cultural_references','historical_depth','anecdote_density','ending_type','gendering']);
+
+function getHint(dk, measured, target) {
+  const m = measured, t = target;
+  const absDelta = Math.abs(m - t);
+  if (NOT_MEASURABLE.has(dk)) return { text:'Nicht automatisch messbar — manuelle Einschätzung nötig.', cls:'hint-nm' };
+  if (absDelta < 0.8) return { text: hintGoodText(dk, m), cls:'hint-good' };
+  return { text: hintIssueText(dk, m, t, m > t ? 'high' : 'low'), cls:'hint-issue' };
+}
+
+function hintGoodText(dk, m) {
+  const map = {
+    sentence_length: `Satzlänge passt zum Ziel (Ø ${mapW(m)} Wörter).`,
+    syntax_complexity: 'Verschachtelungsgrad im Zielbereich.',
+    short_sentence_frequency: 'Anteil an Kurzsätzen passt.',
+    question_frequency: 'Fragen-Anteil im Zielbereich.',
+    paragraph_length: 'Absatzlänge passt zum Preset.',
+    opinion_strength: 'Meinungsstärke im Zielbereich.',
+    hedging: 'Hedging-Level passt.',
+    counterbalance: 'Relativierung im Zielbereich.',
+    confrontation: 'Konfrontationsgrad passt.',
+    irony_edge: 'Ironie-Level im Zielbereich.',
+    antithesis_density: 'Kontrastpaare-Dichte passt.',
+    pacing: 'Tempo im Zielbereich.',
+    rhythm_variation: 'Rhythmus-Variation passt.',
+    anglicism_density: 'Anglizismen-Dichte im Zielbereich.',
+    reader_address: 'Leseransprache passt zum Preset.',
+  };
+  return map[dk] || 'Im Zielbereich.';
+}
+
+function hintIssueText(dk, m, t, dir) {
+  const map = {
+    sentence_length: { high:`Sätze zu lang (Ø ${mapW(m)} W.) — Ziel wäre Ø ${mapW(t)}. Kürzer formulieren.`, low:`Sätze zu kurz (Ø ${mapW(m)} W.) — Ziel wäre Ø ${mapW(t)}. Mehr Einordnung.` },
+    syntax_complexity: { high:'Zu verschachtelt — Nebensätze reduzieren, Hauptsätze bevorzugen.', low:'Zu einfach — mehr Einschübe, Relativsätze, Gedankenstriche.' },
+    short_sentence_frequency: { high:'Zu viele Kurzsätze — wirkt abgehackt.', low:'Zu wenige Kurzsätze — Pointen fehlen. "Punkt." gezielt einsetzen.' },
+    question_frequency: { high:'Zu viele Fragen — einige in Aussagen umwandeln.', low:'Zu wenige Fragen — rhetorische Fragen einbauen.' },
+    paragraph_length: { high:'Absätze zu lang — mehr Umbrüche.', low:'Absätze zu kurz — Gedanken bündeln.' },
+    opinion_strength: { high:'Stärker meinungsbetont als angepeilt.', low:'Zu neutral — klarere Position beziehen.' },
+    hedging: { high:'Zu viel Hedging ("vermutlich", "könnte") — entschiedener formulieren.', low:'Zu wenig Hedging — bei Unsicherheiten abschwächen.' },
+    counterbalance: { high:'Zu viel Relativierung — Urteil wird weichgespült.', low:'Zu wenig Gegengewicht — andere Seite kurz anerkennen.' },
+    confrontation: { high:'Konfrontativer als gewünscht.', low:'Zu zahm — mehr direkte Konfrontation.' },
+    irony_edge: { high:'Zu viel Ironie — sparsamer einsetzen.', low:'Kaum Ironie — Scare Quotes, trockene Kommentare einbauen.' },
+    antithesis_density: { high:'Zu viele Kontrastpaare.', low:'Zu wenige Antithesen — Kontraste verstärken.' },
+    pacing: { high:'Tempo zu hoch — mehr Raum für Einordnung.', low:'Tempo zu niedrig — straffer formulieren.' },
+    rhythm_variation: { high:'Satzlängen schwanken sehr stark.', low:'Sätze zu gleichförmig — Rhythmuswechsel einbauen.' },
+    anglicism_density: { high:'Zu viele Anglizismen.', low:'Wenige Anglizismen.' },
+    reader_address: { high:'Stärkere Du-Ansprache als gewünscht.', low:'Distanzierter als gewünscht — mehr direkte Ansprache.' },
+  };
+  return map[dk]?.[dir] || (dir === 'high' ? 'Über dem Zielwert.' : 'Unter dem Zielwert.');
+}
+
+function mapW(v) { return Math.round(8 + (v - 1) * 5); }
+
+function analyzeText() {
+  const text = document.getElementById('analysisText').value.trim();
+  if (!text) return;
+  readSlidersIntoCurrent();
+  const target = current.parameters;
+  const measured = measureText(text);
+
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const sents = splitSentences(text).length;
+  const paras = text.split(/\n\s*\n/).filter(p => p.trim()).length;
+  document.getElementById('textStats').innerHTML =
+    `${words} Wörter · ${sents} Sätze · ${paras} Absätze · Ø ${(words/sents).toFixed(1)} Wörter/Satz`;
+
+  let totalDelta = 0, measurableCount = 0;
+  for (const dk of Object.keys(DIMS)) {
+    if (NOT_MEASURABLE.has(dk)) continue;
+    totalDelta += Math.abs((measured[dk]??3) - (target[dk]||3));
+    measurableCount++;
+  }
+  const score = Math.max(0, Math.round((1 - totalDelta / measurableCount / 4) * 100));
+  const scoreClass = score >= 75 ? 'good' : score >= 50 ? 'ok' : 'bad';
+  const scoreLabel = score >= 75 ? 'Gute Übereinstimmung' : score >= 50 ? 'Teilweise passend' : 'Deutliche Abweichungen';
+
+  let issueCount = 0, goodCount = 0, issueList = [];
+  for (const dk of Object.keys(DIMS)) {
+    if (NOT_MEASURABLE.has(dk)) continue;
+    if (Math.abs((measured[dk]??3) - (target[dk]||3)) >= 0.8) { issueCount++; issueList.push(DIMS[dk].label); }
+    else goodCount++;
+  }
+
+  const rWrap = document.getElementById('results');
+  rWrap.innerHTML = '';
+
+  const verdict = document.createElement('div');
+  verdict.className = 'verdict';
+  verdict.innerHTML = `
+    <span class="verdict-score ${scoreClass}">${score}%</span>
+    <span class="verdict-label">${scoreLabel}</span>
+    <div class="verdict-text">
+      <strong>${goodCount}</strong> von ${measurableCount} messbaren Dimensionen im Zielbereich${issueCount > 0
+        ? ` · <strong>${issueCount} Abweichungen:</strong> ${issueList.join(', ')}` : '.'}
+    </div>
+  `;
+  rWrap.appendChild(verdict);
+
+  const legend = document.createElement('div');
+  legend.className = 'legend';
+  legend.innerHTML = `
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Im Zielbereich</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div> Leichte Abweichung</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Starke Abweichung</div>
+    <div class="legend-item"><div class="legend-marker"></div> Zielwert</div>
+  `;
+  rWrap.appendChild(legend);
+
+  for (const g of GROUPS) {
+    const gl = document.createElement('div');
+    gl.className = 'result-group-label'; gl.textContent = g.label;
+    rWrap.appendChild(gl);
+    for (const dk of g.dims) {
+      const isNM = NOT_MEASURABLE.has(dk);
+      const m = measured[dk] ?? 3, t = target[dk] || 3;
+      const delta = m - t, absDelta = Math.abs(delta);
+      const deltaStr = isNM ? '—' : (absDelta < 0.3 ? '✓' : (delta > 0 ? '+'+delta.toFixed(1) : delta.toFixed(1)));
+      const clsDelta = isNM ? 'neutral' : (absDelta < 0.8 ? 'pos' : 'neg');
+      const pct = Math.min(100, Math.max(0, (m/5)*100));
+      const tPct = Math.min(100, Math.max(0, ((t-1)/4)*100));
+      const barColor = isNM ? 'var(--border)' : (absDelta < 0.8 ? 'var(--green)' : absDelta < 1.5 ? 'var(--yellow)' : 'var(--red)');
+
+      const row = document.createElement('div');
+      row.className = 'result-row' + (isNM ? ' not-measurable' : '');
+      row.innerHTML = `
+        <div style="font-size:12px;color:var(--text2)">${DIMS[dk].label}</div>
+        <div class="result-bar-wrap">
+          <div class="result-bar" style="width:${pct}%;background:${barColor}"></div>
+          <div class="result-target" style="left:${tPct}%" title="Ziel: ${t}"></div>
+        </div>
+        <div class="result-val">${isNM?'—':m.toFixed(1)} <span class="delta ${clsDelta}">${deltaStr}</span></div>
+      `;
+      rWrap.appendChild(row);
+      const hint = getHint(dk, m, t);
+      const hintRow = document.createElement('div');
+      hintRow.className = 'result-hint';
+      hintRow.innerHTML = `<span class="${hint.cls}">${hint.text}</span>`;
+      rWrap.appendChild(hintRow);
+    }
+  }
+
+  // Phrase check
+  const fpWrap = document.getElementById('foundPhrases');
+  fpWrap.innerHTML = '';
+  const lower = text.toLowerCase();
+  const checks = [
+    { key:'include_phrases', label:'Eingeschlossene Phrasen', desc:'Sollen im Text vorkommen (mind. 1–2)', hitCls:'hit', showHit:true, showMiss:true, hitPrefix:'✓ Gefunden:', missPrefix:'○ Nicht gefunden:' },
+    { key:'exclude_phrases', label:'Ausgeschlossene Phrasen', desc:'Dürfen NICHT vorkommen', hitCls:'violation', showHit:true, showMiss:false, hitPrefix:'✗ Verletzung:', missPrefix:'' },
+    { key:'include_terms', label:'Eingeschlossene Begriffe', desc:'Bevorzugtes Vokabular', hitCls:'hit', showHit:true, showMiss:true, hitPrefix:'✓', missPrefix:'○' },
+    { key:'exclude_terms', label:'Ausgeschlossene Begriffe', desc:'Verbotene Wörter', hitCls:'violation', showHit:true, showMiss:false, hitPrefix:'✗ Verletzung:', missPrefix:'' },
+  ];
+  for (const c of checks) {
+    const items = current[c.key] || [];
+    if (!items.length) continue;
+    const hits = [], misses = [];
+    items.forEach(p => {
+      const clean = p.replace(/…/g,'').replace(/\[.*?\]/g,'').trim().toLowerCase();
+      if (clean.length < 2) return;
+      if (lower.includes(clean)) hits.push(p); else misses.push(p);
+    });
+    if ((c.showHit && hits.length) || (c.showMiss && misses.length)) {
+      const sec = document.createElement('div');
+      sec.className = 'fp-section';
+      sec.innerHTML = `<div class="fp-title">${c.label} <span style="font-weight:400;opacity:.7">— ${c.desc}</span></div>`;
+      const list = document.createElement('div');
+      list.className = 'fp-list';
+      if (c.showHit) hits.forEach(h => { list.innerHTML += `<div class="${c.hitCls}">${c.hitPrefix} ${esc(h)}</div>`; });
+      if (c.showMiss) misses.forEach(m => { list.innerHTML += `<div>${c.missPrefix} ${esc(m)}</div>`; });
+      if (c.key.startsWith('include')) {
+        const total = hits.length + misses.length;
+        list.innerHTML += `<div class="fp-summary">${hits.length}/${total} verwendet (${Math.round(hits.length/total*100)}%)</div>`;
+      }
+      sec.appendChild(list);
+      fpWrap.appendChild(sec);
+    }
+  }
+
+  // Taboo topic check
+  const activeTaboos = current.taboo_topics || [];
+  if (activeTaboos.length > 0) {
+    const tabooSec = document.createElement('div');
+    tabooSec.className = 'fp-section';
+    tabooSec.innerHTML = `<div class="fp-title">Themen-Ausschlüsse <span style="font-weight:400;opacity:.7">— Aktivierte Taboo Topics werden auf Verstöße geprüft</span></div>`;
+    const tabooList = document.createElement('div');
+    tabooList.className = 'fp-list';
+    let tabooViolations = 0;
+    for (const topic of activeTaboos) {
+      const info = TABOO_CATALOG[topic];
+      if (!info) continue;
+      const found = [];
+      for (const pat of info.patterns) {
+        if (lower.includes(pat)) found.push(pat);
+      }
+      if (found.length > 0) {
+        tabooViolations += found.length;
+        tabooList.innerHTML += `<div class="violation">✗ ${esc(topic)}: „${found.join('", „')}" gefunden</div>`;
+      } else {
+        tabooList.innerHTML += `<div class="hit">✓ ${esc(topic)}: keine Verstöße</div>`;
+      }
+    }
+    if (tabooViolations > 0) {
+      tabooList.innerHTML += `<div class="fp-summary" style="color:var(--red)">${tabooViolations} Verstoß${tabooViolations>1?'e':''} gegen Themen-Ausschlüsse</div>`;
+    }
+    tabooSec.appendChild(tabooList);
+    fpWrap.appendChild(tabooSec);
+  }
+}
+
+function splitSentences(text) {
+  return text.replace(/\n/g,' ').split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 2);
+}
+
+function measureText(text) {
+  const sentences = splitSentences(text);
+  const words = text.split(/\s+/).filter(Boolean);
+  const paras = text.split(/\n\s*\n/).filter(p => p.trim());
+  const tS = sentences.length || 1, tP = paras.length || 1;
+  const lower = text.toLowerCase();
+  const avgWPS = words.length / tS;
+
+  const sl = clamp(1 + (avgWPS - 8) / 5, 1, 5);
+  const commas = (text.match(/[,;]/g)||[]).length / tS;
+  const dashes = (text.match(/ – /g)||[]).length / tS;
+  const relPro = (text.match(/\b(der|die|das|dem|den|dessen|deren|welch\w*)\b/gi)||[]).length / tS;
+  const sc = clamp(1 + (commas + dashes*2 + relPro*0.3 - 1)*1.2, 1, 5);
+  const shortSents = sentences.filter(s => s.split(/\s+/).length <= 4).length;
+  const ssf = clamp(1 + (shortSents/tS)*16, 1, 5);
+  const questions = sentences.filter(s => s.trim().endsWith('?')).length;
+  const qf = clamp(1 + (questions/tS)*12, 1, 5);
+  const pl = clamp(1 + (tS/tP - 1)/2, 1, 5);
+
+  const hedgeWords = ['vermutung','vermutlich','vielleicht','könnte','möglicherweise','wahrscheinlich','scheint','dürfte','meine einschätzung','ich bin skeptisch','eher','unter umständen','gewissermaßen'];
+  const hd = clamp(1 + hedgeWords.reduce((n,w) => n + (lower.split(w).length-1), 0)*1.5, 1, 5);
+  const cbWords = ['fairerweise','andererseits','auf der anderen seite','allerdings','gleichwohl','man muss zugeben','zwar','immerhin','einschränkend','zugestanden'];
+  const cb = clamp(1 + cbWords.reduce((n,w) => n + (lower.split(w).length-1), 0)*2, 1, 5);
+  const confWords = ['unfug','bullshit','augenwischerei','dampfplauderei','mogelpackung','mal ehrlich','jemand zu hause','memo nicht gelesen','kurze frage','hand aufs herz','netter versuch'];
+  const confCount = confWords.reduce((n,w) => n + (lower.split(w).length-1), 0);
+  const conf = clamp(1 + confCount*1.5, 1, 5);
+  const opMarkers = ['klar ist','tatsache ist','fakt ist','es ist unfug','das ist','wer glaubt','punkt.','nein,','ja,'];
+  const os = clamp(1 + opMarkers.reduce((n,w) => n + (lower.split(w).length-1), 0)*1.2 + (5-hd)*0.5, 1, 5);
+  const scareQ = (text.match(/„[^"]*"|"[^"]*"/g)||[]).length;
+  const ie = clamp(1 + scareQ*0.8 + confCount*0.5, 1, 5);
+  const antiWords = ['vs\\.','versus','einerseits','andererseits','aber','jedoch','dagegen','im gegensatz','stattdessen','während'];
+  const ad = clamp(1 + antiWords.reduce((n,w) => n + (text.match(new RegExp(w,'gi'))||[]).length, 0)/tS*3, 1, 5);
+  const lens = sentences.map(s => s.split(/\s+/).length);
+  const mean = lens.reduce((a,b)=>a+b,0)/lens.length;
+  const stddev = Math.sqrt(lens.reduce((s,l)=>s+(l-mean)**2,0)/lens.length);
+  const rv = clamp(1 + stddev/4, 1, 5);
+  const pc = clamp(6 - sl*0.5 - pl*0.5, 1, 5);
+  const engW = text.match(/\b[A-Z]?[a-z]*(?:tion|ing|ment|ness|ity|ive|ful|ous|ent|ance|ence)\b/g)||[];
+  const angD = clamp(1 + engW.length/words.length*40, 1, 5);
+  const duC = (text.match(/\b(du|dir|dein\w*)\b/gi)||[]).length;
+  const ihrC = (text.match(/\b(ihr|euch|euer|eure\w*)\b/gi)||[]).length;
+  const ra = duC > ihrC*2 ? clamp(3+duC*0.3,3,5) : ihrC > 0 ? 3 : clamp(1+duC*0.5,1,2);
+
+  return {
+    sentence_length:sl, syntax_complexity:sc, short_sentence_frequency:ssf,
+    question_frequency:qf, paragraph_length:pl, opinion_strength:os,
+    hedging:hd, counterbalance:cb, confrontation:conf, irony_edge:ie,
+    antithesis_density:ad, pacing:pc, rhythm_variation:rv,
+    vocabulary_register:3, anglicism_density:angD, reader_address:ra,
+    metaphor_density:3, cultural_references:3, historical_depth:3, anecdote_density:3, ending_type:3,
+  };
+}
+
+function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
+
+// ═══════════════════════════════════════════════════════════════
+// YAML EXPORT
+// ═══════════════════════════════════════════════════════════════
+function exportYAML() {
+  readSlidersIntoCurrent();
+  const key = document.getElementById('presetSelect').value;
+  const label = presets[key]?.label || key;
+  let yaml = `# Stil-Parameter Export: ${label}\n# ${new Date().toISOString().slice(0,10)}\n\n`;
+  yaml += `${key}:\n  label: "${label}"\n  parameters:\n`;
+  for (const g of GROUPS) {
+    yaml += `    # ${g.label}\n`;
+    for (const dk of g.dims) yaml += `    ${dk}: ${current.parameters[dk]||3}\n`;
+  }
+  for (const sec of ['include_phrases','exclude_phrases','include_terms','exclude_terms','taboo_topics']) {
+    if (current[sec]?.length) {
+      yaml += `  ${sec}:\n`;
+      current[sec].forEach(p => { yaml += `    - "${p}"\n`; });
+    }
+  }
+  navigator.clipboard.writeText(yaml).then(() => alert('YAML in Zwischenablage kopiert.'));
+}
+
+init();
+</script>
+</body>
+</html>

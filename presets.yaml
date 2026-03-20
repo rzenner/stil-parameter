@@ -1,0 +1,423 @@
+# =============================================================================
+# Stil-Parameter-System für Content Machine
+# =============================================================================
+# Skala: 1–5 (1 = Minimum/links, 5 = Maximum/rechts)
+# Jede Dimension hat benannte Pole zur Orientierung.
+# Phrasen-Listen steuern Vokabular pro Preset.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# DIMENSIONEN
+# -----------------------------------------------------------------------------
+
+dimensions:
+
+  # --- SATZEBENE ---
+
+  sentence_length:
+    label: "Satzlänge"
+    pole_1: "Kurz, stakkato (Ø 8–12 Wörter)"
+    pole_5: "Lang, verschachtelt (Ø 22–28 Wörter)"
+    notes: "Betrifft den Durchschnitt — Varianz ist immer erwünscht."
+
+  syntax_complexity:
+    label: "Satzkomplexität"
+    pole_1: "Parataktisch, Hauptsätze dominieren"
+    pole_5: "Hypotaktisch, Relativsatz-Ketten, Einschübe mit Gedankenstrichen"
+
+  short_sentence_frequency:
+    label: "Kurzsatz-Frequenz"
+    pole_1: "Keine Einwortsätze oder Kurzsätze"
+    pole_5: "Häufig — 'Punkt.', 'Funktioniert nicht.', 'Nächster.'"
+    notes: "Kurzsätze = 1–4 Wörter, bewusst als Stilmittel eingesetzt."
+
+  question_frequency:
+    label: "Fragen-Frequenz"
+    pole_1: "Keine rhetorischen Fragen"
+    pole_5: "Fragen als zentrales Strukturprinzip (Überschriften, Absatz-Einstiege)"
+
+  # --- ABSATZ & STRUKTUR ---
+
+  paragraph_length:
+    label: "Absatzlänge"
+    pole_1: "Kurz (1–3 Sätze), viel Weißraum"
+    pole_5: "Lang (5–8 Sätze), dichte Textblöcke"
+
+  historical_depth:
+    label: "Historische Einordnung"
+    pole_1: "Kein historischer Kontext"
+    pole_5: "Ausführliche Geschichtsstunde als Default"
+
+  anecdote_density:
+    label: "Anekdoten-Dichte"
+    pole_1: "Keine persönlichen Anekdoten oder Erzähleinstiege"
+    pole_5: "Narrativer Einstieg, persönliche Erlebnisse als Aufhänger"
+
+  # --- HALTUNG & TON ---
+
+  opinion_strength:
+    label: "Meinungsstärke"
+    pole_1: "Neutral-berichtend, keine erkennbare Position"
+    pole_5: "Klare These ab Satz 1, unmissverständliche Haltung"
+
+  hedging:
+    label: "Hedging-Level"
+    pole_1: "Kein Hedging — Aussagen stehen absolut"
+    pole_5: "Durchgängig vorsichtig ('könnte', 'vermutlich', 'meine Vermutung ist eher')"
+
+  counterbalance:
+    label: "Relativierung / Gegengewicht"
+    pole_1: "Nie — Urteil steht ungebremst"
+    pole_5: "Immer ('Fairerweise muss man sagen', 'Auf der anderen Seite')"
+
+  confrontation:
+    label: "Konfrontation"
+    pole_1: "Einladend, kumpelhaft, 'wir gemeinsam'"
+    pole_5: "Rhetorische Attacken, direkte Konfrontation"
+
+  # --- STILMITTEL ---
+
+  irony_edge:
+    label: "Ironie-Schärfe"
+    pole_1: "Keine Ironie"
+    pole_3: "Augenzwinkernd, selbstironisch"
+    pole_5: "Beißend, Scare Quotes, konfrontativ"
+
+  metaphor_density:
+    label: "Metaphern-Dichte"
+    pole_1: "Kaum bildhafte Sprache"
+    pole_5: "Dicht — mindestens 1 Metapher pro Absatz"
+
+  cultural_references:
+    label: "Kulturelle Referenzen"
+    pole_1: "Keine"
+    pole_3: "1–2 pro Text, illustrativ"
+    pole_5: "Dicht, überraschend, zentral für Argumentation"
+
+  antithesis_density:
+    label: "Antithesen-Dichte"
+    pole_1: "Keine bewussten Kontrastpaare"
+    pole_5: "Antithesen als zentrales Argumentationsprinzip (Pitch vs. Realität, Keynote vs. Praxis)"
+
+  # --- TEMPO & RHYTHMUS ---
+
+  pacing:
+    label: "Tempo"
+    pole_1: "Langsam, mäandernd, ausführlich"
+    pole_5: "Schnell, rhythmisch, keine Umwege"
+
+  rhythm_variation:
+    label: "Rhythmus-Variation"
+    pole_1: "Gleichförmig (ähnliche Satzlängen)"
+    pole_5: "Starke Wechsel (lang-lang-kurz, Aufbau-Aufbau-Pointe)"
+
+  # --- REGISTER & ANSPRACHE ---
+
+  vocabulary_register:
+    label: "Vokabular-Register"
+    pole_1: "Umgangssprachlich, locker"
+    pole_3: "Semiformal mit bewussten Registerwechseln"
+    pole_5: "Fachlich-dicht, analytisch"
+
+  anglicism_density:
+    label: "Anglizismen-Dichte"
+    pole_1: "Nur unvermeidbare Fachbegriffe"
+    pole_5: "Häufig, auch stilistisch (Code-Switching)"
+
+  reader_address:
+    label: "Leseransprache"
+    pole_1: "'man' / passivisch / neutral"
+    pole_3: "'ihr/euch' (Community)"
+    pole_5: "'du' (direkt, persönlich)"
+
+  # --- TEXTENDE ---
+
+  ending_type:
+    label: "Textende-Typ"
+    pole_1: "Offene Frage / Einladung zur Diskussion"
+    pole_3: "Pointe mit Augenzwinkern"
+    pole_5: "Harte Haltung oder Provokation ('Punkt.')"
+
+  gendering:
+    label: "Gendern"
+    pole_1: "Kein Gendern (generisches Maskulinum)"
+    pole_3: "Doppelpunkt (Leser:innen, Entwickler:innen)"
+    pole_5: "Ausgeschrieben (Leserinnen und Leser)"
+
+
+# -----------------------------------------------------------------------------
+# TABOO TOPICS (Themen-Ausschlüsse)
+# -----------------------------------------------------------------------------
+# Aktivierte Topics werden beim Schreiben vermieden und bei der Analyse geprüft.
+# Jeder Topic hat Erkennungsmuster für automatische Prüfung.
+
+taboo_catalog:
+  Kriegsmetaphern:
+    description: "Militärische Sprache und Kampfmetaphern vermeiden"
+    examples: "❌ 'Preiskampf', 'den Markt erobern', 'Daten als Munition'"
+  Rassismus:
+    description: "Rassistische Sprache, Stereotype, koloniale Metaphern vermeiden"
+    examples: "❌ 'Blacklist/Whitelist', 'Master/Slave', 'Wildwest-Methoden'"
+  Sexismus:
+    description: "Sexistische Sprache und Gender-Stereotype vermeiden"
+    examples: "❌ 'Manpower', 'Girl Boss', 'Mädchen für alles'"
+  Ableismus:
+    description: "Sprache, die Behinderungen als Metapher für Schlechtes nutzt"
+    examples: "❌ 'blind dafür', 'lahme Lösung', 'schwachsinnig'"
+  Gewaltverherrlichung:
+    description: "Gewalt verherrlichende oder verharmlosende Sprache"
+    examples: "❌ 'Killer Feature', 'brutal einfach', 'vernichtend gut'"
+  Tier-Metaphern (abwertend):
+    description: "Abwertende Vergleiche mit Tieren"
+    examples: "❌ 'wie die Lemminge', 'Herdentrieb', 'Parasit'"
+  Body Shaming:
+    description: "Körperbezogene Abwertung vermeiden"
+    examples: "❌ 'aufgeblähter Code', 'magere Ergebnisse'"
+
+
+# -----------------------------------------------------------------------------
+# PRESETS
+# -----------------------------------------------------------------------------
+
+presets:
+
+  roman_zenner_shoptechblog:
+    label: "Roman Zenner – ShopTechBlog (Analyst-Modus)"
+    parameters:
+      sentence_length: 4
+      syntax_complexity: 4
+      short_sentence_frequency: 2
+      question_frequency: 4
+      paragraph_length: 4
+      historical_depth: 5
+      anecdote_density: 4
+      opinion_strength: 3
+      hedging: 4
+      counterbalance: 5
+      confrontation: 1
+      irony_edge: 3
+      metaphor_density: 4
+      cultural_references: 4
+      antithesis_density: 4
+      pacing: 2
+      rhythm_variation: 3
+      vocabulary_register: 3
+      anglicism_density: 4
+      reader_address: 3
+      ending_type: 2
+      gendering: 3
+    taboo_topics:
+      - "Kriegsmetaphern"
+      - "Rassismus"
+      - "Sexismus"
+      - "Ableismus"
+      - "Gewaltverherrlichung"
+    include_phrases:
+      - "Die Rede ist natürlich von…"
+      - "Fairerweise muss man sagen"
+      - "Lasst uns das mal Schritt für Schritt durchgehen"
+      - "Meine Vermutung ist eher, dass…"
+      - "Was bleibt ist die ernüchternde Erkenntnis, dass…"
+      - "Spannend wird die Frage, ob…"
+      - "Sagen wir so:"
+      - "Um es vorwegzunehmen:"
+      - "Der Vollständigkeit halber"
+      - "Für mich als alten [X]-Heini"
+    exclude_phrases:
+      - "Unfug"
+      - "Bullshit"
+      - "Augenwischerei"
+      - "Dampfplauderei"
+      - "Punkt."
+      - "Hat da jemand das Memo nicht gelesen?"
+      - "Jemand zu Hause, McFly?"
+    include_terms:
+      - "mausern"
+      - "aufdröseln"
+      - "einordnen"
+      - "hiesig"
+      - "derzeit"
+      - "besagte(r/s)"
+      - "natürlich"          # ironische Partikel
+      - "durchaus"
+      - "tatsächlich"
+    exclude_terms:
+      - "disruptiv"
+      - "Game-Changer"
+      - "Synergien"
+      - "Mehrwert"
+      - "super"
+      - "mega"
+      - "in der heutigen Zeit"
+      - "mehr denn je"
+      - "es ist kein Geheimnis, dass"
+      - "Es ist wichtig zu beachten"
+      - "Zusammenfassend lässt sich sagen"
+
+  agenticpunk:
+    label: "agenticPunk"
+    parameters:
+      sentence_length: 2
+      syntax_complexity: 2
+      short_sentence_frequency: 4
+      question_frequency: 3
+      paragraph_length: 2
+      historical_depth: 2
+      anecdote_density: 1
+      opinion_strength: 5
+      hedging: 1
+      counterbalance: 1
+      confrontation: 4
+      irony_edge: 4
+      metaphor_density: 3
+      cultural_references: 3
+      antithesis_density: 5
+      pacing: 5
+      rhythm_variation: 5
+      vocabulary_register: 2
+      anglicism_density: 3
+      reader_address: 3
+      ending_type: 5
+      gendering: 3
+    taboo_topics:
+      - "Kriegsmetaphern"
+      - "Rassismus"
+      - "Sexismus"
+      - "Ableismus"
+      - "Gewaltverherrlichung"
+    include_phrases:
+      - "Kurze Frage:"
+      - "Mal ehrlich:"
+      - "Hat da jemand das Memo nicht gelesen?"
+      - "Zeig mir den Use Case, nicht das Pitch Deck."
+      - "Klingt nach Zukunft. Fühlt sich an wie [Jahr]."
+      - "Auf dem Papier brillant. In der Praxis: [ernüchternde Realität]."
+      - "Das ist – mit Verlaub – Unfug."
+      - "Netter Versuch. Aber [Gegenargument]."
+      - "Aber hey – beweist uns das Gegenteil."
+      - "Die Pressemeldung klingt nach Revolution. Das Produkt nach Evolution. Bestenfalls."
+      - "Wir haben es ausprobiert, damit ihr es nicht müsst."
+      - "Funktioniert. Aber [wichtige Einschränkung]."
+      - "Funktioniert nicht. Und zwar [konkret warum]."
+      - "Das Versprechen: [X]. Die Realität: [Y]."
+      - "In der Theorie elegant. In der Praxis eine Zumutung."
+    exclude_phrases:
+      - "Fairerweise muss man sagen"
+      - "Es bleibt abzuwarten"
+      - "Es bleibt spannend"
+      - "Die Zeit wird zeigen"
+      - "Meine Vermutung ist eher"
+      - "Ich könnte mir vorstellen"
+      - "Spannend wird die Frage"
+      - "Der Vollständigkeit halber"
+    include_terms:
+      - "Unfug"
+      - "Bullshit"               # sparsam aber wirkungsvoll
+      - "Augenwischerei"
+      - "Mogelpackung"
+      - "Dampfplauderei"
+      - "Realitätscheck"
+      - "entlarven"
+      - "zerlegen"
+      - "durchleuchten"
+      - "kranken an"
+      - "vorbeischrammen an"
+      - "in der Praxis"
+      - "im echten Leben"
+      - "ausprobieren"
+      - "scheitern an"
+    exclude_terms:
+      - "spannend"
+      - "interessant"
+      - "innovativ"
+      - "disruptiv"
+      - "transformativ"
+      - "Mehrwert"
+      - "Game-Changer"
+      - "in der heutigen digitalen Welt"
+      - "Es ist wichtig zu beachten"
+      - "Zusammenfassend lässt sich sagen"
+
+  hirnbrise:
+    label: "Roman Zenner – hirnbrise (Kurator-Modus)"
+    parameters:
+      sentence_length: 3
+      syntax_complexity: 3
+      short_sentence_frequency: 2
+      question_frequency: 3
+      paragraph_length: 3
+      historical_depth: 2
+      anecdote_density: 5
+      opinion_strength: 3
+      hedging: 3
+      counterbalance: 4
+      confrontation: 1
+      irony_edge: 3
+      metaphor_density: 3
+      cultural_references: 5
+      antithesis_density: 2
+      pacing: 3
+      rhythm_variation: 3
+      vocabulary_register: 2
+      anglicism_density: 3
+      reader_address: 5
+      ending_type: 1
+      gendering: 3
+    taboo_topics:
+      - "Kriegsmetaphern"
+      - "Rassismus"
+      - "Sexismus"
+      - "Ableismus"
+      - "Gewaltverherrlichung"
+    include_phrases:
+      - "Hallo & einen schönen [Wochentag]"
+      - "Viele Grüße & bis nächste Woche, Roman"
+      - "ans Herz gelegt"
+      - "What could possibly go wrong?"
+      - "Just saying."
+      - "Wer verstehen will, wie [Thema], kommt an diesem Buch nicht vorbei."
+    exclude_phrases:
+      - "Unfug"
+      - "Bullshit"
+      - "Augenwischerei"
+      - "Hat da jemand das Memo nicht gelesen?"
+    include_terms:
+      - "eindrücklich"
+      - "fesselnd"
+      - "augenöffnend"
+      - "lese-orthopädisch"
+      - "Weckruf und Wegweiser"
+    exclude_terms:
+      - "disruptiv"
+      - "Game-Changer"
+      - "Synergien"
+      - "Mehrwert"
+      - "Es ist wichtig zu beachten"
+
+
+# -----------------------------------------------------------------------------
+# NUTZUNG
+# -----------------------------------------------------------------------------
+#
+# 1. SCHREIBEN mit Preset:
+#    "Schreib agenticpunk über [Thema]"
+#
+# 2. SCHREIBEN mit Override:
+#    "Schreib agenticpunk, aber hedging:3 und confrontation:2"
+#
+# 3. ANALYSE eines bestehenden Textes:
+#    "Miss diesen Text gegen agenticpunk"
+#    → Gibt pro Dimension den Ist-Wert und die Abweichung zum Soll aus.
+#
+# 4. VERGLEICH zweier Texte:
+#    "Vergleich Text A vs. Text B auf der Parameter-Skala"
+#    → Zeigt wo die Texte auseinanderlaufen.
+#
+# 5. PHRASEN-STEUERUNG:
+#    include_phrases  = Bausteine, die aktiv eingesetzt werden sollen (mind. 1–2 pro Text)
+#    exclude_phrases  = Wendungen, die in diesem Preset NICHT vorkommen dürfen
+#    include_terms    = Bevorzugtes Vokabular (natürlich einstreuen, nicht erzwingen)
+#    exclude_terms    = Verbotene Wörter/Floskeln (harte Regel, nie verwenden)
+#
+# 6. CUSTOM PRESET erstellen:
+#    Kopiere ein bestehendes Preset, passe die Werte an, gib ihm einen Namen.
