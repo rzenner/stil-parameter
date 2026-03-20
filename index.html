@@ -360,6 +360,13 @@
           <div class="stats" id="textStats"></div>
           <div class="results" id="results"></div>
           <div class="found-phrases" id="foundPhrases"></div>
+          <div id="saveAsPresetWrap" style="display:none;margin-top:16px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;">
+            <div style="font-size:12px;color:var(--text2);margin-bottom:8px;">Analyse-Ergebnis als neues Preset speichern — übernimmt die gemessenen Werte als Zielwerte.</div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input id="saveAsPresetName" placeholder="Preset-Name…" style="flex:1;font-size:13px;font-family:inherit;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:6px;padding:7px 12px;outline:none;">
+              <button class="analyze-btn" onclick="saveAnalysisAsPreset()" style="margin:0;">Als Preset speichern</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1019,6 +1026,7 @@ function analyzeText() {
   readSlidersIntoCurrent();
   const target = current.parameters;
   const measured = measureText(text);
+  lastMeasured = measured;
 
   const words = text.split(/\s+/).filter(Boolean).length;
   const sents = splitSentences(text).length;
@@ -1166,6 +1174,9 @@ function analyzeText() {
     tabooSec.appendChild(tabooList);
     fpWrap.appendChild(tabooSec);
   }
+
+  // Show "Save as Preset" option
+  document.getElementById('saveAsPresetWrap').style.display = 'block';
 }
 
 function splitSentences(text) {
@@ -1230,6 +1241,48 @@ function clamp(v, min, max) { return Math.min(max, Math.max(min, v)); }
 // ═══════════════════════════════════════════════════════════════
 // YAML EXPORT
 // ═══════════════════════════════════════════════════════════════
+// Store last analysis result globally
+let lastMeasured = null;
+
+function saveAnalysisAsPreset() {
+  if (!lastMeasured) return;
+  const nameInput = document.getElementById('saveAsPresetName');
+  const name = nameInput.value.trim();
+  if (!name) { nameInput.focus(); return; }
+  const key = name.toLowerCase().replace(/[^a-z0-9äöü_]/g, '_');
+
+  // Build new preset from measured values (rounded to nearest int 1-5)
+  const params = {};
+  for (const dk of Object.keys(DIMS)) {
+    params[dk] = NOT_MEASURABLE.has(dk)
+      ? (current.parameters[dk] || 3)  // keep current preset value for non-measurable
+      : Math.round(clamp(lastMeasured[dk] ?? 3, 1, 5));
+  }
+
+  presets[key] = {
+    label: name,
+    parameters: params,
+    include_phrases: [],
+    exclude_phrases: [],
+    include_terms: [],
+    exclude_terms: [],
+    taboo_topics: [...(current.taboo_topics || [])],
+  };
+  saveToStorage();
+  populateSelect();
+  document.getElementById('presetSelect').value = key;
+  nameInput.value = '';
+  // Switch to new preset
+  setCurrent(JSON.parse(JSON.stringify(presets[key])));
+  renderSliders(); renderPhrases(); renderTaboos(); buildPreview();
+  // Flash confirmation
+  const wrap = document.getElementById('saveAsPresetWrap');
+  const origBg = wrap.style.background;
+  wrap.style.background = '#1a2e22';
+  wrap.style.borderColor = '#2a5a3a';
+  setTimeout(() => { wrap.style.background = origBg; wrap.style.borderColor = ''; }, 1200);
+}
+
 function exportYAML() {
   readSlidersIntoCurrent();
   const key = document.getElementById('presetSelect').value;
