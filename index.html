@@ -313,6 +313,7 @@
     <button class="primary" onclick="savePreset()">Speichern</button>
     <button onclick="deletePreset()">Löschen</button>
     <button onclick="exportYAML()">YAML Export</button>
+    <button class="primary" onclick="copyPrompt()">Prompt kopieren</button>
   </div>
 
   <div class="tab-bar">
@@ -1360,6 +1361,109 @@ function exportYAML() {
     }
   }
   navigator.clipboard.writeText(yaml).then(() => alert('YAML in Zwischenablage kopiert.'));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PROMPT EXPORT
+// ═══════════════════════════════════════════════════════════════
+function copyPrompt() {
+  readSlidersIntoCurrent();
+  const p = current.parameters;
+  const key = document.getElementById('presetSelect').value;
+  const label = presets[key]?.label || key;
+
+  // Map numeric values to human-readable descriptions
+  function desc(dk, val) {
+    const d = DIMS[dk];
+    if (!d) return '';
+    if (val <= 1) return d.p1;
+    if (val >= 5) return d.p5;
+    if (val <= 2) return 'Eher ' + d.p1.toLowerCase();
+    if (val >= 4) return 'Eher ' + (d.p5||'').toLowerCase();
+    return d.p3 || 'Mittel';
+  }
+
+  // Build parameter table — only non-default (!=3) values get emphasis
+  let paramBlock = '';
+  for (const g of GROUPS) {
+    const dims = g.dims.map(dk => {
+      const v = p[dk] || 3;
+      return `- ${DIMS[dk].label}: ${v}/5 → ${desc(dk, v)}`;
+    });
+    paramBlock += `\n### ${g.label}\n${dims.join('\n')}\n`;
+  }
+
+  // Conflicts
+  const conflicts = getConflicts();
+  let conflictBlock = '';
+  if (conflicts.length > 0) {
+    conflictBlock = '\n## Bekannte Spannungen in diesem Preset\n' +
+      conflicts.map(c => `- ${DIMS[c.a].label} × ${DIMS[c.b].label}: ${c.msg}`).join('\n') +
+      '\nLöse diese Spannungen kreativ auf, statt eine Seite zu ignorieren.\n';
+  }
+
+  // Phrases
+  let phraseBlock = '';
+  if (current.include_phrases?.length) {
+    phraseBlock += '\n## Phrasen-Bausteine (1–2 pro Text natürlich einbauen)\n';
+    phraseBlock += current.include_phrases.map(p => `- "${p}"`).join('\n') + '\n';
+  }
+  if (current.exclude_phrases?.length) {
+    phraseBlock += '\n## Verbotene Phrasen (nie verwenden)\n';
+    phraseBlock += current.exclude_phrases.map(p => `- "${p}"`).join('\n') + '\n';
+  }
+  if (current.include_terms?.length) {
+    phraseBlock += '\n## Bevorzugtes Vokabular (natürlich einstreuen)\n';
+    phraseBlock += current.include_terms.map(p => `- ${p}`).join('\n') + '\n';
+  }
+  if (current.exclude_terms?.length) {
+    phraseBlock += '\n## Verbotene Wörter (harte Regel)\n';
+    phraseBlock += current.exclude_terms.map(p => `- ${p}`).join('\n') + '\n';
+  }
+
+  // Taboo topics
+  let tabooBlock = '';
+  if (current.taboo_topics?.length) {
+    tabooBlock = '\n## Themen-Ausschlüsse (Taboo Topics)\nFolgende Themenbereiche und ihre typische Sprache NICHT verwenden:\n';
+    for (const topic of current.taboo_topics) {
+      const info = TABOO_CATALOG[topic];
+      if (info) {
+        tabooBlock += `- **${topic}**: ${info.desc}. ${info.examples}\n`;
+      } else {
+        tabooBlock += `- **${topic}**\n`;
+      }
+    }
+  }
+
+  // Gendering instruction
+  const genVal = p.gendering || 3;
+  let genderInstr;
+  if (genVal <= 1) genderInstr = 'Verwende das generische Maskulinum (Leser, Entwickler, Entscheider).';
+  else if (genVal <= 2) genderInstr = 'Gendere nur gelegentlich, bevorzuge neutrale Formulierungen.';
+  else if (genVal <= 3) genderInstr = 'Verwende Gendern mit Doppelpunkt (Leser:innen, Entwickler:innen, Entscheider:innen).';
+  else if (genVal <= 4) genderInstr = 'Gendere konsequent mit Doppelpunkt (Leser:innen). Bei wichtigen Stellen ausgeschrieben.';
+  else genderInstr = 'Gendere konsequent ausgeschrieben (Leserinnen und Leser, Entwicklerinnen und Entwickler).';
+
+  // Assemble prompt
+  const prompt = `# Stil-Anweisung: ${label}
+
+Du schreibst im Stil-Preset **${label}**. Halte dich exakt an die folgenden Parameter.
+
+## Stil-Parameter (Skala 1–5)
+${paramBlock}
+## Gendern
+${genderInstr}
+${conflictBlock}${phraseBlock}${tabooBlock}
+## Wichtig
+- Die Parameter definieren Richtung, nicht exakte Zählwerte. Ein Satzlänge-Wert von 2 heißt nicht "exakt 10 Wörter", sondern "kurze, knappe Sätze bevorzugen".
+- Phrasen-Bausteine sind Vorschläge — nutze 1–2 pro Text, nicht alle auf einmal.
+- Verbotene Wörter und Phrasen sind harte Regeln. Verwende sie nie, auch nicht in Varianten.
+- Taboo Topics: Vermeide nicht nur die Begriffe, sondern die gesamte Metaphorik des Themenbereichs.
+`;
+
+  navigator.clipboard.writeText(prompt.trim()).then(() => {
+    alert(`Prompt für "${label}" in Zwischenablage kopiert (${prompt.length} Zeichen).`);
+  });
 }
 
 init();
