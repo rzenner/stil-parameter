@@ -492,7 +492,6 @@ const TABOO_CATALOG = {
 // The preview composes a text from these blocks based on current slider values.
 
 const PV = {
-  // ── OPENING: opinion_strength × confrontation ──
   opening: {
     lo_lo: 'Letzte Woche hat TechCorp seinen neuen AI Agent vorgestellt. Schauen wir uns an, was dahintersteckt.',
     lo_hi: 'TechCorp hat einen neuen AI Agent vorgestellt. Der Blick unter die Haube dürfte aufschlussreich sein.',
@@ -501,8 +500,6 @@ const PV = {
     hi_lo: 'TechCorp nennt seinen neuen Chatbot einen "autonomen AI Agent". Das Pitch Deck verspricht autonome Workflows für den Mittelstand. Die Realität sieht anders aus.',
     hi_hi: 'Kurze Frage: Seit wann ist ein Chatbot mit drei API-Calls ein "autonomer AI Agent"? Seit die Marketing-Abteilung von TechCorp das Pitch Deck aktualisiert hat, offensichtlich.',
   },
-
-  // ── CONTEXT: historical_depth × sentence_length × syntax_complexity ──
   context: {
     none: '',
     short_simple: 'AI Agents sind das Thema der Stunde. Jede Woche ein neues Framework. Jede Woche neue Versprechen.',
@@ -510,44 +507,53 @@ const PV = {
     long_simple: 'Die Idee autonomer Software-Agenten ist nicht neu. Schon in den 1990ern gab es Multi-Agenten-Systeme in der Forschung. Was neu ist: die Sprachmodelle dahinter sind jetzt gut genug, um Aufgaben in natürlicher Sprache zu verstehen. Das hat eine Welle ausgelöst. Jede Woche taucht ein neues Agent-Framework auf.',
     long_complex: 'Was als akademische Nische begann – Multi-Agenten-Systeme, die in den 1990ern an Universitäten erforscht wurden und über Jahrzehnte ein Schattendasein fristeten –, hat sich durch die rasante Entwicklung großer Sprachmodelle zu einem der beherrschenden Themen der Software-Branche entwickelt, wobei die Grenze zwischen echten Agenten und aufgehübschten Chatbots zunehmend verwischt.',
   },
-
-  // ── ANALYSIS: hedging × counterbalance ──
+  // hedging × counterbalance – jetzt 6 Varianten für bessere Sichtbarkeit
   analysis: {
     no_hedge_no_cb: 'Das Produkt kann keine mehrstufigen Aufgaben eigenständig lösen. Es ist ein Chatbot mit neuem Label. Die Tool-Integration beschränkt sich auf drei vorgefertigte API-Calls. Von Autonomie keine Spur.',
-    no_hedge_cb: 'Das Produkt kann keine mehrstufigen Aufgaben eigenständig lösen. Es ist ein Chatbot mit neuem Label. Die Tool-Integration beschränkt sich auf drei vorgefertigte API-Calls. Das Interface allerdings ist solide – und die Dokumentation brauchbar.',
+    no_hedge_mid_cb: 'Das Produkt kann keine mehrstufigen Aufgaben eigenständig lösen. Die Tool-Integration beschränkt sich auf drei vorgefertigte API-Calls. Immerhin: das Interface ist solide.',
+    no_hedge_full_cb: 'Das Produkt kann keine mehrstufigen Aufgaben eigenständig lösen. Die Tool-Integration beschränkt sich auf drei API-Calls. Allerdings muss man einräumen, dass das Interface solide ist, die Dokumentation brauchbar – und der Ansatz grundsätzlich stimmt. Nur die Umsetzung eben noch nicht.',
+    mid_hedge_no_cb: 'Das Produkt scheint noch nicht den Reifegrad erreicht zu haben, den die Ankündigung suggeriert. Die Tool-Integration wirkt begrenzt.',
     mid_hedge_mid_cb: 'Das Produkt scheint noch nicht den Reifegrad erreicht zu haben, den die Ankündigung suggeriert. Die Tool-Integration wirkt begrenzt, auch wenn der Ansatz grundsätzlich in die richtige Richtung geht.',
+    full_hedge_no_cb: 'Meine Vermutung ist eher, dass das Produkt noch nicht den Reifegrad erreicht hat, den man sich erhofft hatte. Ich bin skeptisch, ob drei API-Calls als "Tool-Integration" durchgehen.',
     full_hedge_full_cb: 'Meine Vermutung ist eher, dass das Produkt noch nicht den Reifegrad erreicht hat, den man sich erhofft hatte. Ich bin skeptisch, ob drei API-Calls als "Tool-Integration" durchgehen – aber fairerweise muss man sagen, dass der Ansatz durchaus Potenzial hat und die Roadmap vielversprechend aussieht.',
   },
-
-  // ── QUESTION BLOCK: question_frequency ──
   questions: {
     none: '',
     few: 'Wer orchestriert das alles im Ernstfall?',
     many: 'Wer orchestriert das alles im Ernstfall? Und wer übernimmt die Verantwortung, wenn der Agent eigenständig Entscheidungen trifft? Hat da jemand ans Monitoring gedacht?',
   },
-
-  // ── SHORT PUNCHES: short_sentence_frequency × rhythm_variation ──
+  // short_sentence_frequency × rhythm_variation
   punches: {
-    none: 'Die Ergebnisse unseres Tests waren ernüchternd und blieben hinter den Erwartungen zurück.',
-    few: 'Die Ergebnisse waren ernüchternd. Drei von fünf Workflows scheiterten an trivialen Aufgaben.',
-    many: 'Wir haben es getestet. Ergebnis: drei von fünf Workflows gescheitert. An trivialen Aufgaben. Nicht an Edge Cases – am Standardfall. Punkt.',
+    none_even: 'Die Ergebnisse unseres Tests waren ernüchternd und blieben hinter den Erwartungen zurück.',
+    none_varied: 'Die Ergebnisse unseres Tests waren ernüchternd und blieben deutlich hinter den Erwartungen zurück, die das Marketing geweckt hatte.',
+    few_even: 'Die Ergebnisse waren ernüchternd. Drei von fünf Workflows scheiterten. An trivialen Aufgaben.',
+    few_varied: 'Die Ergebnisse waren ernüchternd. Drei von fünf Workflows scheiterten an trivialen Aufgaben – nicht etwa an obskuren Edge Cases, sondern am absoluten Standardfall.',
+    many_even: 'Getestet. Drei von fünf gescheitert. Triviale Aufgaben. Standardfall. Punkt.',
+    many_varied: 'Wir haben es getestet. Ergebnis: drei von fünf Workflows gescheitert. An trivialen Aufgaben. Nicht an Edge Cases – am Standardfall, der in der Demo noch so elegant aussah. Punkt.',
   },
-
-  // ── IRONY BLOCK: irony_edge × cultural_references ──
+  // irony_edge × cultural_references
   irony: {
-    none: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung – eine Aufgabe, die seit zwei Jahren jedes LLM beherrscht.',
-    light: 'Die Produktdemo zeigte – man halte sich fest – eine E-Mail-Zusammenfassung. Das beherrscht jedes LLM seit zwei Jahren, aber Hauptsache "KI-gestützt" steht drauf.',
-    sharp: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung. Bahnbrechend. Das beherrscht jedes LLM seit 2023, aber TechCorp hat ein schickes Dashboard drumherum gebaut und nennt es "autonome Intelligenz". Ungefähr so autonom wie ein Aufzug mit zwei Knöpfen.',
+    none_none: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung – eine Aufgabe, die seit zwei Jahren jedes LLM beherrscht.',
+    none_ref: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung – eine Aufgabe, die seit zwei Jahren jedes LLM beherrscht. Nicht gerade ein "One more thing"-Moment.',
+    light_none: 'Die Produktdemo zeigte – man halte sich fest – eine E-Mail-Zusammenfassung. Das beherrscht jedes LLM seit zwei Jahren, aber Hauptsache "KI-gestützt" steht drauf.',
+    light_ref: 'Die Produktdemo zeigte – man halte sich fest – eine E-Mail-Zusammenfassung. "KI-gestützt" steht drauf. Was als nächstes – ein "autonomer" Taschenrechner? Alexa, wie sagt man dazu auf Deutsch?',
+    sharp_none: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung. Bahnbrechend. Das beherrscht jedes LLM seit 2023, aber TechCorp hat ein Dashboard drumherum gebaut und nennt es "autonome Intelligenz".',
+    sharp_ref: 'Die Produktdemo zeigte eine E-Mail-Zusammenfassung. Bahnbrechend. Das beherrscht jedes LLM seit 2023, aber TechCorp hat ein Dashboard drumherum gebaut und nennt es "autonome Intelligenz". Ungefähr so autonom wie ein Aufzug mit zwei Knöpfen. Oder wie Captain Kirk es sagen würde: "Beam me up, Scotty – hier gibt\'s kein intelligentes Leben."',
   },
-
-  // ── ANTITHESIS: antithesis_density ──
   antithesis: {
     none: '',
     some: 'Die Pressemeldung verspricht Autonomie. Das Produkt liefert Automatisierung. Das ist nicht dasselbe.',
     dense: 'Die Pressemeldung verspricht Autonomie – das Produkt liefert Automatisierung. Das Pitch Deck zeigt Workflows – die API unterstützt Einzelabfragen. Der CEO sagt "Enterprise-ready" – die Docs empfehlen "nicht für Produktion".',
   },
-
-  // ── READER ADDRESS: reader_address × gendering ──
+  // vocabulary_register × anglicism_density
+  register: {
+    casual_few: 'Kurz gesagt: das Ding kann nicht, was draufsteht.',
+    casual_many: 'Kurz gesagt: das Ding performt nicht wie im Pitch. Der Workflow-Orchestration-Layer ist im Grunde ein glorified API-Gateway.',
+    mid_few: 'Die versprochene Funktionalität ist nicht gegeben. Die Werkzeuganbindung bleibt rudimentär.',
+    mid_many: 'Die versprochene Functionality ist nicht gegeben. Die Tool-Integration bleibt rudimentär, der Orchestration Layer ein API-Gateway mit Branding.',
+    formal_few: 'Die angekündigte Funktionalität entspricht nicht dem gelieferten Leistungsumfang. Die Werkzeuganbindung verbleibt auf einem rudimentären Niveau.',
+    formal_many: 'Die angekündigte Functionality entspricht nicht dem gelieferten Leistungsumfang. Der Orchestration Layer operiert de facto als API-Gateway mit minimaler Abstraction.',
+  },
   address: {
     neutral_nogender: 'Unternehmen sollten genau hinschauen, bevor sie Budget freigeben. Entscheider müssen wissen, was sie kaufen.',
     neutral_gender: 'Unternehmen sollten genau hinschauen, bevor sie Budget freigeben. Entscheider:innen müssen wissen, was sie kaufen.',
@@ -555,26 +561,20 @@ const PV = {
     ihr_nogender: 'Schaut genau hin, bevor ihr Budget freigebt. Als Entwickler und Entscheider solltet ihr wissen, was ihr kauft.',
     ihr_gender: 'Schaut genau hin, bevor ihr Budget freigebt. Als Entwickler:innen und Entscheider:innen solltet ihr wissen, was ihr kauft.',
     ihr_full: 'Schaut genau hin, bevor ihr Budget freigebt. Als Entwicklerinnen und Entwickler solltet ihr wissen, was ihr kauft.',
-    du_nogender: 'Schau genau hin, bevor du Budget freigibst.',
-    du_gender: 'Schau genau hin, bevor du Budget freigibst.',
-    du_full: 'Schau genau hin, bevor du Budget freigibst.',
+    du_nogender: 'Schau genau hin, bevor du Budget freigibst. Als Entwickler und Entscheider musst du wissen, was du kaufst.',
+    du_gender: 'Schau genau hin, bevor du Budget freigibst. Als Entwickler:in musst du wissen, was du kaufst.',
+    du_full: 'Schau genau hin, bevor du Budget freigibst. Als Entwicklerin oder Entwickler musst du wissen, was du kaufst.',
   },
-
-  // ── ENDING: ending_type ──
   ending: {
     open: 'Was meint ihr – sehen wir hier den Anfang von etwas Großem, oder wiederholt sich die Geschichte? Wir würden uns über eure Einschätzung freuen.',
     pointe: 'Falls TechCorp das liest: Weniger Pitch Deck, mehr Produkt. Dann reden wir weiter.',
     hard: 'Wer das anders sieht: Kommentare sind offen. Aber bringt Substanz mit. Punkt.',
   },
-
-  // ── ANECDOTE: anecdote_density ──
   anecdote: {
     none: '',
     light: 'Wir haben den Agent letzte Woche im Team getestet.',
     full: 'Es war eigentlich ein ruhiger Dienstag, als der Link zur Beta in unserem Slack landete. "Müsst ihr euch anschauen", schrieb ein Kollege. Also haben wir uns angeschaut.',
   },
-
-  // ── METAPHOR: metaphor_density ──
   metaphor: {
     none: '',
     some: 'Unter der Haube steckt weniger als versprochen.',
@@ -589,107 +589,167 @@ function pick(obj, ...keys) {
 
 function lv(val) { return val <= 2 ? 'lo' : val >= 4 ? 'hi' : 'mid'; }
 
+// ═══════════════════════════════════════════════════════════════
+// CONFLICT WARNINGS
+// ═══════════════════════════════════════════════════════════════
+const CONFLICTS = [
+  { a:'confrontation', b:'hedging', when:(a,b) => a>=4 && b>=4,
+    msg:'Hohe Konfrontation + hohes Hedging widersprechen sich. Ein Text kann nicht gleichzeitig angreifen und relativieren.' },
+  { a:'opinion_strength', b:'hedging', when:(a,b) => a>=4 && b>=4,
+    msg:'Starke Meinung + starkes Hedging ist widersprüchlich. "Ich bin überzeugt, dass es vielleicht so sein könnte" klingt unentschlossen.' },
+  { a:'opinion_strength', b:'counterbalance', when:(a,b) => a>=5 && b>=4,
+    msg:'Maximale Meinungsstärke + hohe Relativierung verwässert die Position. Wer alles gleich wieder einschränkt, hat keine These.' },
+  { a:'confrontation', b:'counterbalance', when:(a,b) => a>=4 && b>=4,
+    msg:'Hohe Konfrontation + hohe Relativierung ist inkonsistent. Erst attackieren, dann "fairerweise muss man sagen" — wirkt unglaubwürdig.' },
+  { a:'pacing', b:'paragraph_length', when:(a,b) => a>=4 && b>=4,
+    msg:'Hohes Tempo + lange Absätze erzeugen Spannung. Schneller Stil braucht kurze Absätze.' },
+  { a:'pacing', b:'sentence_length', when:(a,b) => a>=4 && b>=4,
+    msg:'Hohes Tempo + lange Sätze passt nicht. Schneller Rhythmus braucht kürzere Sätze.' },
+  { a:'pacing', b:'historical_depth', when:(a,b) => a>=4 && b>=4,
+    msg:'Hohes Tempo + ausführliche Geschichtsstunde bremst sich gegenseitig aus.' },
+  { a:'short_sentence_frequency', b:'syntax_complexity', when:(a,b) => a>=4 && b>=4,
+    msg:'Viele Kurzsätze + hohe Verschachtelung widersprechen sich. Eins von beiden dominiert.' },
+  { a:'irony_edge', b:'vocabulary_register', when:(a,b) => a>=4 && b>=5,
+    msg:'Beißende Ironie + fachlich-dichtes Register ist ungewöhnlich. Ironie braucht Lockerheit.' },
+  { a:'anecdote_density', b:'pacing', when:(a,b) => a>=4 && b>=5,
+    msg:'Ausführliche Anekdoten + maximales Tempo widerspricht sich. Anekdoten brauchen Raum.' },
+];
+
+function getConflicts() {
+  const p = current.parameters;
+  return CONFLICTS.filter(c => c.when(p[c.a]||3, p[c.b]||3));
+}
+
 function buildPreview() {
   const p = current.parameters;
 
-  // Opening
+  // Opening: opinion_strength × confrontation
   const opKey = lv(p.opinion_strength) + '_' + lv(p.confrontation);
   const opening = pick(PV.opening, opKey, 'mid_lo');
 
-  // Anecdote
+  // Anecdote: anecdote_density
   const anecdote = p.anecdote_density <= 2 ? PV.anecdote.none
     : p.anecdote_density <= 3 ? PV.anecdote.light : PV.anecdote.full;
 
-  // Context
+  // Context: historical_depth × sentence_length × syntax_complexity
   let context = PV.context.none;
   if (p.historical_depth >= 2) {
-    const len = p.sentence_length >= 4 ? 'long' : p.sentence_length <= 2 ? 'short' : 'short';
+    const len = p.sentence_length >= 4 ? 'long' : 'short';
     const cpx = p.syntax_complexity >= 4 ? 'complex' : 'simple';
     context = pick(PV.context, len + '_' + cpx, 'short_simple');
   }
 
-  // Analysis
+  // Analysis: hedging × counterbalance (6 Varianten)
   const hLv = lv(p.hedging), cbLv = lv(p.counterbalance);
   let analysisKey;
   if (hLv === 'lo' && cbLv === 'lo') analysisKey = 'no_hedge_no_cb';
-  else if (hLv === 'lo' && cbLv !== 'lo') analysisKey = 'no_hedge_cb';
-  else if (hLv === 'hi' || cbLv === 'hi') analysisKey = 'full_hedge_full_cb';
-  else analysisKey = 'mid_hedge_mid_cb';
+  else if (hLv === 'lo' && cbLv === 'mid') analysisKey = 'no_hedge_mid_cb';
+  else if (hLv === 'lo' && cbLv === 'hi') analysisKey = 'no_hedge_full_cb';
+  else if (hLv === 'mid' && cbLv === 'lo') analysisKey = 'mid_hedge_no_cb';
+  else if (hLv === 'mid') analysisKey = 'mid_hedge_mid_cb';
+  else if (hLv === 'hi' && cbLv === 'lo') analysisKey = 'full_hedge_no_cb';
+  else analysisKey = 'full_hedge_full_cb';
   const analysis = PV.analysis[analysisKey];
 
-  // Questions
+  // Questions: question_frequency
   const questions = p.question_frequency <= 2 ? PV.questions.none
     : p.question_frequency <= 3 ? PV.questions.few : PV.questions.many;
 
-  // Metaphor
+  // Metaphor: metaphor_density
   const metaphor = p.metaphor_density <= 2 ? PV.metaphor.none
     : p.metaphor_density <= 3 ? PV.metaphor.some : PV.metaphor.dense;
 
-  // Punches
-  const punches = p.short_sentence_frequency <= 2 ? PV.punches.none
-    : p.short_sentence_frequency <= 3 ? PV.punches.few : PV.punches.many;
+  // Punches: short_sentence_frequency × rhythm_variation
+  const ssLv = p.short_sentence_frequency <= 2 ? 'none' : p.short_sentence_frequency <= 3 ? 'few' : 'many';
+  const rvLv = p.rhythm_variation <= 2 ? 'even' : 'varied';
+  const punches = pick(PV.punches, ssLv+'_'+rvLv, 'few_varied');
 
-  // Irony
-  const irony = p.irony_edge <= 2 ? PV.irony.none
-    : p.irony_edge <= 3 ? PV.irony.light : PV.irony.sharp;
+  // Irony: irony_edge × cultural_references
+  const ieLv = p.irony_edge <= 2 ? 'none' : p.irony_edge <= 3 ? 'light' : 'sharp';
+  const crLv = p.cultural_references <= 2 ? 'none' : 'ref';
+  const irony = pick(PV.irony, ieLv+'_'+crLv, 'light_none');
 
-  // Antithesis
+  // Register: vocabulary_register × anglicism_density
+  const vrLv = p.vocabulary_register <= 2 ? 'casual' : p.vocabulary_register <= 3 ? 'mid' : 'formal';
+  const anLv = p.anglicism_density <= 2 ? 'few' : 'many';
+  const register = pick(PV.register, vrLv+'_'+anLv, 'mid_few');
+
+  // Antithesis: antithesis_density
   const antithesis = p.antithesis_density <= 2 ? PV.antithesis.none
     : p.antithesis_density <= 3 ? PV.antithesis.some : PV.antithesis.dense;
 
-  // Address + Gendering
+  // Address: reader_address × gendering
   const addrLv = p.reader_address <= 2 ? 'neutral' : p.reader_address <= 3 ? 'ihr' : 'du';
   const genLv = (p.gendering||3) <= 2 ? 'nogender' : (p.gendering||3) <= 3 ? 'gender' : 'full';
   const address = pick(PV.address, addrLv+'_'+genLv, 'ihr_gender');
 
-  // Ending
+  // Ending: ending_type
   const ending = p.ending_type <= 2 ? PV.ending.open
     : p.ending_type <= 3 ? PV.ending.pointe : PV.ending.hard;
 
-  // ── Compose heading ──
+  // ── Heading: opinion_strength ──
   let heading;
   if (p.opinion_strength >= 4) heading = 'Nein, euer Chatbot ist kein "AI Agent"';
   else if (p.opinion_strength >= 3) heading = 'TechCorps neuer AI Agent – hält er, was er verspricht?';
   else heading = 'TechCorp stellt neuen AI Agent vor';
 
-  // Sub-heading
-  let subHeadingAnalysis = p.opinion_strength >= 4 ? 'Was nicht okay ist' : 'Die Einordnung';
-  let subHeadingTest = p.pacing >= 4 ? 'Realitätscheck' : 'Was unser Test ergeben hat';
+  // Sub-headings: opinion_strength, pacing
+  const subAnalysis = p.opinion_strength >= 4 ? 'Was nicht okay ist' : 'Die Einordnung';
+  const subTest = p.pacing >= 4 ? 'Realitätscheck' : 'Was unser Test ergeben hat';
 
-  // ── Assemble paragraphs ──
+  // ── Paragraph spacing via paragraph_length ──
+  // Long paragraphs = merge some sections; short = keep separated
+  const mergeParas = p.paragraph_length >= 4;
+
+  // ── Assemble ──
   const sections = [];
-
-  // Title + meta
   sections.push(`<h2>${heading}</h2>`);
-  sections.push(`<div class="pv-meta">Vorschau · Parameter-Werte werden live angewendet</div>`);
+  sections.push(`<div class="pv-meta">Vorschau · Alle 22 Parameter wirken live auf diesen Text</div>`);
 
-  // Opening
   if (anecdote) sections.push(`<p>${anecdote}</p>`);
   sections.push(`<p>${opening}</p>`);
 
-  // Context
   if (context) {
     if (p.historical_depth >= 4) sections.push(`<h3>Eine kurze Einordnung</h3>`);
     sections.push(`<p>${context}</p>`);
   }
 
-  // Analysis
-  sections.push(`<h3>${subHeadingAnalysis}</h3>`);
-  sections.push(`<p>${analysis}</p>`);
-  if (metaphor) sections.push(`<p>${metaphor}</p>`);
-  if (questions) sections.push(`<p>${questions}</p>`);
+  sections.push(`<h3>${subAnalysis}</h3>`);
+  if (mergeParas) {
+    sections.push(`<p>${analysis} ${metaphor} ${questions}</p>`);
+  } else {
+    sections.push(`<p>${analysis}</p>`);
+    if (metaphor) sections.push(`<p>${metaphor}</p>`);
+    if (questions) sections.push(`<p>${questions}</p>`);
+  }
 
-  // Test / Praxis
-  sections.push(`<h3>${subHeadingTest}</h3>`);
+  sections.push(`<h3>${subTest}</h3>`);
   sections.push(`<p>${punches}</p>`);
   sections.push(`<p>${irony}</p>`);
-  if (antithesis) sections.push(`<p>${antithesis}</p>`);
+  sections.push(`<p>${register}</p>`);
+  if (antithesis) {
+    if (mergeParas) {
+      // append to previous
+      sections[sections.length-1] = sections[sections.length-1].replace('</p>', ` ${antithesis}</p>`);
+    } else {
+      sections.push(`<p>${antithesis}</p>`);
+    }
+  }
 
-  // Closing
   sections.push(`<p>${address}</p>`);
   sections.push(`<p><strong>${ending}</strong></p>`);
 
-  document.getElementById('previewText').innerHTML = sections.join('\n');
+  // ── Conflict warnings ──
+  const conflicts = getConflicts();
+  let conflictHTML = '';
+  if (conflicts.length > 0) {
+    conflictHTML = `<div style="margin-top:16px;padding:10px 14px;background:#2e2216;border:1px solid #5a4a2a;border-radius:8px;font-size:12px;line-height:1.6;">
+      <div style="font-weight:600;color:var(--yellow);margin-bottom:6px;">⚠ ${conflicts.length} Parameter-Konflikt${conflicts.length>1?'e':''}</div>
+      ${conflicts.map(c => `<div style="color:var(--text2);margin-bottom:4px;"><span style="color:var(--text)">${DIMS[c.a].label}</span> × <span style="color:var(--text)">${DIMS[c.b].label}</span>: ${c.msg}</div>`).join('')}
+    </div>`;
+  }
+
+  document.getElementById('previewText').innerHTML = sections.join('\n') + conflictHTML;
 }
 
 // ═══════════════════════════════════════════════════════════════
