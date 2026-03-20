@@ -165,6 +165,9 @@
   }
   .taboo-section summary::before { content: "▸ "; }
   .taboo-section[open] summary::before { content: "▾ "; }
+  details > summary .prompt-toggle-arrow { display: inline; }
+  details:not([open]) > summary .prompt-toggle-arrow::after { content: ""; }
+  details[open] > summary .prompt-toggle-arrow::after { content: ""; }
   .taboo-grid { display: flex; flex-direction: column; gap: 6px; }
   .taboo-item {
     display: flex; align-items: flex-start; gap: 8px;
@@ -340,6 +343,15 @@
       </div>
       <div>
         <div class="preview-panel" id="previewText"></div>
+        <details class="panel" style="margin-top:12px" open>
+          <summary style="font-size:12px;font-weight:600;cursor:pointer;color:var(--text2);list-style:none;">
+            <span class="prompt-toggle-arrow">▾</span> LLM-Prompt <span style="font-weight:400;opacity:.6">— ändert sich live mit den Slidern</span>
+          </summary>
+          <div style="position:relative">
+            <pre id="livePrompt" style="margin-top:10px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:12px;line-height:1.6;color:var(--text2);white-space:pre-wrap;word-break:break-word;max-height:500px;overflow-y:auto;font-family:inherit;"></pre>
+            <button onclick="copyLivePrompt()" style="position:absolute;top:14px;right:14px;font-size:11px;padding:4px 10px;cursor:pointer;background:var(--surface2);color:var(--text);border:1px solid var(--border);border-radius:4px;font-family:inherit;opacity:.7;transition:opacity .15s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.7">Kopieren</button>
+          </div>
+        </details>
       </div>
     </div>
   </div>
@@ -751,6 +763,7 @@ function buildPreview() {
   }
 
   document.getElementById('previewText').innerHTML = sections.join('\n') + conflictHTML;
+  updateLivePrompt();
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -969,7 +982,7 @@ function renderPhrases() {
   wrap.querySelectorAll('.remove').forEach(el => {
     el.addEventListener('click', () => {
       current[el.dataset.section].splice(parseInt(el.dataset.idx), 1);
-      renderPhrases();
+      renderPhrases(); updateLivePrompt();
     });
   });
   wrap.querySelectorAll('.add-phrase button').forEach(btn => {
@@ -978,7 +991,7 @@ function renderPhrases() {
       const val = input.value.trim();
       if (!val) return;
       current[btn.dataset.section].push(val);
-      renderPhrases();
+      renderPhrases(); updateLivePrompt();
     });
   });
   wrap.querySelectorAll('.add-phrase input').forEach(inp => {
@@ -1019,7 +1032,7 @@ function renderTaboos() {
       } else {
         current.taboo_topics = current.taboo_topics.filter(t => t !== topic);
       }
-      renderTaboos();
+      renderTaboos(); updateLivePrompt();
     });
   });
 }
@@ -1366,13 +1379,11 @@ function exportYAML() {
 // ═══════════════════════════════════════════════════════════════
 // PROMPT EXPORT
 // ═══════════════════════════════════════════════════════════════
-function copyPrompt() {
-  readSlidersIntoCurrent();
+function buildPromptText() {
   const p = current.parameters;
   const key = document.getElementById('presetSelect').value;
   const label = presets[key]?.label || key;
 
-  // Map numeric values to human-readable descriptions
   function desc(dk, val) {
     const d = DIMS[dk];
     if (!d) return '';
@@ -1383,7 +1394,6 @@ function copyPrompt() {
     return d.p3 || 'Mittel';
   }
 
-  // Build parameter table — only non-default (!=3) values get emphasis
   let paramBlock = '';
   for (const g of GROUPS) {
     const dims = g.dims.map(dk => {
@@ -1393,7 +1403,6 @@ function copyPrompt() {
     paramBlock += `\n### ${g.label}\n${dims.join('\n')}\n`;
   }
 
-  // Conflicts
   const conflicts = getConflicts();
   let conflictBlock = '';
   if (conflicts.length > 0) {
@@ -1402,7 +1411,6 @@ function copyPrompt() {
       '\nLöse diese Spannungen kreativ auf, statt eine Seite zu ignorieren.\n';
   }
 
-  // Phrases
   let phraseBlock = '';
   if (current.include_phrases?.length) {
     phraseBlock += '\n## Phrasen-Bausteine (1–2 pro Text natürlich einbauen)\n';
@@ -1421,7 +1429,6 @@ function copyPrompt() {
     phraseBlock += current.exclude_terms.map(p => `- ${p}`).join('\n') + '\n';
   }
 
-  // Taboo topics
   let tabooBlock = '';
   if (current.taboo_topics?.length) {
     tabooBlock = '\n## Themen-Ausschlüsse (Taboo Topics)\nFolgende Themenbereiche und ihre typische Sprache NICHT verwenden:\n';
@@ -1435,7 +1442,6 @@ function copyPrompt() {
     }
   }
 
-  // Gendering instruction
   const genVal = p.gendering || 3;
   let genderInstr;
   if (genVal <= 1) genderInstr = 'Verwende das generische Maskulinum (Leser, Entwickler, Entscheider).';
@@ -1444,8 +1450,7 @@ function copyPrompt() {
   else if (genVal <= 4) genderInstr = 'Gendere konsequent mit Doppelpunkt (Leser:innen). Bei wichtigen Stellen ausgeschrieben.';
   else genderInstr = 'Gendere konsequent ausgeschrieben (Leserinnen und Leser, Entwicklerinnen und Entwickler).';
 
-  // Assemble prompt
-  const prompt = `# Stil-Anweisung: ${label}
+  return `# Stil-Anweisung: ${label}
 
 Du schreibst im Stil-Preset **${label}**. Halte dich exakt an die folgenden Parameter.
 
@@ -1458,12 +1463,30 @@ ${conflictBlock}${phraseBlock}${tabooBlock}
 - Die Parameter definieren Richtung, nicht exakte Zählwerte. Ein Satzlänge-Wert von 2 heißt nicht "exakt 10 Wörter", sondern "kurze, knappe Sätze bevorzugen".
 - Phrasen-Bausteine sind Vorschläge — nutze 1–2 pro Text, nicht alle auf einmal.
 - Verbotene Wörter und Phrasen sind harte Regeln. Verwende sie nie, auch nicht in Varianten.
-- Taboo Topics: Vermeide nicht nur die Begriffe, sondern die gesamte Metaphorik des Themenbereichs.
-`;
+- Taboo Topics: Vermeide nicht nur die Begriffe, sondern die gesamte Metaphorik des Themenbereichs.`.trim();
+}
 
-  navigator.clipboard.writeText(prompt.trim()).then(() => {
-    alert(`Prompt für "${label}" in Zwischenablage kopiert (${prompt.length} Zeichen).`);
+function copyPrompt() {
+  readSlidersIntoCurrent();
+  const prompt = buildPromptText();
+  navigator.clipboard.writeText(prompt).then(() => {
+    alert(`Prompt in Zwischenablage kopiert (${prompt.length} Zeichen).`);
   });
+}
+
+function copyLivePrompt() {
+  const el = document.getElementById('livePrompt');
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    const btn = el.parentElement.querySelector('button');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Kopiert';
+    setTimeout(() => { btn.textContent = orig; }, 1200);
+  });
+}
+
+function updateLivePrompt() {
+  const el = document.getElementById('livePrompt');
+  if (el) el.textContent = buildPromptText();
 }
 
 init();
