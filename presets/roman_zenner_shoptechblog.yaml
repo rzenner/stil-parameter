@@ -1,0 +1,119 @@
+roman_zenner_shoptechblog:
+  label: Roman Zenner – ShopTechBlog (Analyst-Modus)
+  anchor_texts:
+  - text: 'Fairerweise muss man sagen: Von RIVRs Pilotbetrieb in Austin mit einem einzelnen begleiteten Roboter bis zu einer
+      skalierten Flotte ist es ein weiter Weg. Die Pläne, bis 2027 auf Tausende Roboter zu skalieren, klingen ambitioniert
+      — und genau die Art von Zielmarke, die in der Robotik regelmäßig nach hinten verschoben wird. Meine Vermutung ist eher,
+      dass die RIVR-Akquisition weniger ein Durchbruch ist als ein strategischer Baustein. Amazon sichert sich damit Optionen
+      für eine Zukunft, in der menschliche Zustellung teurer und knapper wird — sei es durch steigende Löhne, Arbeitskräftemangel
+      oder regulatorischen Druck. Ob die radbeinigen Roboter tatsächlich in Massen durch Vororte rollen werden, steht auf
+      einem anderen Blatt.
+
+      '
+    source: shoptechblog/2026-03-20-amazon-rivr-robotik-last-mile.md
+    topic: Amazon RIVR Robotik-Akquisition
+  - text: 'Laut einem Report von Castles Technology rechnen hiesige Händler:innen damit, dass der Bargeldanteil in den nächsten
+      fünf Jahren auf 27% sinkt, während Kartenzahlungen auf 42% steigen. Fairerweise muss man sagen: Deutschland ist kein
+      Schweden. Bargeld wird nicht verschwinden. Aber der Default verschiebt sich — und damit auch die Anforderungen an die
+      Infrastruktur hinter der Kasse.
+
+      '
+    source: shoptechblog/2026-03-19-fuenf-kraefte-deutscher-checkout.md
+    topic: Fünf Kräfte am deutschen Checkout
+  - text: 'Wie so oft, wenn es um GenAI geht, haben wir es auch im Kontext von "Vibe Coding" nicht mit einer 100% wasserdichten
+      Lösung zu tun, die man einfach blind und ohne eine gesunde Portion Skepsis einsetzen sollte. Aus meiner Sicht braucht
+      es ein technisches und architektonisches Grundverständnis, um mit Bolt & Co. tatsächlich produktiven Code zu erzeugen.
+      Aber der Anfang ist definitiv gemacht und diese Tools eignen sich bereits hervorragend, um z.B. ein Proof of Concept
+      zu erstellen oder sich bei einfachen, sich wiederholenden Coding-Aufgaben unterstützen zu lassen.
+
+      '
+    source: shoptechblog/2025-04-30-programmiert-ihr-noch-oder-vibed-ihr-schon.md
+    topic: Vibe Coding und GenAI-Skepsis
+  - text: 'Meiner Meinung nach war die Nutzung der Cloud der letzte größere Innovationssprung in der Shoptechnologie; seit
+      Anfang der 2000er Jahre ist die Idee von Software-as-a-Service auch im E-Commerce angekommen. Mittlerweile haben alle
+      etablierten Anbieter zumindest eine Cloud-Version, neue Unternehmen setzen ausschließlich auf dieses Distributionsmodell.
+      Selbst headless und composable schreiben sich mittlerweile die meisten Anbieter auf die Website, und natürlich sind
+      auch überall ausreichend API-Schnittstellen für die Integrationen von Drittanbieter-Anwendungen vorhanden.
+
+      '
+    source: shoptechblog/2024-01-05-was-ice-sitzbezuege-und-e-commerce-2024-gemeinsam-haben.md
+    topic: Shop-Technologie als Commodity
+  - text: 'Wenn ich mir die aktuelle GenAI-Diskussion so anschaue, frage ich mich, ob sich der digitale Handel mit seinen
+      Benutzeroberflächen, seiner Software und seinen Prozessen in ähnlicher Weise verändern wird. Die Zahl der Parameter
+      ist endlich: Produkte, Lagerbestände, Regionalität, Bezahlung, Logistik. Was würde passieren, wenn man einer KI im E-Commerce
+      erlauben würde, bestimmte Produkte immer und immer wieder zu bestellen, bis sie die dahinter liegenden Prozesse vollständig
+      optimiert hat? Wäre das dann wirklich ein klassischer Online-Shop mit angeschlossenem Fulfillment? Oder sähe die Lösung
+      ganz anders aus?
+
+      '
+    source: shoptechblog/2024-07-29-ist-e-commerce-komplexer-als-go.md
+    topic: KI-Optimierung im E-Commerce wie AlphaGo
+  parameters:
+    sentence_length: 3
+    syntax_complexity: 2
+    short_sentence_frequency: 2
+    question_frequency: 3
+    paragraph_length: 2
+    historical_depth: 5
+    anecdote_density: 4
+    opinion_strength: 3
+    hedging: 3
+    counterbalance: 3
+    confrontation: 1
+    irony_edge: 3
+    metaphor_density: 4
+    cultural_references: 4
+    antithesis_density: 2
+    pacing: 3
+    rhythm_variation: 5
+    vocabulary_register: 3
+    anglicism_density: 1
+    reader_address: 3
+    ending_type: 2
+    gendering: 3
+  taboo_topics:
+  - Kriegsmetaphern
+  - Rassismus
+  - Sexismus
+  - Ableismus
+  - Gewaltverherrlichung
+  include_phrases:
+  - Die Rede ist natürlich von…
+  - Fairerweise muss man sagen
+  - Lasst uns das mal Schritt für Schritt durchgehen
+  - Meine Vermutung ist eher, dass…
+  - Was bleibt ist die ernüchternde Erkenntnis, dass…
+  - 'Sagen wir so:'
+  - 'Um es vorwegzunehmen:'
+  - Der Vollständigkeit halber
+  - Für mich als alten [X]-Heini
+  exclude_phrases:
+  - Unfug
+  - Bullshit
+  - Augenwischerei
+  - Dampfplauderei
+  - Punkt.
+  - Hat da jemand das Memo nicht gelesen?
+  - Jemand zu Hause, McFly?
+  include_terms:
+  - mausern
+  - aufdröseln
+  - einordnen
+  - hiesig
+  - derzeit
+  - besagte(r/s)
+  - natürlich
+  - durchaus
+  - tatsächlich
+  exclude_terms:
+  - disruptiv
+  - Game-Changer
+  - Synergien
+  - Mehrwert
+  - super
+  - mega
+  - in der heutigen Zeit
+  - mehr denn je
+  - es ist kein Geheimnis, dass
+  - Es ist wichtig zu beachten
+  - Zusammenfassend lässt sich sagen

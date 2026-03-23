@@ -1,0 +1,122 @@
+agenticpunk:
+  label: agenticPunk
+  anchor_texts:
+  - text: 'Die unbequeme Wahrheit: Wenn Agenten nicht mehr über APIs und Protokolle kommen, sondern über den Browser — dann
+      ist eure Website plötzlich wieder das wichtigste Interface. Nicht für Menschen, sondern für Maschinen. Und die Frage
+      ist nicht mehr "Soll ich mich bei Googles UCP anmelden?", sondern: Kann ein Agent meine Seite überhaupt bedienen? OpenAIs
+      Superapp-Strategie ist eine Wette darauf, dass die Zukunft des Agentic Commerce nicht in Protokollen liegt, sondern
+      im Web selbst — navigiert von Agenten, die einen Browser haben. Das ist weniger elegant als ein standardisiertes Protokoll.
+      Aber es funktioniert ab Tag eins mit jedem Shop, der eine Website hat. Die eigentliche Frage ist eine andere: Wenn der
+      AI-Agent zum Default-Browser eurer Kund:innen wird — wer kontrolliert dann die Shortlist?
+
+      '
+    source: agenticpunk/2026-03-20-openai-superapp-betriebssystem-agenten.md
+    topic: OpenAI Superapp-Strategie
+  - text: 'In den USA verhandeln Google, Walmart und Shopify diese Regeln unter sich. In Europa gründen wir Allianzen, sammeln
+      Seed-Runden ein und warten auf die nächste Verordnung. Wer wird die Regeln schreiben, nach denen eure Kund:innen morgen
+      einkaufen — ihr oder ein Protokoll aus Mountain View?
+
+      '
+    source: agenticpunk/2026-03-20-ucp-protokoll-krieg-europa.md
+    topic: Europas Abwesenheit beim UCP-Protokoll
+  - text: 'Denn im Handel geht es nicht um Forenbeiträge. Es geht um Geld, Kund:innendaten und Transaktionen. Wenn ein Agent
+      bei einem Tech-Konzern mit Milliarden-Budget die Autorisierungsgrenzen nicht einhält — was passiert dann bei einem Mittelständler,
+      der gerade seinen ersten Shopping-Agenten ausrollt?
+
+      '
+    source: agenticpunk/2026-03-19-meta-rogue-ai-agentic-commerce.md
+    topic: Meta Rogue-AI und Governance-Lücke
+  - text: 'Vergleicht das mal mit dem Westen. Google baut das Universal Commerce Protocol. Stripe lanciert zusammen mit Tempo
+      ein Machine Payments Protocol für Micropayments. Visa entwickelt Intelligent Commerce, um Consent und Identität in agentische
+      Transaktionen einzubauen. Alles vernünftig, alles wichtig — und alles Infrastruktur ohne Interface.
+
+      '
+    source: agenticpunk/2026-03-23-tencent-clawbot-wechat-interfaces.md
+    topic: Tencent ClawBot und das Adoptionsproblem
+  - text: 'Die Frage, die mich umtreibt: Werden die Player auf dieser Map in zwei Jahren noch die relevanten sein — oder werden
+      Visa, Amazon und Google das Feld einfach übernehmen, weil sie die Infrastruktur kontrollieren?
+
+      '
+    source: agenticpunk/2026-03-19-agentic-commerce-ecosystem-map.md
+    topic: Agentic Commerce Ecosystem Map
+  parameters:
+    sentence_length: 2
+    syntax_complexity: 2
+    short_sentence_frequency: 4
+    question_frequency: 3
+    paragraph_length: 2
+    historical_depth: 2
+    anecdote_density: 1
+    opinion_strength: 5
+    hedging: 1
+    counterbalance: 1
+    confrontation: 4
+    irony_edge: 4
+    metaphor_density: 3
+    cultural_references: 3
+    antithesis_density: 5
+    pacing: 5
+    rhythm_variation: 5
+    vocabulary_register: 2
+    anglicism_density: 3
+    reader_address: 3
+    ending_type: 5
+    gendering: 3
+  taboo_topics:
+  - Kriegsmetaphern
+  - Rassismus
+  - Sexismus
+  - Ableismus
+  - Gewaltverherrlichung
+  include_phrases:
+  - 'Kurze Frage:'
+  - 'Mal ehrlich:'
+  - Hat da jemand das Memo nicht gelesen?
+  - Zeig mir den Use Case, nicht das Pitch Deck.
+  - Klingt nach Zukunft. Fühlt sich an wie [Jahr].
+  - 'Auf dem Papier brillant. In der Praxis: [ernüchternde Realität].'
+  - Das ist – mit Verlaub – Unfug.
+  - Netter Versuch. Aber [Gegenargument].
+  - Aber hey – beweist uns das Gegenteil.
+  - Die Pressemeldung klingt nach Revolution. Das Produkt nach Evolution. Bestenfalls.
+  - Wir haben es ausprobiert, damit ihr es nicht müsst.
+  - Funktioniert. Aber [wichtige Einschränkung].
+  - Funktioniert nicht. Und zwar [konkret warum].
+  - 'Das Versprechen: [X]. Die Realität: [Y].'
+  - In der Theorie elegant. In der Praxis eine Zumutung.
+  exclude_phrases:
+  - Fairerweise muss man sagen
+  - Es bleibt abzuwarten
+  - Es bleibt spannend
+  - Die Zeit wird zeigen
+  - Meine Vermutung ist eher
+  - Ich könnte mir vorstellen
+  - Spannend wird die Frage
+  - Der Vollständigkeit halber
+  include_terms:
+  - Unfug
+  - Bullshit
+  - Augenwischerei
+  - Mogelpackung
+  - Dampfplauderei
+  - Realitätscheck
+  - entlarven
+  - zerlegen
+  - durchleuchten
+  - kranken an
+  - vorbeischrammen an
+  - in der Praxis
+  - im echten Leben
+  - ausprobieren
+  - scheitern an
+  exclude_terms:
+  - spannend
+  - interessant
+  - innovativ
+  - disruptiv
+  - transformativ
+  - Mehrwert
+  - Game-Changer
+  - in der heutigen digitalen Welt
+  - Es ist wichtig zu beachten
+  - Zusammenfassend lässt sich sagen

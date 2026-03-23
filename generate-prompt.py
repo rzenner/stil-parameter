@@ -13,7 +13,8 @@ import random
 import yaml
 from pathlib import Path
 
-YAML_PATH = Path(__file__).parent / "presets.yaml"
+PRESETS_DIR = Path(__file__).parent / "presets"
+LEGACY_YAML = Path(__file__).parent / "presets.yaml"
 
 # Gruppierung der Dimensionen (gleiche Reihenfolge wie im Dashboard)
 GROUPS = [
@@ -27,8 +28,28 @@ GROUPS = [
 
 
 def load_yaml():
-    with open(YAML_PATH, "r") as f:
-        data = yaml.safe_load(f)
+    """Lädt shared config + alle Preset-Dateien aus presets/ Ordner.
+    Fallback: monolithische presets.yaml falls presets/ nicht existiert."""
+    if PRESETS_DIR.is_dir():
+        # Load shared config (dimensions, taboo_catalog)
+        shared_path = PRESETS_DIR / "_shared.yaml"
+        if not shared_path.exists():
+            print(f"Fehlend: {shared_path}", file=sys.stderr)
+            sys.exit(1)
+        with open(shared_path, "r") as f:
+            data = yaml.safe_load(f)
+        # Load each preset file
+        data["presets"] = {}
+        for p in sorted(PRESETS_DIR.glob("*.yaml")):
+            if p.name.startswith("_"):
+                continue
+            with open(p, "r") as f:
+                preset_data = yaml.safe_load(f)
+            data["presets"].update(preset_data)
+    else:
+        # Fallback: legacy monolithic file
+        with open(LEGACY_YAML, "r") as f:
+            data = yaml.safe_load(f)
     validate(data)
     return data
 

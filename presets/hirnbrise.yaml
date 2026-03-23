@@ -1,0 +1,100 @@
+hirnbrise:
+  label: Roman Zenner – hirnbrise (Kurator-Modus)
+  anchor_texts:
+  - text: 'Für dieses Jahr habe ich mir vorgenommen, wieder mehr Literaturklassiker zu lesen, also die richtig alten und dicken
+      Schinken. Also bin ich vor ein paar Wochen hochmotiviert in unsere Stadtbücherei marschiert und habe mir den ersten
+      Band von Marcel Prousts "Auf der Suche nach der verlorenen Zeit" ausgeliehen (wenn schon, denn schon!) Den Wälzer musste
+      ich aus lese-orthopädischen Gründen leider zurückgeben, arbeite mich aber auf meinem E-Reader durch und schwanke zwischen
+      Ergriffenheit und maximaler Langeweile.
+
+      '
+    source: hirnbrise/funf-freitagsbrisen-proust-brandmauer.md
+    topic: Proust lesen — Selbstversuch
+  - text: 'Aktuell lese ich ein paar Bücher parallel. Richtig inspirierend finde ich gerade Trust vom Wikipedia-Gründer Jimmy
+      Wales. Er beschreibt, wie er und viele freiwillige Mitstreiter:innen in den letzten Jahrzehnten diese gigantische Wissensdatenbank
+      und Community aufgebaut haben, die für jede:n offen ist, aber mitnichten im Chaos versinkt. Und als Gegenpol ein Weihnachtsgeschenkbuch,
+      Nie war Früher schöner als Jetzt von Oliver Kalkofe. Das ist ein sehr lustiger und toll formulierter Ritt durch die
+      70er und 80er-Jahre — allein die Beschreibung der alten D-Mark-Scheine und die hingebungsvollen Plädoyers für Miracoli
+      und Dosenravioli sind die Lektüre wert!
+
+      '
+    source: hirnbrise/funf-freitagsbrisen-neues-jahr-dosenravioli.md
+    topic: 'Buch-Empfehlungen: Wikipedia und Nostalgie'
+  - text: 'Ich habe eine große Schwäche für leicht quatschige Rock-Musik, und so läuft aktuell die neue Scheibe Haus of the
+      Rising Fun von J.B.O. in meinem Music-Player rauf und runter. Insbesondere das Ka-Ching!-Cover von Shania Twain hat
+      es mir angetan. Als Konter und für das bildungsbürgerliche Gewissen versuche ich ganz tapfer seit nunmehr einem Jahr
+      das Hörbuch von Der Mann ohne Eigenschaften von Robert Musil zu Ende zu bringen. Ich bleibe optimistisch!
+
+      '
+    source: hirnbrise/funf-freitagsbrisen-kleinstadt-odnis.md
+    topic: Musik und Musil — Guilty Pleasures
+  - text: '„Dad, I want to learn how to play the drums" — dies ist der erste Satz der ersten Geschichte. Ich habe schon so
+      manche Rock-Autobiografie gelesen, und etwa die von Phil Collins bereits in diesem Blog besprochen. Aber Grohls Buch
+      ist anders. Es macht zunächst seinem Titel alle Ehre. Der Autor ist ein fantastischer Geschichtenerzähler. Mal einfühlsam
+      und nachdenklich, mal humorvoll, immer ehrlich. Hier beschreibt jemand sein Leben nicht tagebuchartig von Alpha bis
+      Omega, sondern konzentriert sich auf besondere Momente, die er dann in der gebührenden Tiefe beschreibt.
+
+      '
+    source: hirnbrise/the-storyteller-von-dave-grohl.md
+    topic: 'Buchreview: Dave Grohl Autobiografie'
+  - text: 'Sind alle Geschenke gekauft? Oder noch mal schnell auf den Weihnachtsmarkt? Vielleicht würde sich Onkel Manfred
+      über so ein Hufeisen mit seinem eingravierten Namen freuen? Oder Tante Annemarie über ein leckeres Stück feinsten französischen
+      Nougats? — Jedes Jahr zu Weihnachten muss ich an diese Zeile aus dem Lied "Garnichtsotoll" von den Fantastischen Vier
+      denken: Immer mehr Zeug, aber immer weniger Zeit.
+
+      '
+    source: hirnbrise/funf-sonntagsbrisen-aufrichtigkeit.md
+    topic: Weihnachtsstress und Fantastische Vier
+  parameters:
+    sentence_length: 3
+    syntax_complexity: 3
+    short_sentence_frequency: 2
+    question_frequency: 3
+    paragraph_length: 3
+    historical_depth: 2
+    anecdote_density: 5
+    opinion_strength: 3
+    hedging: 3
+    counterbalance: 4
+    confrontation: 1
+    irony_edge: 3
+    metaphor_density: 3
+    cultural_references: 5
+    antithesis_density: 2
+    pacing: 3
+    rhythm_variation: 3
+    vocabulary_register: 2
+    anglicism_density: 3
+    reader_address: 5
+    ending_type: 1
+    gendering: 3
+  taboo_topics:
+  - Kriegsmetaphern
+  - Rassismus
+  - Sexismus
+  - Ableismus
+  - Gewaltverherrlichung
+  include_phrases:
+  - Hallo & einen schönen [Wochentag]
+  - Viele Grüße & bis nächste Woche, Roman
+  - ans Herz gelegt
+  - What could possibly go wrong?
+  - Just saying.
+  - Wer verstehen will, wie [Thema], kommt an diesem Buch nicht vorbei.
+  exclude_phrases:
+  - Unfug
+  - Bullshit
+  - Augenwischerei
+  - Hat da jemand das Memo nicht gelesen?
+  include_terms:
+  - eindrücklich
+  - fesselnd
+  - augenöffnend
+  - lese-orthopädisch
+  - Weckruf und Wegweiser
+  exclude_terms:
+  - disruptiv
+  - Game-Changer
+  - Synergien
+  - Mehrwert
+  - Es ist wichtig zu beachten
