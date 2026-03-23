@@ -91,6 +91,36 @@ Nur bei genuinen Zukunftsprognosen. Verboten als Höflichkeits-Hedge.
 Erlaubt: "Das wird sich zeigen." Verboten: "Man könnte argumentieren, dass..."
 ```
 
+## Anker-Texte (Few-Shot-Rotation)
+
+Jedes Preset hat 5 kuratierte Referenzabsätze aus echten, publizierten Texten — thematisch divers, damit das LLM den *Stil* lernt, nicht das *Thema*.
+
+Bei jedem Aufruf von `generate-prompt.py` werden **2 zufällige** Anker-Texte aus dem Pool ausgewählt und in den Prompt eingebettet:
+
+```
+## Referenz-Stil (schreibe in diesem Ton)
+
+Die folgenden Absätze zeigen den Zielstil an unterschiedlichen Themen
+(OpenAI Superapp-Strategie, Meta Rogue-AI und Governance-Lücke).
+Orientiere dich an Tonfall, Satzrhythmus, Haltung und Wortwahl — nicht am Inhalt.
+
+> Die unbequeme Wahrheit: Wenn Agenten nicht mehr über APIs ...
+
+> Denn im Handel geht es nicht um Forenbeiträge. Es geht um Geld ...
+```
+
+**Warum Rotation?** Ein einzelner Anker-Text führt zu Overfitting auf dessen Inhalt. Zwei rotierende Anker aus verschiedenen Themen zeigen dem LLM das Stilmuster über Kontexte hinweg.
+
+**Themen-Vielfalt pro Preset:**
+
+| Preset | Anker-Themen |
+|---|---|
+| `agenticpunk` | OpenAI Superapp, UCP/Europa, Meta Rogue-AI, Tencent ClawBot, Ecosystem Map |
+| `roman_zenner_shoptechblog` | Amazon Robotik, Deutscher Checkout, Vibe Coding, Shop-Tech Commodity, KI wie AlphaGo |
+| `hirnbrise` | Proust-Selbstversuch, Wikipedia + Kalkofe, J.B.O. + Musil, Dave Grohl, Weihnachtsstress |
+
+Anker-Texte werden in `presets.yaml` unter `anchor_texts` pro Preset definiert. Neue Anker hinzufügen: einfach einen weiteren Eintrag mit `text`, `source` und `topic` ergänzen.
+
 ## Kalibrierung
 
 Preset-Werte werden nicht geschätzt, sondern gegen echte Texte gemessen. Das ShopTechBlog-Preset wurde gegen 8 handgeschriebene Artikel (2020–2024) kalibriert — 9 von 15 messbaren Parametern mussten korrigiert werden.
