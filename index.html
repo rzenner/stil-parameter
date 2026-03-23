@@ -427,11 +427,172 @@ const DIMS = {
 };
 
 // ═══════════════════════════════════════════════════════════════
+// MICRO-INSTRUCTIONS (konkrete Handlungsanweisungen pro Stufe)
+// ═══════════════════════════════════════════════════════════════
+const MICRO = {
+sentence_length: {
+  1: 'Durchschnittliche Satzlänge: 8–12 Wörter. Bevorzuge Hauptsätze ohne Nebensätze. Brich längere Gedanken in mehrere kurze Sätze auf. Kein Satz über 18 Wörter.',
+  2: 'Durchschnittliche Satzlänge: 12–16 Wörter. Überwiegend kurze Sätze, gelegentlich ein mittellanger Satz (bis 20 Wörter) für Einordnung. Nebensätze sparsam — maximal einer pro Satz.',
+  3: 'Durchschnittliche Satzlänge: 15–20 Wörter. Mischung aus kurzen und mittleren Sätzen. Gelegentlich ein längerer Satz mit einem Nebensatz für Nuancierung. Varianz ist wichtiger als Gleichförmigkeit.',
+  4: 'Durchschnittliche Satzlänge: 18–24 Wörter. Längere Sätze als Default, mit Einschüben und Nebensätzen. Kurze Sätze nur als bewusster Kontrapunkt. Gedankenstriche für Einschübe erlaubt.',
+  5: 'Durchschnittliche Satzlänge: 22–28 Wörter. Verschachtelte Sätze mit mehreren Nebensätzen, Relativsätzen und Einschüben in Gedankenstrichen. Hypotaktischer Stil — Gedanken werden innerhalb eines Satzes ausdifferenziert.',
+},
+syntax_complexity: {
+  1: 'Nur Hauptsätze. Keine Nebensätze mit "dass", "weil", "obwohl", "während". Keine Einschübe mit Gedankenstrichen. Wenn ein Gedanke komplex ist: zwei Sätze statt einem verschachtelten.',
+  2: 'Hauptsätze dominieren. Pro Absatz maximal 1–2 einfache Nebensätze ("weil", "wenn"). Keine Relativsatz-Ketten. Keine verschachtelten Nebensätze.',
+  3: 'Mischung: Hauptsätze bilden das Rückgrat, Nebensätze ergänzen wo nötig. Relativsätze gelegentlich. Einschübe mit Gedankenstrichen als Stilmittel erlaubt (max. 1 pro Absatz).',
+  4: 'Nebensätze sind regulärer Bestandteil. Relativsatz-Ketten (bis 2 Ebenen) erlaubt. Einschübe mit Gedankenstrichen regelmäßig. Konjunktionen wie "wobei", "zumal", "wenngleich" aktiv nutzen.',
+  5: 'Hypotaktischer Stil. Verschachtelte Sätze mit 2–3 Ebenen sind Standard. Relativsatz-Ketten, Einschübe, Appositionen, Partizipialgruppen.',
+},
+short_sentence_frequency: {
+  1: 'Keine Kurzsätze (≤4 Wörter) verwenden. Kein "Punkt.", kein "Genau." Jeder Satz hat mindestens 5 Wörter.',
+  2: 'Kurzsätze sehr selten — maximal 1 pro 800 Wörter. Nur für einen einzelnen Höhepunkt oder eine Schlusspointe.',
+  3: 'Kurzsätze gelegentlich — 2–3 pro 800 Wörter. Als Kontrapunkt nach einem längeren Absatz oder als Überleitung.',
+  4: 'Kurzsätze regelmäßig — 4–6 pro 800 Wörter. Bewusst als Rhythmusmittel: nach einer Erklärung die Pointe in 2–3 Wörtern. Auch als Absatzeinstieg ("Mal ehrlich:", "Kurze Frage:").',
+  5: 'Kurzsätze häufig — 6+ pro 800 Wörter. Einwortsätze erlaubt ("Unfug.", "Punkt.", "Nächster."). Kurzsätze als Stakkato-Rhythmus: Aufbau-Aufbau-Schlag.',
+},
+question_frequency: {
+  1: 'Keine rhetorischen Fragen im Fließtext. Keine Frage-Überschriften. Aussagesätze und Behauptungen statt Fragen.',
+  2: 'Maximal 1 Frage pro 800 Wörter. Nur im Schlussteil als offene Frage. Keine Frage-Überschriften.',
+  3: '2–3 Fragen pro 800 Wörter. Fragen als Überleitung zwischen Abschnitten erlaubt. Gelegentlich eine Frage-Überschrift.',
+  4: '4–5 Fragen pro 800 Wörter. Absätze mit einer Frage eröffnen, Zwischenüberschriften als Fragen formulieren. Rhetorische Fragen zur Konfrontation.',
+  5: '6+ Fragen pro 800 Wörter. Fragen dominieren die Textstruktur. Überschriften sind Fragen. Rhetorische Fragen als Stilmittel: "Hat da jemand das Memo nicht gelesen?"',
+},
+paragraph_length: {
+  1: '1–2 Sätze pro Absatz. Viel Weißraum. Jeder Gedanke bekommt einen eigenen Absatz. Auch Einzeiler sind Absätze.',
+  2: '2–3 Sätze pro Absatz. Gelegentlich ein Einzeiler-Absatz als Kontrapunkt. Kein Absatz über 4 Sätze.',
+  3: '3–4 Sätze pro Absatz. Manche kürzer (2 Sätze), manche länger (bis 5). Absatzlänge variiert mit dem Inhalt.',
+  4: '4–5 Sätze pro Absatz als Default. Dichtere Textblöcke. Kurze Absätze nur bei Übergängen oder für Betonung.',
+  5: '5–8 Sätze pro Absatz. Dichte, analytische Textblöcke. Gedanken werden innerhalb eines Absatzes vollständig entwickelt.',
+},
+historical_depth: {
+  1: 'Kein historischer Kontext. Der Text behandelt nur das Jetzt. Keine Rückblicke.',
+  2: 'Maximal 1 Satz historischer Kontext pro Text. "Das ist nicht neu — aber die Dimension schon."',
+  3: '2–3 Sätze historischer Kontext, eingebettet in die Argumentation. Kein eigener Geschichts-Abschnitt.',
+  4: 'Ein eigener Absatz (4–6 Sätze) zur Vorgeschichte. Entwicklungslinien aufzeigen. Historische Parallelen als Argumentationsmittel.',
+  5: 'Ausführliche Geschichtsstunde. Historischer Kontext als eigener Abschnitt (8+ Sätze). Vergangenheit erklärt Gegenwart.',
+},
+anecdote_density: {
+  1: 'Keine persönlichen Anekdoten. Kein "Ich erinnere mich...". Rein analytisch, keine Ich-Perspektive als Erzählelement.',
+  2: 'Maximal 1 kurze persönliche Referenz im gesamten Text. "Das kennt man:" statt ausführlicher Anekdote.',
+  3: '1–2 kurze Anekdoten pro Text. "Stellt euch vor:..." Nicht der Textaufhänger, sondern Illustration.',
+  4: 'Narrativer Einstieg als Option. Persönliche Beobachtungen ("Was mir auffällt:") als Argumentationsstütze. 2–3 Erzählmomente pro Text.',
+  5: 'Der Text beginnt mit einer Anekdote. Persönliche Erlebnisse als Aufhänger. Geschichten illustrieren jeden Hauptpunkt.',
+},
+opinion_strength: {
+  1: 'Neutral-berichtend. Keine eigene Position erkennbar. Fakten präsentieren, verschiedene Seiten darstellen, keine Bewertung.',
+  2: 'Überwiegend berichtend, aber mit vorsichtiger Einordnung am Ende. Position angedeutet, nicht ausgesprochen. "Es fällt auf, dass..."',
+  3: 'Position erkennbar, aber eingebettet in Analyse. These wird im Laufe des Textes entwickelt, nicht vorangestellt.',
+  4: 'Klare Position, die früh im Text erkennbar wird (spätestens 2. Absatz). Bewertungen eindeutig, aber begründet.',
+  5: 'These ab dem ersten Satz. Unmissverständliche Haltung. "Das ist Unfug." statt "Das könnte man kritisch sehen." Der Text argumentiert für eine Sache.',
+},
+hedging: {
+  1: 'Kein Hedging. Verboten: "könnte", "dürfte", "vermutlich", "möglicherweise", "wahrscheinlich", "meine Vermutung", "es scheint", "nicht auszuschließen". Jede Aussage steht definitiv.',
+  2: 'Fast kein Hedging. Maximal 1 Hedge-Phrase pro 500 Wörter. Nur bei genuinen Zukunftsprognosen. Verboten als Höflichkeits-Hedge.',
+  3: 'Moderates Hedging. 2–3 Hedge-Phrasen pro 500 Wörter. Bei Prognosen hedgen, bei Fakten definitiv bleiben.',
+  4: 'Deutliches Hedging. 4–5 Hedge-Phrasen pro 500 Wörter. "Meine Vermutung ist eher...", "Es spricht einiges dafür, dass..."',
+  5: 'Durchgängiges Hedging. Jede Bewertung wird abgesichert. "Könnte", "dürfte", "vermutlich" in fast jedem Bewertungssatz.',
+},
+counterbalance: {
+  1: 'Keine Relativierung. Urteile stehen ungebremst. Kein "Fairerweise...", kein "Auf der anderen Seite...".',
+  2: 'Maximal 1 Relativierung pro Text, nur wenn das Gegenargument substanziell ist. Nie als Höflichkeits-Reflex.',
+  3: '2–3 Relativierungen pro Text. Nach starken Urteilen ein Gegengewicht anbieten. "Fairerweise muss man sagen" erlaubt.',
+  4: 'Fast jedes starke Urteil bekommt ein Gegengewicht. "Auf der anderen Seite...", "Das ist aber nur die halbe Wahrheit."',
+  5: 'Kein Urteil ohne Gegengewicht. Jede Kritik wird relativiert. "Fairerweise muss man sagen" als Standard nach Kritik.',
+},
+confrontation: {
+  1: 'Keinerlei Konfrontation. Einladender, kollegialer Ton. "Wir", "gemeinsam". Niemand wird angegriffen.',
+  2: 'Gelegentlich eine leicht spitze Beobachtung, aber nie direkt. "Das überrascht." statt "Hat da jemand nicht aufgepasst?"',
+  3: 'Rhetorische Fragen mit sanfter Spitze erlaubt. "Ob das wirklich reicht?" Kritik an Produkten/Strategien, nicht an Personen.',
+  4: 'Rhetorische Attacken auf Strategien und Behauptungen. "Netter Versuch. Aber..." — "Klingt nach Zukunft. Fühlt sich an wie 2019."',
+  5: 'Maximale Konfrontation. "Hat da jemand das Memo nicht gelesen?", "Jemand zu Hause, McFly?", "Das ist — mit Verlaub — Unfug."',
+},
+irony_edge: {
+  1: 'Keine Ironie. Alles wörtlich gemeint. Keine Scare Quotes, kein Augenzwinkern. Sachlicher Ernst.',
+  2: 'Minimale Ironie. Gelegentlich ein leichtes Understatement. "Das dürfte für Gesprächsstoff sorgen." Keine Scare Quotes.',
+  3: 'Augenzwinkernde Ironie. Selbstironie erlaubt. Scare Quotes sparsam (max. 1 pro Text). Beispiel: "Die \'Revolution\' entpuppte sich als Firmware-Update."',
+  4: 'Deutliche Ironie. Scare Quotes um Marketing-Begriffe: "autonom", "intelligent", "Enterprise-ready". Trockene Kommentare: "Spoiler: So einfach ist es nicht."',
+  5: 'Beißende Ironie. Scare Quotes häufig. Sarkastische Einschübe. Ironie als Waffe gegen Hype und Bullshit. Nie albern — immer pointiert.',
+},
+metaphor_density: {
+  1: 'Keine Metaphern. Direkte, wörtliche Sprache. Technische Präzision statt Bilder.',
+  2: 'Maximal 1–2 Metaphern im gesamten Text. Nur etablierte ("Ökosystem", "Baustein", "Fundament").',
+  3: '3–4 Metaphern pro Text. Etablierte Bilder plus gelegentlich ein frisches Bild. Quellbereiche: Bauen, Reise, Mechanik.',
+  4: '5–7 Metaphern pro Text. Mindestens ein überraschendes Bild. "Infrastruktur ohne Interface ist wie eine Autobahn ohne Auffahrt."',
+  5: 'Mindestens 1 Metapher pro Absatz. Überraschende Vergleiche, absurde Analogien. "Ein Jira-Ticket altert länger als ein mittelprächtiger Rotwein."',
+},
+cultural_references: {
+  1: 'Keine kulturellen Referenzen. Kein Film, keine Musik, keine Memes. Rein sachliche Argumentation.',
+  2: 'Maximal 1 Referenz pro Text, allgemein bekannt. "Wie bei Sisyphos." Nie erklärungsbedürftig.',
+  3: '1–2 Referenzen pro Text. Film, Serien, Popkultur als Illustration. Referenzen ergänzen die Argumentation, tragen sie aber nicht.',
+  4: '3–4 Referenzen pro Text. Überraschende Verbindungen zwischen Tech und Kultur. Referenzen werden Teil der Argumentation.',
+  5: 'Kulturelle Referenzen in fast jedem Abschnitt. Popkultur, Geschichte, Literatur als argumentativer Anker, nicht als Dekoration.',
+},
+antithesis_density: {
+  1: 'Keine bewussten Kontrastpaare. Argumente stehen für sich.',
+  2: 'Maximal 1–2 Kontrastpaare pro Text. "Theorie vs. Praxis" an einer zentralen Stelle.',
+  3: '3–4 Kontrastpaare pro Text. "Auf dem Papier brillant. In der Praxis: ernüchternd."',
+  4: 'Antithesen als Strukturprinzip ganzer Abschnitte. "Pitch vs. Realität", "USA vs. Europa", "Keynote vs. Produkt."',
+  5: 'Fast jedes Argument als Kontrastpaar. "Das Versprechen: X. Die Realität: Y." — "Pressemeldung: Revolution. Produkt: Evolution. Bestenfalls."',
+},
+pacing: {
+  1: 'Langsames Tempo. Jeder Punkt wird ausführlich erläutert. Exkurse, Hintergrund, historische Einordnung vor der Aussage.',
+  2: 'Gemächlich-analytisch. Punkte werden erklärt, aber ohne Exkurse. Keine Sprünge, aber auch kein Mäandern.',
+  3: 'Mittleres Tempo. Mischung aus Erklärung und Vorwärtsbewegung. Hintergrund nur wo nötig.',
+  4: 'Schnelles Tempo. Jeder Satz treibt den Text voran. Keine Wiederholungen. Hintergrund nur in einem Satz.',
+  5: 'Maximales Tempo. Stakkato-Rhythmus. Kein Satz, der den Text nicht vorantreibt. Rein-raus. Informationsdichte pro Satz ist maximal.',
+},
+rhythm_variation: {
+  1: 'Gleichförmiger Rhythmus. Sätze haben ähnliche Länge. Kein Stakkato, kein Wechsel.',
+  2: 'Leichte Variation. Überwiegend ähnliche Satzlängen, aber gelegentlich ein kürzerer oder längerer Satz.',
+  3: 'Moderate Variation. Bewusster Wechsel zwischen kürzeren und längeren Sätzen.',
+  4: 'Deutliche Variation. Muster wie lang-lang-kurz. Der kurze Satz nach zwei langen ist die Pointe.',
+  5: 'Starke, bewusste Rhythmuswechsel. Lang-lang-kurz. Aufbau-Aufbau-Schlag. Sätze von 25 Wörtern gefolgt von 3 Wörtern. Der Text hat einen Beat.',
+},
+vocabulary_register: {
+  1: 'Umgangssprachlich. "Machen" statt "implementieren", "bauen" statt "konzipieren", "kaputt" statt "defizitär".',
+  2: 'Locker-fachlich. Fachbegriffe nur wenn nötig. Eher "nutzen" als "verwenden".',
+  3: 'Semiformal mit Registerwechseln. Fachbegriffe frei, aber nicht dicht. "Unter die Haube schauen" neben "Orchestrierungsschicht".',
+  4: 'Fachlich. Präzises Vokabular: "adressieren" statt "angehen", "skalieren" statt "wachsen". Grundton analytisch.',
+  5: 'Fachlich-dicht. Analytisches Vokabular als Default. "Paradigmenwechsel", "Infrastrukturschicht", "Interoperabilität". Expert:innen-Diskurs.',
+},
+anglicism_density: {
+  1: 'Nur unvermeidbare Fachbegriffe auf Englisch. "Arbeitsablauf" statt "Workflow", "Schnittstelle" statt "Interface".',
+  2: 'Technische Fachbegriffe auf Englisch. Etablierte Lehnwörter erlaubt (Workflow, Framework, Agent). Im Zweifel Deutsch.',
+  3: 'Fachbegriffe und etablierte Anglizismen frei (Workflow, Interface, Deployment, Use Case). Kein ganzes Code-Switching.',
+  4: 'Anglizismen auch über Fachbegriffe hinaus. Gelegentliches Code-Switching für Pointen: "What could possibly go wrong?"',
+  5: 'Häufige Anglizismen, auch stilistisch. Code-Switching als Stilmittel. "Game over.", "Not so fast.", "Spoiler:" sind erlaubt.',
+},
+reader_address: {
+  1: 'Neutral: "man", Passivkonstruktionen. "Es lässt sich feststellen", "Unternehmen sollten beachten". Kein "ihr", kein "du".',
+  2: 'Überwiegend neutral mit gelegentlichem "wir" (inklusiv). "Wir sehen hier...", "Was uns das zeigt..."',
+  3: '"Ihr/euch" als Community-Ansprache. "Vergleicht das mal mit...", "Was bedeutet das für euch?"',
+  4: '"Ihr" als Default, gelegentlich "du" für direkte Momente. "Und jetzt fragt euch mal...", "Wenn du ehrlich bist..."',
+  5: '"Du" als Default. Direkte, persönliche Ansprache. "Du kennst das:", "Stell dir vor:", maximale Nähe.',
+},
+ending_type: {
+  1: 'Ende mit offener, einladender Frage. "Was denkt ihr?" Der Text öffnet eine Diskussion, schließt sie nicht ab.',
+  2: 'Ende mit nachdenklicher Frage oder Ausblick. "Die eigentliche Frage ist..." Nicht provokant, aber offen.',
+  3: 'Ende mit Pointe oder ironischem Twist. Der letzte Satz überrascht oder dreht eine Erwartung um.',
+  4: 'Ende mit klarer Haltung plus provokanter Frage. Position beziehen und zum Widerspruch einladen.',
+  5: 'Ende mit harter Haltung. "Punkt." — "Aber hey — beweist uns das Gegenteil." Kein Diskussionsangebot, ein Statement.',
+},
+gendering: {
+  1: 'Generisches Maskulinum. "Leser", "Entwickler", "Kunden". Keine Gender-Marker.',
+  2: 'Neutrale Formulierungen ("Fachleute", "Beschäftigte", "Team"). Wo neutral nicht möglich, generisches Maskulinum.',
+  3: 'Gendern mit Doppelpunkt: "Leser:innen", "Entwickler:innen", "Kund:innen". Konsistent durchziehen.',
+  4: 'Konsequent Doppelpunkt. An sichtbaren Stellen (Überschriften) ausgeschrieben: "Leserinnen und Leser".',
+  5: 'Konsequent ausgeschrieben: "Leserinnen und Leser", "Entwicklerinnen und Entwickler". Kein Doppelpunkt.',
+},
+};
+
+// ═══════════════════════════════════════════════════════════════
 // DEFAULT PRESETS
 // ═══════════════════════════════════════════════════════════════
 const DEFAULT_PRESETS = {
   agenticpunk: {
     label:'agenticPunk',
+    anchor_text:'Die unbequeme Wahrheit: Wenn Agenten nicht mehr über APIs und Protokolle kommen, sondern über den Browser — dann ist eure Website plötzlich wieder das wichtigste Interface. Nicht für Menschen, sondern für Maschinen. Und die Frage ist nicht mehr "Soll ich mich bei Googles UCP anmelden?", sondern: Kann ein Agent meine Seite überhaupt bedienen? OpenAIs Superapp-Strategie ist eine Wette darauf, dass die Zukunft des Agentic Commerce nicht in Protokollen liegt, sondern im Web selbst — navigiert von Agenten, die einen Browser haben. Das ist weniger elegant als ein standardisiertes Protokoll. Aber es funktioniert ab Tag eins mit jedem Shop, der eine Website hat. Die eigentliche Frage ist eine andere: Wenn der AI-Agent zum Default-Browser eurer Kund:innen wird — wer kontrolliert dann die Shortlist?',
     parameters:{sentence_length:2,syntax_complexity:2,short_sentence_frequency:4,question_frequency:3,paragraph_length:2,historical_depth:2,anecdote_density:1,opinion_strength:5,hedging:1,counterbalance:1,confrontation:4,irony_edge:4,metaphor_density:3,cultural_references:3,antithesis_density:5,pacing:5,rhythm_variation:5,vocabulary_register:2,anglicism_density:3,reader_address:3,ending_type:5,gendering:3},
     include_phrases:['Kurze Frage:','Mal ehrlich:','Hat da jemand das Memo nicht gelesen?','Zeig mir den Use Case, nicht das Pitch Deck.','Das ist – mit Verlaub – Unfug.','Netter Versuch. Aber…','Wir haben es ausprobiert, damit ihr es nicht müsst.','Funktioniert. Aber…','Funktioniert nicht. Und zwar…','Das Versprechen: X. Die Realität: Y.','In der Theorie elegant. In der Praxis eine Zumutung.'],
     exclude_phrases:['Fairerweise muss man sagen','Es bleibt abzuwarten','Es bleibt spannend','Die Zeit wird zeigen','Meine Vermutung ist eher','Der Vollständigkeit halber'],
@@ -441,7 +602,8 @@ const DEFAULT_PRESETS = {
   },
   roman_zenner_shoptechblog: {
     label:'Roman Zenner – ShopTechBlog',
-    parameters:{sentence_length:4,syntax_complexity:4,short_sentence_frequency:2,question_frequency:4,paragraph_length:4,historical_depth:5,anecdote_density:4,opinion_strength:3,hedging:4,counterbalance:5,confrontation:1,irony_edge:3,metaphor_density:4,cultural_references:4,antithesis_density:4,pacing:2,rhythm_variation:3,vocabulary_register:3,anglicism_density:4,reader_address:3,ending_type:2,gendering:3},
+    anchor_text:'Fairerweise muss man sagen: Von RIVRs Pilotbetrieb in Austin mit einem einzelnen begleiteten Roboter bis zu einer skalierten Flotte ist es ein weiter Weg. Die Pläne, bis 2027 auf Tausende Roboter zu skalieren, klingen ambitioniert — und genau die Art von Zielmarke, die in der Robotik regelmäßig nach hinten verschoben wird. Meine Vermutung ist eher, dass die RIVR-Akquisition weniger ein Durchbruch ist als ein strategischer Baustein. Amazon sichert sich damit Optionen für eine Zukunft, in der menschliche Zustellung teurer und knapper wird — sei es durch steigende Löhne, Arbeitskräftemangel oder regulatorischen Druck. Ob die radbeinigen Roboter tatsächlich in Massen durch Vororte rollen werden, steht auf einem anderen Blatt.',
+    parameters:{sentence_length:3,syntax_complexity:2,short_sentence_frequency:2,question_frequency:3,paragraph_length:2,historical_depth:5,anecdote_density:4,opinion_strength:3,hedging:3,counterbalance:3,confrontation:1,irony_edge:3,metaphor_density:4,cultural_references:4,antithesis_density:2,pacing:3,rhythm_variation:5,vocabulary_register:3,anglicism_density:1,reader_address:3,ending_type:2,gendering:3},
     include_phrases:['Die Rede ist natürlich von…','Fairerweise muss man sagen','Meine Vermutung ist eher, dass…','Lasst uns das mal Schritt für Schritt durchgehen'],
     exclude_phrases:['Unfug','Bullshit','Augenwischerei','Hat da jemand das Memo nicht gelesen?'],
     include_terms:['mausern','aufdröseln','einordnen','hiesig','derzeit','natürlich','durchaus','tatsächlich'],
@@ -450,6 +612,7 @@ const DEFAULT_PRESETS = {
   },
   hirnbrise: {
     label:'Roman Zenner – hirnbrise',
+    anchor_text:'Für dieses Jahr habe ich mir vorgenommen, wieder mehr Literaturklassiker zu lesen, also die richtig alten und dicken Schinken. Also bin ich vor ein paar Wochen hochmotiviert in unsere Stadtbücherei marschiert und habe mir den ersten Band von Marcel Prousts "Auf der Suche nach der verlorenen Zeit" ausgeliehen (wenn schon, denn schon!) Den Wälzer musste ich aus lese-orthopädischen Gründen leider zurückgeben, arbeite mich aber auf meinem E-Reader durch und schwanke zwischen Ergriffenheit und maximaler Langeweile.',
     parameters:{sentence_length:3,syntax_complexity:3,short_sentence_frequency:2,question_frequency:3,paragraph_length:3,historical_depth:2,anecdote_density:5,opinion_strength:3,hedging:3,counterbalance:4,confrontation:1,irony_edge:3,metaphor_density:3,cultural_references:5,antithesis_density:2,pacing:3,rhythm_variation:3,vocabulary_register:2,anglicism_density:3,reader_address:5,ending_type:1,gendering:3},
     include_phrases:['Hallo & einen schönen…','ans Herz gelegt','What could possibly go wrong?','Just saying.'],
     exclude_phrases:['Unfug','Bullshit','Augenwischerei'],
@@ -777,7 +940,8 @@ function init() {
   const saved = localStorage.getItem('stil_presets_v2');
   presets = saved ? JSON.parse(saved) : {};
   for (const [k,v] of Object.entries(DEFAULT_PRESETS)) {
-    if (!presets[k]) presets[k] = JSON.parse(JSON.stringify(v));
+    // Default-Presets immer aus dem Code übernehmen — localStorage-Overrides nur für Custom-Presets
+    presets[k] = JSON.parse(JSON.stringify(v));
   }
   // Remove legacy presets
   delete presets['agenticpunks_kommentar'];
@@ -1262,43 +1426,107 @@ function measureText(text) {
   const words = text.split(/\s+/).filter(Boolean);
   const paras = text.split(/\n\s*\n/).filter(p => p.trim());
   const tS = sentences.length || 1, tP = paras.length || 1;
-  const lower = text.toLowerCase();
+  // Strip markdown formatting (*kursiv*, **fett**) before keyword analysis
+  const plain = text.replace(/\*+([^*]+)\*+/g, '$1');
+  const lower = plain.toLowerCase();
   const avgWPS = words.length / tS;
 
+  // --- Satzlänge ---
   const sl = clamp(1 + (avgWPS - 8) / 5, 1, 5);
+
+  // --- Satzkomplexität: Kommas, Gedankenstriche, Relativpronomen ---
   const commas = (text.match(/[,;]/g)||[]).length / tS;
-  const dashes = (text.match(/ – /g)||[]).length / tS;
-  const relPro = (text.match(/\b(der|die|das|dem|den|dessen|deren|welch\w*)\b/gi)||[]).length / tS;
-  const sc = clamp(1 + (commas + dashes*2 + relPro*0.3 - 1)*1.2, 1, 5);
+  const dashes = (text.match(/ [–—] /g)||[]).length / tS;
+  const subConj = (text.match(/\b(dass|weil|obwohl|obgleich|wobei|zumal|wenngleich|sofern|damit|indem|sodass)\b/gi)||[]).length / tS;
+  const sc = clamp(1 + (commas + dashes*2 + subConj*1.5 - 1)*1.0, 1, 5);
+
+  // --- Kurzsatz-Frequenz (≤4 Wörter) ---
   const shortSents = sentences.filter(s => s.split(/\s+/).length <= 4).length;
   const ssf = clamp(1 + (shortSents/tS)*16, 1, 5);
+
+  // --- Fragen-Frequenz ---
   const questions = sentences.filter(s => s.trim().endsWith('?')).length;
   const qf = clamp(1 + (questions/tS)*12, 1, 5);
+
+  // --- Absatzlänge ---
   const pl = clamp(1 + (tS/tP - 1)/2, 1, 5);
 
-  const hedgeWords = ['vermutung','vermutlich','vielleicht','könnte','möglicherweise','wahrscheinlich','scheint','dürfte','meine einschätzung','ich bin skeptisch','eher','unter umständen','gewissermaßen'];
-  const hd = clamp(1 + hedgeWords.reduce((n,w) => n + (lower.split(w).length-1), 0)*1.5, 1, 5);
+  // --- Hedging: Strip kursiv/Zitat-Kontexte vor dem Zählen ---
+  // Text ohne *kursiv*-Passagen (die oft Zitate/Hypothesen markieren)
+  const noEmph = text.replace(/\*[^*]+\*/g, '').toLowerCase();
+  const hedgeWords = ['vermutung','vermutlich','vielleicht','könnte','möglicherweise','wahrscheinlich','scheint','dürfte','meine einschätzung','ich bin skeptisch','unter umständen','gewissermaßen'];
+  const hedgeCount = hedgeWords.reduce((n,w) => n + (noEmph.split(w).length-1), 0);
+  // "eher" nur zählen wenn im Kontext "meine vermutung ist eher" oder "ist eher"
+  const eherCount = (noEmph.match(/\bist eher\b|\beher nicht\b|\beher ein\b/g)||[]).length;
+  const hd = clamp(1 + (hedgeCount + eherCount)*1.5, 1, 5);
+
+  // --- Relativierung ---
   const cbWords = ['fairerweise','andererseits','auf der anderen seite','allerdings','gleichwohl','man muss zugeben','zwar','immerhin','einschränkend','zugestanden'];
   const cb = clamp(1 + cbWords.reduce((n,w) => n + (lower.split(w).length-1), 0)*2, 1, 5);
-  const confWords = ['unfug','bullshit','augenwischerei','dampfplauderei','mogelpackung','mal ehrlich','jemand zu hause','memo nicht gelesen','kurze frage','hand aufs herz','netter versuch'];
+
+  // --- Konfrontation ---
+  const confWords = ['unfug','bullshit','augenwischerei','dampfplauderei','mogelpackung','mal ehrlich','jemand zu hause','memo nicht gelesen','kurze frage','hand aufs herz','netter versuch','mit verlaub','wer glaubt'];
   const confCount = confWords.reduce((n,w) => n + (lower.split(w).length-1), 0);
-  const conf = clamp(1 + confCount*1.5, 1, 5);
-  const opMarkers = ['klar ist','tatsache ist','fakt ist','es ist unfug','das ist','wer glaubt','punkt.','nein,','ja,'];
-  const os = clamp(1 + opMarkers.reduce((n,w) => n + (lower.split(w).length-1), 0)*1.2 + (5-hd)*0.5, 1, 5);
-  const scareQ = (text.match(/„[^"]*"|"[^"]*"/g)||[]).length;
-  const ie = clamp(1 + scareQ*0.8 + confCount*0.5, 1, 5);
-  const antiWords = ['vs\\.','versus','einerseits','andererseits','aber','jedoch','dagegen','im gegensatz','stattdessen','während'];
-  const ad = clamp(1 + antiWords.reduce((n,w) => n + (text.match(new RegExp(w,'gi'))||[]).length, 0)/tS*3, 1, 5);
+  // Zähle auch konfrontative Satzstrukturen
+  const confStructures = (text.match(/\?\s*$/gm)||[]).length > 2 ? 1 : 0; // viele Fragen = konfrontativer
+  const conf = clamp(1 + (confCount + confStructures)*1.3, 1, 5);
+
+  // --- Meinungsstärke ---
+  const opMarkers = ['klar ist','tatsache ist','fakt ist','es ist unfug','das ist ','wer glaubt','punkt.','nein,','ja,','das problem ist','die wahrheit'];
+  const osCount = opMarkers.reduce((n,w) => n + (lower.split(w).length-1), 0);
+  const os = clamp(1 + osCount*1.0 + (5-hd)*0.5, 1, 5);
+
+  // --- Ironie: erweitert um *kursiv* Scare-Quotes, Konjunktiv-Ironie, Understatement ---
+  const scareQuotes = (text.match(/„[^"]*"|"[^"]*"|"[^"]*"/g)||[]).length;
+  const emphScare = (text.match(/\*[^*]{2,30}\*/g)||[]).length; // *kursive* Begriffe als Scare-Quotes
+  const understatement = (lower.match(/als (?:würde|hätte|wäre|ob)\b/g)||[]).length;
+  const ironicPhrases = ['spoiler','not so fast','what could possibly go wrong','netter versuch','klingt nach zukunft','fühlt sich an wie','game over'];
+  const ironicCount = ironicPhrases.reduce((n,w) => n + (lower.split(w).length-1), 0);
+  const ie = clamp(1 + scareQuotes*0.6 + emphScare*0.4 + understatement*0.8 + ironicCount*1.0 + confCount*0.3, 1, 5);
+
+  // --- Antithesen: erweitert um strukturelle Kontrastmuster ---
+  const antiExplicit = ['vs\\.','versus','einerseits','andererseits','aber','jedoch','dagegen','im gegensatz','stattdessen'];
+  const antiExplicitCount = antiExplicit.reduce((n,w) => n + (text.match(new RegExp('\\b'+w+'\\b','gi'))||[]).length, 0);
+  // Strukturelle Antithesen: "Nicht X, sondern Y", "X. Nicht Y.", "Das Versprechen: X. Die Realität: Y"
+  const antiStructural = (text.match(/\.\s*Nicht\s/g)||[]).length
+    + (text.match(/nicht\s[^,.\n]+,?\s*sondern\b/gi)||[]).length
+    + (text.match(/\bstatt\b/gi)||[]).length
+    + (text.match(/klingt nach[^.]+\.\s*[Ff]ühlt sich an/g)||[]).length
+    + (text.match(/Das (?:Versprechen|Problem|Argument|Ergebnis):[^.]+\.\s*(?:Die|Das) (?:Realität|Ergebnis|Wahrheit)/g)||[]).length
+    + (text.match(/[^.]+\.\s*(?:Sondern|Stattdessen)\b/g)||[]).length;
+  // Kontrastierende Satzpaare (kurzer Satz nach langem, der inhaltlich kontrastiert)
+  const antiPairs = (text.match(/[^.]{40,}\.\s*[^.]{3,20}\./g)||[]).length * 0.3;
+  const ad = clamp(1 + (antiExplicitCount + antiStructural*2 + antiPairs)/tS*4, 1, 5);
+
+  // --- Rhythmus-Variation: Sprünge zwischen aufeinanderfolgenden Sätzen ---
   const lens = sentences.map(s => s.split(/\s+/).length);
   const mean = lens.reduce((a,b)=>a+b,0)/lens.length;
   const stddev = Math.sqrt(lens.reduce((s,l)=>s+(l-mean)**2,0)/lens.length);
-  const rv = clamp(1 + stddev/4, 1, 5);
+  // Zusätzlich: Anteil großer Sprünge (>6 Wörter Differenz zwischen Nachbarsätzen)
+  let bigJumps = 0;
+  for (let i = 1; i < lens.length; i++) { if (Math.abs(lens[i]-lens[i-1]) > 6) bigJumps++; }
+  const jumpRatio = bigJumps / Math.max(1, lens.length - 1);
+  const rv = clamp(1 + stddev/3.5 + jumpRatio*4, 1, 5);
+
+  // --- Tempo: inverse Korrelation mit Satzlänge und Absatzlänge, plus Infodichte ---
   const pc = clamp(6 - sl*0.5 - pl*0.5, 1, 5);
-  const engW = text.match(/\b[A-Z]?[a-z]*(?:tion|ing|ment|ness|ity|ive|ful|ous|ent|ance|ence)\b/g)||[];
-  const angD = clamp(1 + engW.length/words.length*40, 1, 5);
+
+  // --- Anglizismen ---
+  const engPatterns = text.match(/\b[A-Z]?[a-z]*(?:tion|ing|ment|ness|ity|ive|ful|ous|ent|ance|ence)\b/g)||[];
+  const explicitEng = (text.match(/\b(?:Workflow|Interface|Checkout|Framework|Agent|Deploy|Pipeline|Feature|Bug|Update|Pitch|Use Case|Pain Point|Code|Stack|Layer)\b/gi)||[]).length;
+  const angD = clamp(1 + (engPatterns.length + explicitEng) / words.length * 30, 1, 5);
+
+  // --- Leseransprache: erweitert um Imperative und indirekte Ansprache ---
   const duC = (text.match(/\b(du|dir|dein\w*)\b/gi)||[]).length;
   const ihrC = (text.match(/\b(ihr|euch|euer|eure\w*)\b/gi)||[]).length;
-  const ra = duC > ihrC*2 ? clamp(3+duC*0.3,3,5) : ihrC > 0 ? 3 : clamp(1+duC*0.5,1,2);
+  const imperatives = (text.match(/\b(vergleicht|schaut|denkt|fragt|stellt euch|seht|überlegt|beweist|testet)\b/gi)||[]).length;
+  const wirC = (text.match(/\b(wir|uns|unser\w*)\b/gi)||[]).length;
+  const manC = (text.match(/\bman\b/gi)||[]).length;
+  let ra;
+  if (duC > ihrC * 2) ra = clamp(3 + duC * 0.3, 3, 5);
+  else if (ihrC > 0 || imperatives > 0) ra = clamp(2.5 + (ihrC + imperatives) * 0.4, 2.5, 4);
+  else if (wirC > 1) ra = clamp(1.5 + wirC * 0.3, 1.5, 2.5);
+  else ra = clamp(1 + manC * 0.1, 1, 2);
 
   return {
     sentence_length:sl, syntax_complexity:sc, short_sentence_frequency:ssf,
@@ -1384,23 +1612,21 @@ function buildPromptText() {
   const key = document.getElementById('presetSelect').value;
   const label = presets[key]?.label || key;
 
-  function desc(dk, val) {
-    const d = DIMS[dk];
-    if (!d) return '';
-    if (val <= 1) return d.p1;
-    if (val >= 5) return d.p5;
-    if (val <= 2) return 'Eher ' + d.p1.toLowerCase();
-    if (val >= 4) return 'Eher ' + (d.p5||'').toLowerCase();
-    return d.p3 || 'Mittel';
+  function getInstruction(dk, val) {
+    const m = MICRO[dk];
+    if (!m) return DIMS[dk]?.p1 || '';
+    const v = Math.max(1, Math.min(5, Math.round(val)));
+    return m[v] || m[3] || '';
   }
 
   let paramBlock = '';
   for (const g of GROUPS) {
-    const dims = g.dims.map(dk => {
+    paramBlock += `\n### ${g.label}\n`;
+    for (const dk of g.dims) {
       const v = p[dk] || 3;
-      return `- ${DIMS[dk].label}: ${v}/5 → ${desc(dk, v)}`;
-    });
-    paramBlock += `\n### ${g.label}\n${dims.join('\n')}\n`;
+      const instr = getInstruction(dk, v);
+      paramBlock += `\n**${DIMS[dk].label}** (${v}/5):\n${instr}\n`;
+    }
   }
 
   const conflicts = getConflicts();
@@ -1450,20 +1676,26 @@ function buildPromptText() {
   else if (genVal <= 4) genderInstr = 'Gendere konsequent mit Doppelpunkt (Leser:innen). Bei wichtigen Stellen ausgeschrieben.';
   else genderInstr = 'Gendere konsequent ausgeschrieben (Leserinnen und Leser, Entwicklerinnen und Entwickler).';
 
+  const anchor = presets[key]?.anchor_text || current.anchor_text || '';
+  const anchorBlock = anchor
+    ? `\n## Referenz-Stil (schreibe in diesem Ton)\n\n> ${anchor}\n\nDer obige Absatz zeigt den Zielstil. Orientiere dich an Tonfall, Satzrhythmus, Haltung und Wortwahl.\n`
+    : '';
+
   return `# Stil-Anweisung: ${label}
 
-Du schreibst im Stil-Preset **${label}**. Halte dich exakt an die folgenden Parameter.
-
-## Stil-Parameter (Skala 1–5)
+Du schreibst im Stil-Preset **${label}**. Befolge die folgenden Anweisungen exakt.
+${anchorBlock}
+## Stil-Anweisungen
 ${paramBlock}
 ## Gendern
 ${genderInstr}
 ${conflictBlock}${phraseBlock}${tabooBlock}
 ## Wichtig
-- Die Parameter definieren Richtung, nicht exakte Zählwerte. Ein Satzlänge-Wert von 2 heißt nicht "exakt 10 Wörter", sondern "kurze, knappe Sätze bevorzugen".
+- Die Anweisungen oben sind konkrete Regeln — befolge sie wörtlich. Zählbare Angaben (Satzlänge, Häufigkeiten) sind Richtwerte mit ±10% Toleranz.
 - Phrasen-Bausteine sind Vorschläge — nutze 1–2 pro Text, nicht alle auf einmal.
 - Verbotene Wörter und Phrasen sind harte Regeln. Verwende sie nie, auch nicht in Varianten.
-- Taboo Topics: Vermeide nicht nur die Begriffe, sondern die gesamte Metaphorik des Themenbereichs.`.trim();
+- Taboo Topics: Vermeide nicht nur die Begriffe, sondern die gesamte Metaphorik des Themenbereichs.
+- Wenn Anweisungen in Spannung zueinander stehen (z.B. kurze Sätze + hohe Satzkomplexität), löse das kreativ auf statt eine Seite zu ignorieren.`.trim();
 }
 
 function copyPrompt() {

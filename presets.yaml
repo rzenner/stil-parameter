@@ -19,22 +19,103 @@ dimensions:
     pole_1: "Kurz, stakkato (Ø 8–12 Wörter)"
     pole_5: "Lang, verschachtelt (Ø 22–28 Wörter)"
     notes: "Betrifft den Durchschnitt — Varianz ist immer erwünscht."
+    measurable: true
+    instructions:
+      1: >
+        Durchschnittliche Satzlänge: 8–12 Wörter. Bevorzuge Hauptsätze ohne Nebensätze.
+        Brich längere Gedanken in mehrere kurze Sätze auf. Kein Satz über 18 Wörter.
+        Beispiel: "Tencent hat geliefert. Eine Milliarde Nutzer:innen haben jetzt Zugang."
+      2: >
+        Durchschnittliche Satzlänge: 12–16 Wörter. Überwiegend kurze Sätze,
+        gelegentlich ein mittellanger Satz (bis 20 Wörter) für Einordnung.
+        Nebensätze sparsam — maximal einer pro Satz.
+      3: >
+        Durchschnittliche Satzlänge: 15–20 Wörter. Mischung aus kurzen und mittleren Sätzen.
+        Gelegentlich ein längerer Satz mit einem Nebensatz für Nuancierung.
+        Varianz ist wichtiger als Gleichförmigkeit.
+      4: >
+        Durchschnittliche Satzlänge: 18–24 Wörter. Längere Sätze als Default,
+        mit Einschüben und Nebensätzen. Kurze Sätze nur als bewusster Kontrapunkt.
+        Gedankenstriche für Einschübe erlaubt.
+      5: >
+        Durchschnittliche Satzlänge: 22–28 Wörter. Verschachtelte Sätze mit mehreren
+        Nebensätzen, Relativsätzen und Einschüben in Gedankenstrichen.
+        Hypotaktischer Stil — Gedanken werden innerhalb eines Satzes ausdifferenziert.
 
   syntax_complexity:
     label: "Satzkomplexität"
     pole_1: "Parataktisch, Hauptsätze dominieren"
     pole_5: "Hypotaktisch, Relativsatz-Ketten, Einschübe mit Gedankenstrichen"
+    measurable: true
+    instructions:
+      1: >
+        Nur Hauptsätze. Keine Nebensätze mit "dass", "weil", "obwohl", "während", "die/der/das".
+        Keine Einschübe mit Gedankenstrichen. Koordination nur mit "und", "aber", "oder".
+        Wenn ein Gedanke komplex ist: zwei Sätze statt einem verschachtelten.
+      2: >
+        Hauptsätze dominieren. Pro Absatz maximal 1–2 einfache Nebensätze ("weil", "wenn").
+        Keine Relativsatz-Ketten. Keine verschachtelten Nebensätze (Nebensatz im Nebensatz).
+      3: >
+        Mischung: Hauptsätze bilden das Rückgrat, Nebensätze ergänzen wo nötig.
+        Relativsätze gelegentlich. Einschübe mit Gedankenstrichen als Stilmittel erlaubt (max. 1 pro Absatz).
+      4: >
+        Nebensätze sind regulärer Bestandteil. Relativsatz-Ketten (bis 2 Ebenen) erlaubt.
+        Einschübe mit Gedankenstrichen regelmäßig. Parenthesen für Nebenbemerkungen.
+        Konjunktionen wie "wobei", "zumal", "wenngleich" aktiv nutzen.
+      5: >
+        Hypotaktischer Stil. Verschachtelte Sätze mit 2–3 Ebenen sind Standard.
+        Relativsatz-Ketten, Einschübe, Appositionen, Partizipialgruppen.
+        Der Leser muss den Satzanfang im Kopf behalten — das ist gewollt.
 
   short_sentence_frequency:
     label: "Kurzsatz-Frequenz"
     pole_1: "Keine Einwortsätze oder Kurzsätze"
     pole_5: "Häufig — 'Punkt.', 'Funktioniert nicht.', 'Nächster.'"
     notes: "Kurzsätze = 1–4 Wörter, bewusst als Stilmittel eingesetzt."
+    measurable: true
+    instructions:
+      1: >
+        Keine Kurzsätze (≤4 Wörter) verwenden. Kein "Punkt.", kein "Genau.",
+        kein "Funktioniert nicht." Jeder Satz hat mindestens 5 Wörter.
+      2: >
+        Kurzsätze sehr selten — maximal 1 pro 800 Wörter. Nur für einen einzelnen
+        Höhepunkt oder eine Schlusspointe. Nie zwei Kurzsätze hintereinander.
+      3: >
+        Kurzsätze gelegentlich — 2–3 pro 800 Wörter. Als Kontrapunkt nach
+        einem längeren Absatz oder als Überleitung. Nicht als Standardmittel.
+      4: >
+        Kurzsätze regelmäßig — 4–6 pro 800 Wörter. Bewusst als Rhythmusmittel
+        einsetzen: nach einer Erklärung die Pointe in 2–3 Wörtern.
+        Auch als Absatzeinstieg ("Mal ehrlich:", "Kurze Frage:").
+      5: >
+        Kurzsätze häufig — 6+ pro 800 Wörter. Einwortsätze erlaubt ("Unfug.", "Punkt.",
+        "Nächster."). Kurzsätze als Stakkato-Rhythmus: Aufbau-Aufbau-Schlag.
+        Bewusst provokant und pointiert.
+        Beispiel: "Funktioniert nicht. Und zwar grundlegend nicht."
 
   question_frequency:
     label: "Fragen-Frequenz"
     pole_1: "Keine rhetorischen Fragen"
     pole_5: "Fragen als zentrales Strukturprinzip (Überschriften, Absatz-Einstiege)"
+    measurable: true
+    instructions:
+      1: >
+        Keine rhetorischen Fragen im Fließtext. Keine Frage-Überschriften.
+        Aussagesätze und Behauptungen statt Fragen.
+      2: >
+        Maximal 1 Frage pro 800 Wörter. Nur im Schlussteil als offene Frage
+        an die Leser:innen. Keine Frage-Überschriften.
+      3: >
+        2–3 Fragen pro 800 Wörter. Fragen als Überleitung zwischen Abschnitten
+        erlaubt. Gelegentlich eine Frage-Überschrift.
+      4: >
+        4–5 Fragen pro 800 Wörter. Fragen als Strukturprinzip: Absätze
+        mit einer Frage eröffnen, Zwischenüberschriften als Fragen formulieren.
+        Rhetorische Fragen zur Konfrontation.
+      5: >
+        6+ Fragen pro 800 Wörter. Fragen dominieren die Textstruktur.
+        Überschriften sind Fragen. Absätze beginnen mit Fragen.
+        Rhetorische Fragen als Stilmittel: "Hat da jemand das Memo nicht gelesen?"
 
   # --- ABSATZ & STRUKTUR ---
 
@@ -42,16 +123,74 @@ dimensions:
     label: "Absatzlänge"
     pole_1: "Kurz (1–3 Sätze), viel Weißraum"
     pole_5: "Lang (5–8 Sätze), dichte Textblöcke"
+    measurable: true
+    instructions:
+      1: >
+        1–2 Sätze pro Absatz. Viel Weißraum. Jeder Gedanke bekommt einen
+        eigenen Absatz. Auch Einzeiler sind Absätze. Luftig, schnell scannbar.
+      2: >
+        2–3 Sätze pro Absatz. Gelegentlich ein Einzeiler-Absatz als Kontrapunkt.
+        Kein Absatz über 4 Sätze.
+      3: >
+        3–4 Sätze pro Absatz. Ausgewogene Mischung — manche Absätze kürzer (2 Sätze),
+        manche länger (bis 5 Sätze). Absatzlänge variiert mit dem Inhalt.
+      4: >
+        4–5 Sätze pro Absatz als Default. Dichtere Textblöcke, weniger Weißraum.
+        Kurze Absätze nur bei Übergängen oder für Betonung.
+      5: >
+        5–8 Sätze pro Absatz. Dichte, analytische Textblöcke. Gedanken werden
+        innerhalb eines Absatzes vollständig entwickelt. Absatzwechsel nur bei
+        echtem Themenwechsel, nicht für Optik.
 
   historical_depth:
     label: "Historische Einordnung"
     pole_1: "Kein historischer Kontext"
     pole_5: "Ausführliche Geschichtsstunde als Default"
+    instructions:
+      1: >
+        Kein historischer Kontext. Der Text behandelt nur das Jetzt.
+        Keine Rückblicke, keine "Schon 2019 war klar..."-Einleitungen.
+        Rein gegenwartsbezogen.
+      2: >
+        Minimal. Maximal 1 Satz historischer Kontext pro Text.
+        "Das ist nicht neu — aber die Dimension schon." Kein eigener Abschnitt dafür.
+      3: >
+        Kurze Einordnung. 2–3 Sätze historischer Kontext, eingebettet in
+        die Argumentation. Kein eigener Geschichts-Abschnitt.
+        "Wer sich erinnert, wie X 2020 gescheitert ist, versteht..."
+      4: >
+        Deutliche historische Einordnung. Ein eigener Absatz (4–6 Sätze)
+        zur Vorgeschichte. Entwicklungslinien aufzeigen. "Vor drei Jahren..."
+        Historische Parallelen als Argumentationsmittel.
+      5: >
+        Ausführliche Geschichtsstunde. Historischer Kontext als eigener Abschnitt
+        (8+ Sätze). Zeitreise durch die Entwicklung des Themas.
+        "Wer das einordnen will, muss zurück zu..." Vergangenheit erklärt Gegenwart.
 
   anecdote_density:
     label: "Anekdoten-Dichte"
     pole_1: "Keine persönlichen Anekdoten oder Erzähleinstiege"
     pole_5: "Narrativer Einstieg, persönliche Erlebnisse als Aufhänger"
+    instructions:
+      1: >
+        Keine persönlichen Anekdoten. Kein "Ich erinnere mich...",
+        kein "Letzte Woche hatte ich...". Rein analytisch, keine Ich-Perspektive
+        als Erzählelement. Fakten und Argumente statt Geschichten.
+      2: >
+        Sehr selten. Maximal 1 kurze persönliche Referenz im gesamten Text.
+        "Das kennt man:" statt einer ausführlichen Anekdote. Keine narrativen Einstiege.
+      3: >
+        Gelegentlich. 1–2 kurze Anekdoten oder Erzählmomente pro Text.
+        Ein Satz, der ein Szenario skizziert: "Stellt euch vor:..."
+        Nicht der Textaufhänger, sondern Illustration innerhalb des Textes.
+      4: >
+        Regelmäßig. Narrativer Einstieg als Option. Persönliche Beobachtungen
+        ("Was mir auffällt:") als Argumentationsstütze. 2–3 Erzählmomente pro Text.
+      5: >
+        Dicht. Der Text beginnt mit einer Anekdote oder einem narrativen Szenario.
+        Persönliche Erlebnisse als Aufhänger: "Als ich letzte Woche..."
+        Geschichten illustrieren jeden Hauptpunkt. Der Text liest sich
+        wie eine Erzählung mit analytischem Kern.
 
   # --- HALTUNG & TON ---
 
@@ -59,21 +198,108 @@ dimensions:
     label: "Meinungsstärke"
     pole_1: "Neutral-berichtend, keine erkennbare Position"
     pole_5: "Klare These ab Satz 1, unmissverständliche Haltung"
+    instructions:
+      1: >
+        Neutral-berichtend. Keine eigene Position erkennbar. Fakten präsentieren,
+        verschiedene Seiten darstellen, keine Bewertung. Kein "ich finde", kein "das ist gut/schlecht".
+        Journalistischer Nachrichtenstil.
+      2: >
+        Überwiegend berichtend, aber mit vorsichtiger Einordnung am Ende.
+        Position wird angedeutet, nicht ausgesprochen. "Es fällt auf, dass..."
+        statt "Das ist falsch."
+      3: >
+        Position erkennbar, aber eingebettet in Analyse. These wird im Laufe des Textes
+        entwickelt, nicht vorangestellt. Bewertungen sind begründet und abgewogen.
+        "Meine Einschätzung:" als Marker für eigene Position.
+      4: >
+        Klare Position, die früh im Text erkennbar wird (spätestens 2. Absatz).
+        Bewertungen sind eindeutig, aber mit Begründung. Gegenargumente werden
+        anerkannt und entkräftet, nicht ignoriert.
+      5: >
+        These ab dem ersten Satz. Unmissverständliche Haltung. Kein Einerseits-Andererseits
+        ohne eigene Position. "Das ist Unfug." statt "Das könnte man kritisch sehen."
+        Der Text argumentiert für eine Sache, nicht über eine Sache.
 
   hedging:
     label: "Hedging-Level"
     pole_1: "Kein Hedging — Aussagen stehen absolut"
     pole_5: "Durchgängig vorsichtig ('könnte', 'vermutlich', 'meine Vermutung ist eher')"
+    measurable: true
+    instructions:
+      1: >
+        Kein Hedging. Verwende keine der folgenden Wörter/Phrasen: "könnte", "dürfte",
+        "vermutlich", "möglicherweise", "wahrscheinlich", "meine Vermutung",
+        "es scheint", "es deutet darauf hin", "nicht auszuschließen".
+        Jede Aussage steht definitiv. "X ist so" statt "X könnte so sein".
+      2: >
+        Fast kein Hedging. Maximal 1 Hedge-Phrase pro 500 Wörter.
+        Nur bei genuinen Zukunftsprognosen oder ungesicherten Zahlen erlaubt.
+        Verboten als Höflichkeits-Hedge oder aus Vorsicht.
+        Erlaubt: "Das wird sich zeigen." Verboten: "Man könnte argumentieren, dass..."
+      3: >
+        Moderates Hedging. 2–3 Hedge-Phrasen pro 500 Wörter.
+        Bei Prognosen und Bewertungen hedgen, bei Fakten definitiv bleiben.
+        Erlaubt: "vermutlich", "meine Einschätzung ist". Sparsam: "könnte".
+      4: >
+        Deutliches Hedging. 4–5 Hedge-Phrasen pro 500 Wörter.
+        Bewertungen werden regelmäßig relativiert. "Meine Vermutung ist eher...",
+        "Es spricht einiges dafür, dass...", "Möglicherweise..."
+        Definitiv nur bei belegten Fakten.
+      5: >
+        Durchgängiges Hedging. Jede Bewertung und Einschätzung wird abgesichert.
+        "Könnte", "dürfte", "vermutlich" in fast jedem Bewertungssatz.
+        "Meine Vermutung ist eher..." als Standard-Einleitung für Einschätzungen.
+        Signalisiert: "Ich könnte falsch liegen, aber..."
 
   counterbalance:
     label: "Relativierung / Gegengewicht"
     pole_1: "Nie — Urteil steht ungebremst"
     pole_5: "Immer ('Fairerweise muss man sagen', 'Auf der anderen Seite')"
+    instructions:
+      1: >
+        Keine Relativierung. Urteile stehen ungebremst. Kein "Fairerweise...",
+        kein "Auf der anderen Seite...", kein "Man muss aber auch sehen...".
+        Gegenargumente werden nicht eingeräumt.
+      2: >
+        Selten. Maximal 1 Relativierung pro Text, nur wenn das Gegenargument
+        substanziell ist. Nie als Höflichkeits-Reflex.
+        Erlaubt: "Fairerweise..." einmalig nach einer harten Kritik.
+      3: >
+        Gelegentlich. 2–3 Relativierungen pro Text. Nach starken Urteilen ein
+        Gegengewicht anbieten. "Fairerweise muss man sagen" ist erlaubt.
+        Balance zwischen Urteil und Nuancierung.
+      4: >
+        Regelmäßig. Fast jedes starke Urteil bekommt ein Gegengewicht.
+        "Auf der anderen Seite...", "Fairerweise...", "Das ist aber nur die halbe Wahrheit."
+        Signalisiert: abwägende Analyse.
+      5: >
+        Immer. Kein Urteil ohne Gegengewicht. Jede Kritik wird relativiert.
+        "Fairerweise muss man sagen" als Standard-Phrase nach Kritik.
+        Signalisiert: maximale Fairness und intellektuelle Redlichkeit.
 
   confrontation:
     label: "Konfrontation"
     pole_1: "Einladend, kumpelhaft, 'wir gemeinsam'"
     pole_5: "Rhetorische Attacken, direkte Konfrontation"
+    instructions:
+      1: >
+        Keinerlei Konfrontation. Einladender, kollegialer Ton.
+        "Wir", "gemeinsam", "lohnt sich anzuschauen". Niemand wird angegriffen
+        oder in Frage gestellt. Auch keine rhetorischen Fragen mit Spitze.
+      2: >
+        Minimal. Gelegentlich eine leicht spitze Beobachtung, aber nie direkt
+        an jemanden gerichtet. "Das überrascht." statt "Hat da jemand nicht aufgepasst?"
+      3: >
+        Moderate Konfrontation. Rhetorische Fragen mit sanfter Spitze erlaubt.
+        "Ob das wirklich reicht?" Direkte Kritik an Produkten/Strategien, nicht an Personen.
+      4: >
+        Deutliche Konfrontation. Rhetorische Attacken auf Strategien und Behauptungen.
+        "Netter Versuch. Aber..." — "Klingt nach Zukunft. Fühlt sich an wie 2019."
+        Direkte Fragen: "Und das soll jetzt der große Wurf sein?"
+      5: >
+        Maximale Konfrontation. "Hat da jemand das Memo nicht gelesen?",
+        "Jemand zu Hause, McFly?", "Das ist — mit Verlaub — Unfug."
+        Bullshit wird beim Namen genannt. Rhetorische Attacken als Stilmittel.
 
   # --- STILMITTEL ---
 
@@ -82,22 +308,101 @@ dimensions:
     pole_1: "Keine Ironie"
     pole_3: "Augenzwinkernd, selbstironisch"
     pole_5: "Beißend, Scare Quotes, konfrontativ"
+    instructions:
+      1: >
+        Keine Ironie. Alles wörtlich gemeint. Keine Scare Quotes, kein
+        Augenzwinkern, kein Understatement. Sachlicher Ernst.
+      2: >
+        Minimale Ironie. Gelegentlich ein leichtes Understatement.
+        "Das dürfte für Gesprächsstoff sorgen." Keine Scare Quotes.
+        Ironie nur durch Kontext erkennbar, nie durch Formulierung.
+      3: >
+        Augenzwinkernde Ironie. Selbstironie erlaubt. Gelegentliche
+        Übertreibung zur Illustration. Scare Quotes sparsam (max. 1 pro Text).
+        Beispiel: "Die 'Revolution' entpuppte sich als Firmware-Update."
+      4: >
+        Deutliche Ironie. Scare Quotes um Marketing-Begriffe:
+        "autonom", "intelligent", "Enterprise-ready". Trockene Kommentare:
+        "Spoiler: So einfach ist es nicht." Ironische Übertreibungen:
+        "Klingt nach Zukunft. Fühlt sich an wie 2019."
+      5: >
+        Beißende Ironie. Scare Quotes häufig. Sarkastische Einschübe.
+        "Der 'autonome' Agent braucht drei manuelle Eingriffe pro Stunde."
+        Ironie als Waffe gegen Hype und Bullshit. Nie albern — immer pointiert.
 
   metaphor_density:
     label: "Metaphern-Dichte"
     pole_1: "Kaum bildhafte Sprache"
     pole_5: "Dicht — mindestens 1 Metapher pro Absatz"
+    instructions:
+      1: >
+        Keine Metaphern. Direkte, wörtliche Sprache. "Das System skaliert nicht"
+        statt "Das System stößt an seine Grenzen". Technische Präzision statt Bilder.
+      2: >
+        Sehr sparsam. Maximal 1–2 Metaphern im gesamten Text.
+        Nur etablierte Metaphern ("Ökosystem", "Baustein", "Fundament").
+        Keine überraschenden oder kreativen Bilder.
+      3: >
+        Gelegentlich. 3–4 Metaphern pro Text. Etablierte Bilder plus
+        gelegentlich ein frisches Bild. Quellbereiche: Bauen/Architektur,
+        Reise/Weg, Mechanik/Werkstatt.
+      4: >
+        Regelmäßig. 5–7 Metaphern pro Text. Mindestens ein überraschendes,
+        unerwartetes Bild pro Text. "Infrastruktur ohne Interface ist wie
+        eine Autobahn ohne Auffahrt."
+      5: >
+        Dicht. Mindestens 1 Metapher pro Absatz. Überraschende Vergleiche,
+        absurde Analogien. Quellbereiche: Alltag, Popkultur, Handwerk.
+        "Ein Jira-Ticket altert länger als ein mittelprächtiger Rotwein."
 
   cultural_references:
     label: "Kulturelle Referenzen"
     pole_1: "Keine"
     pole_3: "1–2 pro Text, illustrativ"
     pole_5: "Dicht, überraschend, zentral für Argumentation"
+    instructions:
+      1: >
+        Keine kulturellen Referenzen. Kein Film, keine Musik, keine Literatur,
+        keine Memes. Rein sachliche Argumentation.
+      2: >
+        Maximal 1 Referenz pro Text, und nur eine allgemein bekannte.
+        "Wie bei Sisyphos" oder eine bekannte Redewendung. Nie erklärungsbedürftig.
+      3: >
+        1–2 Referenzen pro Text. Film, Serien, Popkultur als Illustration.
+        "Jemand zu Hause, McFly?" Referenzen ergänzen die Argumentation,
+        tragen sie aber nicht.
+      4: >
+        3–4 Referenzen pro Text. Überraschende Verbindungen zwischen Tech und Kultur.
+        Japan-Vergleiche, historische Parallelen, Serien-Referenzen.
+        Referenzen werden zum Teil der Argumentation.
+      5: >
+        Dicht. Kulturelle Referenzen in fast jedem Abschnitt. Popkultur, Geschichte,
+        Literatur, Film — als argumentativer Anker, nicht als Dekoration.
+        Der Text lebt von unerwarteten Vergleichen.
 
   antithesis_density:
     label: "Antithesen-Dichte"
     pole_1: "Keine bewussten Kontrastpaare"
     pole_5: "Antithesen als zentrales Argumentationsprinzip (Pitch vs. Realität, Keynote vs. Praxis)"
+    instructions:
+      1: >
+        Keine bewussten Kontrastpaare. Argumente stehen für sich, ohne
+        expliziten Kontrast zum Gegenteil.
+      2: >
+        Gelegentlich. Maximal 1–2 Kontrastpaare pro Text.
+        "Theorie vs. Praxis" oder "Versprechen vs. Realität" an einer zentralen Stelle.
+      3: >
+        Regelmäßig. 3–4 Kontrastpaare pro Text. Als Argumentationshilfe:
+        "Auf dem Papier brillant. In der Praxis: ernüchternd."
+        Kontrastpaare in einzelnen Sätzen.
+      4: >
+        Häufig. Antithesen als Strukturprinzip ganzer Abschnitte.
+        "Pitch vs. Realität", "USA vs. Europa", "Keynote vs. Produkt".
+        Jeder Hauptpunkt hat sein Gegenstück.
+      5: >
+        Zentral. Fast jedes Argument wird als Kontrastpaar präsentiert.
+        "Das Versprechen: X. Die Realität: Y." — "Pressemeldung: Revolution.
+        Produkt: Evolution. Bestenfalls." Antithese ist die Grundfigur des Textes.
 
   # --- TEMPO & RHYTHMUS ---
 
@@ -105,11 +410,49 @@ dimensions:
     label: "Tempo"
     pole_1: "Langsam, mäandernd, ausführlich"
     pole_5: "Schnell, rhythmisch, keine Umwege"
+    instructions:
+      1: >
+        Langsames Tempo. Jeder Punkt wird ausführlich erläutert. Exkurse,
+        Hintergrund, historische Einordnung vor der eigentlichen Aussage.
+        Der Leser wird hingeführt, nicht hingeworfen. Jede These wird vorbereitet.
+      2: >
+        Gemächlich-analytisch. Punkte werden erklärt, aber ohne Exkurse.
+        Eine Hintergrund-Information pro Abschnitt, dann weiter.
+        Keine Sprünge, aber auch kein Mäandern.
+      3: >
+        Mittleres Tempo. Mischung aus Erklärung und Vorwärtsbewegung.
+        Hintergrund nur wo nötig. Der Text kommt voran, nimmt sich aber
+        Zeit für wichtige Nuancen.
+      4: >
+        Schnelles Tempo. Jeder Satz treibt den Text voran. Keine Wiederholungen,
+        keine überflüssigen Erklärungen. Hintergrund nur in einem Satz.
+        Wenn ein Punkt gemacht ist, nächster Punkt.
+      5: >
+        Maximales Tempo. Stakkato-Rhythmus. Kein Satz, der den Text nicht
+        vorantreibt. Keine Exkurse, kein Hintergrund. Rein-raus.
+        Informationsdichte pro Satz ist maximal.
 
   rhythm_variation:
     label: "Rhythmus-Variation"
     pole_1: "Gleichförmig (ähnliche Satzlängen)"
     pole_5: "Starke Wechsel (lang-lang-kurz, Aufbau-Aufbau-Pointe)"
+    instructions:
+      1: >
+        Gleichförmiger Rhythmus. Sätze haben ähnliche Länge (Varianz ≤5 Wörter).
+        Kein Stakkato, kein Wechsel. Ruhiger, gleichmäßiger Lesefluss.
+      2: >
+        Leichte Variation. Überwiegend ähnliche Satzlängen, aber gelegentlich
+        ein kürzerer oder längerer Satz. Keine bewussten Rhythmusmuster.
+      3: >
+        Moderate Variation. Bewusster Wechsel zwischen kürzeren und längeren
+        Sätzen. Keine festen Muster, aber spürbare Dynamik.
+      4: >
+        Deutliche Variation. Muster wie lang-lang-kurz oder Aufbau-Aufbau-Pointe.
+        Der kurze Satz nach zwei langen ist die Pointe. Rhythmus als Stilmittel.
+      5: >
+        Starke, bewusste Rhythmuswechsel. Lang-lang-kurz. Aufbau-Aufbau-Schlag.
+        Drei erklärende Sätze, dann: "Punkt." Sätze von 25 Wörtern gefolgt
+        von Sätzen mit 3 Wörtern. Der Text hat einen Beat.
 
   # --- REGISTER & ANSPRACHE ---
 
@@ -118,17 +461,81 @@ dimensions:
     pole_1: "Umgangssprachlich, locker"
     pole_3: "Semiformal mit bewussten Registerwechseln"
     pole_5: "Fachlich-dicht, analytisch"
+    instructions:
+      1: >
+        Umgangssprachlich. Kurze, einfache Wörter. "Machen" statt "implementieren",
+        "bauen" statt "konzipieren", "kaputt" statt "defizitär".
+        Keine Fachbegriffe ohne Erklärung. Leseniveau: Alltagssprache.
+      2: >
+        Locker-fachlich. Fachbegriffe nur wenn nötig und kurz erklärt.
+        Eher "nutzen" als "verwenden", eher "Problem" als "Herausforderung".
+        Registerwechsel nach unten (umgangssprachlich) erlaubt als Stilmittel.
+      3: >
+        Semiformal mit Registerwechseln. Fachbegriffe frei verwenden, aber
+        nicht dicht stapeln. Registerwechsel als bewusstes Stilmittel:
+        nach einem fachlichen Satz ein lockerer. "Unter die Haube schauen"
+        neben "Orchestrierungsschicht".
+      4: >
+        Fachlich. Präzises Vokabular bevorzugen: "adressieren" statt "angehen",
+        "skalieren" statt "wachsen", "Ökosystem" statt "Umfeld".
+        Gelegentliche Auflockerung, aber Grundton ist analytisch.
+      5: >
+        Fachlich-dicht. Analytisches Vokabular als Default. Fremdwörter und
+        Fachbegriffe ohne Erklärung. "Paradigmenwechsel", "Infrastrukturschicht",
+        "Interoperabilität". Signalisiert: Expert:innen-Diskurs.
 
   anglicism_density:
     label: "Anglizismen-Dichte"
     pole_1: "Nur unvermeidbare Fachbegriffe"
     pole_5: "Häufig, auch stilistisch (Code-Switching)"
+    measurable: true
+    instructions:
+      1: >
+        Nur unvermeidbare technische Fachbegriffe auf Englisch (API, Framework, Open Source).
+        Alles was ein deutsches Äquivalent hat, auf Deutsch schreiben:
+        "Arbeitsablauf" statt "Workflow", "Schnittstelle" statt "Interface".
+      2: >
+        Technische Fachbegriffe auf Englisch. Etablierte Lehnwörter erlaubt
+        (Workflow, Framework, Agent, Checkout). Keine stilistischen Anglizismen.
+        Im Zweifel Deutsch bevorzugen.
+      3: >
+        Fachbegriffe und etablierte Anglizismen frei verwenden (Workflow, Interface,
+        Deployment, Use Case, Pain Point). Deutsche Alternativen nicht erzwingen.
+        Kein Code-Switching in ganzen Phrasen.
+      4: >
+        Anglizismen aktiv einsetzen, auch über Fachbegriffe hinaus.
+        "Das ergibt Sinn" neben "Das macht Sinn". Gelegentliches Code-Switching
+        für Pointen erlaubt: "What could possibly go wrong?"
+      5: >
+        Häufige Anglizismen, auch stilistisch. Code-Switching als Stilmittel:
+        englische Phrasen in deutschen Sätzen für Ironie oder Pointen.
+        "Game over.", "Not so fast.", "Spoiler:" sind erlaubt.
 
   reader_address:
     label: "Leseransprache"
     pole_1: "'man' / passivisch / neutral"
     pole_3: "'ihr/euch' (Community)"
     pole_5: "'du' (direkt, persönlich)"
+    instructions:
+      1: >
+        Neutral: "man", Passivkonstruktionen, unpersönlich.
+        "Es lässt sich feststellen", "Unternehmen sollten beachten".
+        Kein "ihr", kein "du", kein "wir".
+      2: >
+        Überwiegend neutral mit gelegentlichem "wir" (inklusiv).
+        "Wir sehen hier...", "Was uns das zeigt..." Kein "ihr" oder "du".
+      3: >
+        "Ihr/euch" als Community-Ansprache. "Vergleicht das mal mit...",
+        "Was bedeutet das für euch?" Signalisiert: wir sind eine Gruppe
+        mit gemeinsamem Interesse.
+      4: >
+        "Ihr" als Default, gelegentlich "du" für direkte Momente.
+        "Und jetzt fragt euch mal...", "Wenn du ehrlich bist..."
+        Persönlicher als Community — direkter Blickkontakt.
+      5: >
+        "Du" als Default. Direkte, persönliche Ansprache.
+        "Du kennst das:", "Stell dir vor:", "Wenn du das liest, denkst du..."
+        Maximale Nähe, wie ein Gespräch unter vier Augen.
 
   # --- TEXTENDE ---
 
@@ -137,12 +544,53 @@ dimensions:
     pole_1: "Offene Frage / Einladung zur Diskussion"
     pole_3: "Pointe mit Augenzwinkern"
     pole_5: "Harte Haltung oder Provokation ('Punkt.')"
+    instructions:
+      1: >
+        Ende mit einer offenen, einladenden Frage. "Was denkt ihr?"
+        "Wie geht ihr damit um?" Der Text öffnet eine Diskussion,
+        er schließt sie nicht ab.
+      2: >
+        Ende mit einer nachdenklichen Frage oder einem Ausblick.
+        "Die eigentliche Frage ist..." — nicht provokant, aber offen.
+        Kein "Es bleibt abzuwarten" (verboten), sondern eine konkrete offene Frage.
+      3: >
+        Ende mit einer Pointe oder einem ironischen Twist.
+        Der letzte Satz überrascht, dreht eine Erwartung um oder zieht
+        einen unerwarteten Schluss. Augenzwinkernd, nicht aggressiv.
+      4: >
+        Ende mit klarer Haltung plus provokanter Frage.
+        "Wer das anders sieht: Kommentare sind offen." —
+        "Die Frage ist nicht ob, sondern wann." Position beziehen und zum Widerspruch einladen.
+      5: >
+        Ende mit harter Haltung. "Punkt." — "Aber hey — beweist uns das Gegenteil."
+        Kein Diskussionsangebot, sondern eine Feststellung.
+        Der letzte Satz ist ein Statement, keine Frage.
 
   gendering:
     label: "Gendern"
     pole_1: "Kein Gendern (generisches Maskulinum)"
     pole_3: "Doppelpunkt (Leser:innen, Entwickler:innen)"
     pole_5: "Ausgeschrieben (Leserinnen und Leser)"
+    measurable: true
+    instructions:
+      1: >
+        Generisches Maskulinum. "Leser", "Entwickler", "Entscheider", "Kunden".
+        Keine Gender-Marker verwenden.
+      2: >
+        Überwiegend neutrale Formulierungen ("Fachleute", "Beschäftigte", "Team").
+        Wo neutral nicht möglich, generisches Maskulinum. Kein Doppelpunkt oder Sternchen.
+      3: >
+        Gendern mit Doppelpunkt: "Leser:innen", "Entwickler:innen", "Kund:innen",
+        "Händler:innen", "Nutzer:innen". Konsistent durchziehen.
+        Neutrale Alternativen ergänzend nutzen wo sie natürlich klingen.
+      4: >
+        Konsequent Doppelpunkt-Gendern. An besonders sichtbaren Stellen
+        (Überschriften, Einleitungssätze) ausgeschrieben:
+        "Leserinnen und Leser". Im Fließtext Doppelpunkt als Standard.
+      5: >
+        Konsequent ausgeschrieben: "Leserinnen und Leser", "Entwicklerinnen und Entwickler".
+        Kein Doppelpunkt, kein Sternchen — die Langform signalisiert Sorgfalt.
+        Neutrale Formulierungen als Ergänzung, nicht als Ersatz.
 
 
 # -----------------------------------------------------------------------------
@@ -183,28 +631,81 @@ presets:
 
   roman_zenner_shoptechblog:
     label: "Roman Zenner – ShopTechBlog (Analyst-Modus)"
+    # Kalibriert am 2026-03-23 gegen 8 pre-LLM Artikel (2020–2024)
+    anchor_texts:
+      - text: >
+          Fairerweise muss man sagen: Von RIVRs Pilotbetrieb in Austin mit einem einzelnen
+          begleiteten Roboter bis zu einer skalierten Flotte ist es ein weiter Weg. Die Pläne,
+          bis 2027 auf Tausende Roboter zu skalieren, klingen ambitioniert — und genau die Art
+          von Zielmarke, die in der Robotik regelmäßig nach hinten verschoben wird.
+          Meine Vermutung ist eher, dass die RIVR-Akquisition weniger ein Durchbruch ist als
+          ein strategischer Baustein. Amazon sichert sich damit Optionen für eine Zukunft, in
+          der menschliche Zustellung teurer und knapper wird — sei es durch steigende Löhne,
+          Arbeitskräftemangel oder regulatorischen Druck. Ob die radbeinigen Roboter tatsächlich
+          in Massen durch Vororte rollen werden, steht auf einem anderen Blatt.
+        source: "shoptechblog/2026-03-20-amazon-rivr-robotik-last-mile.md"
+        topic: "Amazon RIVR Robotik-Akquisition"
+      - text: >
+          Laut einem Report von Castles Technology rechnen hiesige Händler:innen damit,
+          dass der Bargeldanteil in den nächsten fünf Jahren auf 27% sinkt, während
+          Kartenzahlungen auf 42% steigen. Fairerweise muss man sagen: Deutschland ist
+          kein Schweden. Bargeld wird nicht verschwinden. Aber der Default verschiebt sich —
+          und damit auch die Anforderungen an die Infrastruktur hinter der Kasse.
+        source: "shoptechblog/2026-03-19-fuenf-kraefte-deutscher-checkout.md"
+        topic: "Fünf Kräfte am deutschen Checkout"
+      - text: >
+          Wie so oft, wenn es um GenAI geht, haben wir es auch im Kontext von "Vibe Coding"
+          nicht mit einer 100% wasserdichten Lösung zu tun, die man einfach blind und ohne
+          eine gesunde Portion Skepsis einsetzen sollte. Aus meiner Sicht braucht es ein
+          technisches und architektonisches Grundverständnis, um mit Bolt & Co. tatsächlich
+          produktiven Code zu erzeugen. Aber der Anfang ist definitiv gemacht und diese Tools
+          eignen sich bereits hervorragend, um z.B. ein Proof of Concept zu erstellen oder sich
+          bei einfachen, sich wiederholenden Coding-Aufgaben unterstützen zu lassen.
+        source: "shoptechblog/2025-04-30-programmiert-ihr-noch-oder-vibed-ihr-schon.md"
+        topic: "Vibe Coding und GenAI-Skepsis"
+      - text: >
+          Meiner Meinung nach war die Nutzung der Cloud der letzte größere Innovationssprung
+          in der Shoptechnologie; seit Anfang der 2000er Jahre ist die Idee von Software-as-a-Service
+          auch im E-Commerce angekommen. Mittlerweile haben alle etablierten Anbieter zumindest
+          eine Cloud-Version, neue Unternehmen setzen ausschließlich auf dieses Distributionsmodell.
+          Selbst headless und composable schreiben sich mittlerweile die meisten Anbieter auf die
+          Website, und natürlich sind auch überall ausreichend API-Schnittstellen für die
+          Integrationen von Drittanbieter-Anwendungen vorhanden.
+        source: "shoptechblog/2024-01-05-was-ice-sitzbezuege-und-e-commerce-2024-gemeinsam-haben.md"
+        topic: "Shop-Technologie als Commodity"
+      - text: >
+          Wenn ich mir die aktuelle GenAI-Diskussion so anschaue, frage ich mich, ob sich der
+          digitale Handel mit seinen Benutzeroberflächen, seiner Software und seinen Prozessen
+          in ähnlicher Weise verändern wird. Die Zahl der Parameter ist endlich: Produkte,
+          Lagerbestände, Regionalität, Bezahlung, Logistik. Was würde passieren, wenn man einer
+          KI im E-Commerce erlauben würde, bestimmte Produkte immer und immer wieder zu bestellen,
+          bis sie die dahinter liegenden Prozesse vollständig optimiert hat? Wäre das dann wirklich
+          ein klassischer Online-Shop mit angeschlossenem Fulfillment? Oder sähe die Lösung ganz
+          anders aus?
+        source: "shoptechblog/2024-07-29-ist-e-commerce-komplexer-als-go.md"
+        topic: "KI-Optimierung im E-Commerce wie AlphaGo"
     parameters:
-      sentence_length: 4
-      syntax_complexity: 4
+      sentence_length: 3          # war 4, gemessen 3.4
+      syntax_complexity: 2        # war 4, gemessen 1.6 — Roman schreibt einfacher als angenommen
       short_sentence_frequency: 2
-      question_frequency: 4
-      paragraph_length: 4
-      historical_depth: 5
-      anecdote_density: 4
-      opinion_strength: 3
-      hedging: 4
-      counterbalance: 5
-      confrontation: 1
-      irony_edge: 3
-      metaphor_density: 4
-      cultural_references: 4
-      antithesis_density: 4
-      pacing: 2
-      rhythm_variation: 3
-      vocabulary_register: 3
-      anglicism_density: 4
-      reader_address: 3
-      ending_type: 2
+      question_frequency: 3       # war 4, gemessen 3.0
+      paragraph_length: 2         # war 4, gemessen 2.1 — kürzere Absätze als gedacht
+      historical_depth: 5         # nicht messbar, bleibt
+      anecdote_density: 4         # nicht messbar, bleibt
+      opinion_strength: 3         # gemessen 3.2, passt
+      hedging: 3                  # war 4, gemessen 2.6
+      counterbalance: 3           # war 5, gemessen 3.0 — weniger Relativierung als angenommen
+      confrontation: 1            # gemessen 1.5, passt
+      irony_edge: 3               # gemessen 3.3, passt
+      metaphor_density: 4         # nicht messbar, bleibt
+      cultural_references: 4      # nicht messbar, bleibt
+      antithesis_density: 2       # war 4, gemessen 1.8
+      pacing: 3                   # war 2, gemessen 3.3 — schneller als "gemächlich"
+      rhythm_variation: 5         # war 3, gemessen 4.5 — viel mehr Variation als erwartet
+      vocabulary_register: 3      # nicht messbar, bleibt
+      anglicism_density: 1        # war 4, gemessen 1.4 — kaum Anglizismen!
+      reader_address: 3           # gemessen 2.9, passt
+      ending_type: 2              # nicht messbar, bleibt
       gendering: 3
     taboo_topics:
       - "Kriegsmetaphern"
@@ -218,7 +719,6 @@ presets:
       - "Lasst uns das mal Schritt für Schritt durchgehen"
       - "Meine Vermutung ist eher, dass…"
       - "Was bleibt ist die ernüchternde Erkenntnis, dass…"
-      - "Spannend wird die Frage, ob…"
       - "Sagen wir so:"
       - "Um es vorwegzunehmen:"
       - "Der Vollständigkeit halber"
@@ -256,6 +756,48 @@ presets:
 
   agenticpunk:
     label: "agenticPunk"
+    anchor_texts:
+      - text: >
+          Die unbequeme Wahrheit: Wenn Agenten nicht mehr über APIs und Protokolle kommen,
+          sondern über den Browser — dann ist eure Website plötzlich wieder das wichtigste
+          Interface. Nicht für Menschen, sondern für Maschinen. Und die Frage ist nicht mehr
+          "Soll ich mich bei Googles UCP anmelden?", sondern: Kann ein Agent meine Seite
+          überhaupt bedienen? OpenAIs Superapp-Strategie ist eine Wette darauf, dass die
+          Zukunft des Agentic Commerce nicht in Protokollen liegt, sondern im Web selbst —
+          navigiert von Agenten, die einen Browser haben. Das ist weniger elegant als ein
+          standardisiertes Protokoll. Aber es funktioniert ab Tag eins mit jedem Shop, der
+          eine Website hat. Die eigentliche Frage ist eine andere: Wenn der AI-Agent zum
+          Default-Browser eurer Kund:innen wird — wer kontrolliert dann die Shortlist?
+        source: "agenticpunk/2026-03-20-openai-superapp-betriebssystem-agenten.md"
+        topic: "OpenAI Superapp-Strategie"
+      - text: >
+          In den USA verhandeln Google, Walmart und Shopify diese Regeln unter sich.
+          In Europa gründen wir Allianzen, sammeln Seed-Runden ein und warten auf die
+          nächste Verordnung. Wer wird die Regeln schreiben, nach denen eure Kund:innen
+          morgen einkaufen — ihr oder ein Protokoll aus Mountain View?
+        source: "agenticpunk/2026-03-20-ucp-protokoll-krieg-europa.md"
+        topic: "Europas Abwesenheit beim UCP-Protokoll"
+      - text: >
+          Denn im Handel geht es nicht um Forenbeiträge. Es geht um Geld, Kund:innendaten
+          und Transaktionen. Wenn ein Agent bei einem Tech-Konzern mit Milliarden-Budget
+          die Autorisierungsgrenzen nicht einhält — was passiert dann bei einem Mittelständler,
+          der gerade seinen ersten Shopping-Agenten ausrollt?
+        source: "agenticpunk/2026-03-19-meta-rogue-ai-agentic-commerce.md"
+        topic: "Meta Rogue-AI und Governance-Lücke"
+      - text: >
+          Vergleicht das mal mit dem Westen. Google baut das Universal Commerce Protocol.
+          Stripe lanciert zusammen mit Tempo ein Machine Payments Protocol für Micropayments.
+          Visa entwickelt Intelligent Commerce, um Consent und Identität in agentische
+          Transaktionen einzubauen. Alles vernünftig, alles wichtig — und alles
+          Infrastruktur ohne Interface.
+        source: "agenticpunk/2026-03-23-tencent-clawbot-wechat-interfaces.md"
+        topic: "Tencent ClawBot und das Adoptionsproblem"
+      - text: >
+          Die Frage, die mich umtreibt: Werden die Player auf dieser Map in zwei Jahren
+          noch die relevanten sein — oder werden Visa, Amazon und Google das Feld einfach
+          übernehmen, weil sie die Infrastruktur kontrollieren?
+        source: "agenticpunk/2026-03-19-agentic-commerce-ecosystem-map.md"
+        topic: "Agentic Commerce Ecosystem Map"
     parameters:
       sentence_length: 2
       syntax_complexity: 2
@@ -340,6 +882,55 @@ presets:
 
   hirnbrise:
     label: "Roman Zenner – hirnbrise (Kurator-Modus)"
+    anchor_texts:
+      - text: >
+          Für dieses Jahr habe ich mir vorgenommen, wieder mehr Literaturklassiker zu lesen,
+          also die richtig alten und dicken Schinken. Also bin ich vor ein paar Wochen
+          hochmotiviert in unsere Stadtbücherei marschiert und habe mir den ersten Band von
+          Marcel Prousts "Auf der Suche nach der verlorenen Zeit" ausgeliehen (wenn schon,
+          denn schon!) Den Wälzer musste ich aus lese-orthopädischen Gründen leider zurückgeben,
+          arbeite mich aber auf meinem E-Reader durch und schwanke zwischen Ergriffenheit und
+          maximaler Langeweile.
+        source: "hirnbrise/funf-freitagsbrisen-proust-brandmauer.md"
+        topic: "Proust lesen — Selbstversuch"
+      - text: >
+          Aktuell lese ich ein paar Bücher parallel. Richtig inspirierend finde ich gerade
+          Trust vom Wikipedia-Gründer Jimmy Wales. Er beschreibt, wie er und viele freiwillige
+          Mitstreiter:innen in den letzten Jahrzehnten diese gigantische Wissensdatenbank und
+          Community aufgebaut haben, die für jede:n offen ist, aber mitnichten im Chaos versinkt.
+          Und als Gegenpol ein Weihnachtsgeschenkbuch, Nie war Früher schöner als Jetzt von
+          Oliver Kalkofe. Das ist ein sehr lustiger und toll formulierter Ritt durch die 70er
+          und 80er-Jahre — allein die Beschreibung der alten D-Mark-Scheine und die
+          hingebungsvollen Plädoyers für Miracoli und Dosenravioli sind die Lektüre wert!
+        source: "hirnbrise/funf-freitagsbrisen-neues-jahr-dosenravioli.md"
+        topic: "Buch-Empfehlungen: Wikipedia und Nostalgie"
+      - text: >
+          Ich habe eine große Schwäche für leicht quatschige Rock-Musik, und so läuft aktuell
+          die neue Scheibe Haus of the Rising Fun von J.B.O. in meinem Music-Player rauf und
+          runter. Insbesondere das Ka-Ching!-Cover von Shania Twain hat es mir angetan. Als
+          Konter und für das bildungsbürgerliche Gewissen versuche ich ganz tapfer seit nunmehr
+          einem Jahr das Hörbuch von Der Mann ohne Eigenschaften von Robert Musil zu Ende zu
+          bringen. Ich bleibe optimistisch!
+        source: "hirnbrise/funf-freitagsbrisen-kleinstadt-odnis.md"
+        topic: "Musik und Musil — Guilty Pleasures"
+      - text: >
+          „Dad, I want to learn how to play the drums" — dies ist der erste Satz der ersten
+          Geschichte. Ich habe schon so manche Rock-Autobiografie gelesen, und etwa die von
+          Phil Collins bereits in diesem Blog besprochen. Aber Grohls Buch ist anders. Es
+          macht zunächst seinem Titel alle Ehre. Der Autor ist ein fantastischer
+          Geschichtenerzähler. Mal einfühlsam und nachdenklich, mal humorvoll, immer ehrlich.
+          Hier beschreibt jemand sein Leben nicht tagebuchartig von Alpha bis Omega, sondern
+          konzentriert sich auf besondere Momente, die er dann in der gebührenden Tiefe beschreibt.
+        source: "hirnbrise/the-storyteller-von-dave-grohl.md"
+        topic: "Buchreview: Dave Grohl Autobiografie"
+      - text: >
+          Sind alle Geschenke gekauft? Oder noch mal schnell auf den Weihnachtsmarkt? Vielleicht
+          würde sich Onkel Manfred über so ein Hufeisen mit seinem eingravierten Namen freuen?
+          Oder Tante Annemarie über ein leckeres Stück feinsten französischen Nougats? — Jedes
+          Jahr zu Weihnachten muss ich an diese Zeile aus dem Lied "Garnichtsotoll" von den
+          Fantastischen Vier denken: Immer mehr Zeug, aber immer weniger Zeit.
+        source: "hirnbrise/funf-sonntagsbrisen-aufrichtigkeit.md"
+        topic: "Weihnachtsstress und Fantastische Vier"
     parameters:
       sentence_length: 3
       syntax_complexity: 3
